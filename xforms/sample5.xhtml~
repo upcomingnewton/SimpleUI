@@ -1,0 +1,22 @@
+<html
+ xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:xf="http://www.w3.org/2002/xforms">
+      <xf:model>
+         <xf:instance xmlns="">
+            <data>
+               <PersonGivenName/>
+               <PersonSurName/>
+            </data>
+         </xf:instance>
+      </xf:model>
+      <xf:input ref="PersonGivenName" incremental="true">
+      		<xf:label>Input First-Name:</xf:label>
+      		<xf:hint>Also known as given name.</xf:hint>
+      </xf:input>
+      <xf:input ref="PersonSurName" incremental="true">
+      		<xf:label>Input Last Name:</xf:label>
+      		<xf:hint>Also known as sur name or family name.</xf:hint>
+      </xf:input>
+	<xf:output ref="PersonGivenName"></xf:output>
+	<xf:output ref="PersonSurName"/>
+</html>

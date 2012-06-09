@@ -1,7 +1,10 @@
+#include "sXml.h"
+#include "../simpleUI.h"
 #include "../sXforms.h"
-#include "../LogConfig.h"
 #include <libxml/parser.h>
 #include <string.h>
+
+
 
 //struct sXformsNode *ParseXformsToTree(const char * xforms){
 char * sXmlNodeName(xmlNodePtr cur);
@@ -10,15 +13,16 @@ void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head
 char * sGetValueFromChildren(xmlNodePtr cur, char *nodeToSearch);
 void sAdjustPointersForLinkedList(sXformsNode **par, sXformsNode **child);
 char * sGetTextFromNode(xmlNodePtr node);
+int x = 0;
 
-int ParseXformsToTree(const char * xforms){
+sXformsNode * ParseXformsToTree(const char * xforms){
 	int error = !xforms;
 	xmlDocPtr doc;
 	xmlNodePtr cur;
 	const char *text = xforms;
 	sXformsNode *head;
 	if (error ){
-		return error;
+		return (sXformsNode *)0;
 	}
 	doc = xmlParseMemory(text, strlen(text));
 	cur = xmlDocGetRootElement(doc);
@@ -39,13 +43,13 @@ int ParseXformsToTree(const char * xforms){
 			fprintf(stdout,"\ncould not allocate memory for head");
 			exit(1);
 		}
-		//xmlFreeDoc(doc);
+		xmlFreeDoc(doc);
 	}
 	else {
 		error = 1;
 	}
-	sPrintsXformsTree(head);
-	return error;
+	
+	return head;
 }
 
 void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head)

@@ -1,7 +1,9 @@
+#include "io.h"
+
 #include<string.h>
 #include<stdio.h>
 #include<malloc.h>
-#include "io.h"
+#include "../simpleUI.h"
 
 char * sReadFileToMem(const char *filename)
 {

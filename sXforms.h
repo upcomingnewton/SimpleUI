@@ -1,5 +1,5 @@
-#ifndef S_XFORMS_H
-#define S_XFORMS_H
+#ifndef SIMPLE_UI_XFORMS_H
+#define SIMPLE_UI_XFORMS_H
 
 struct sXformsNodeAttributeValue
 {

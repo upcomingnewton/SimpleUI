@@ -33,16 +33,15 @@ print_element_names(xmlNode * a_node)
     xmlNode *cur_node = NULL;
 
     for (cur_node = a_node; cur_node; cur_node = cur_node->next) {
-        if ( cur_node->type ==  XML_ELEMENT_NODE || cur_node->type ==  XML_TEXT_NODE ) {
-            printf(" %s, %s\n", cur_node->name,cur_node->content);
+        if ( cur_node->type ==  XML_ELEMENT_NODE ) {
+            printf(" %s, %s\n", cur_node->type,cur_node->name);
         }
-	if(cur_node->content){
-		fprintf(stdout,"this is text %d\n",cur_node->content[0]);
-	}
-        print_element_names(cur_node->children);
+	//if(cur_node->content){
+	//	fprintf(stdout,"this is text %d\n",cur_node->content[0]);
+	//}
+        //print_element_names(cur_node->children);
     }
 }
-
 
 /**
  * Simple example to parse a file called "file.xml", 

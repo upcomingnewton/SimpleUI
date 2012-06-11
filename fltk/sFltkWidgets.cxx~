@@ -113,5 +113,3 @@ int sFltkUIHandler_f_InputHandler(sXformsNode *head,int x, int y, int w, int h){
 	}
 }
 
-
-

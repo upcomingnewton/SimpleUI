@@ -1,0 +1,66 @@
+      @namespace xf url("http://www.w3.org/2002/xforms");
+      
+      body
+      {
+      		margin-left: auto;
+      		margin-right: auto;
+      		margin-top:20px;
+      		margin-bottom:40px;
+      		width:700px;
+      		border-left:1px solid #000000;
+      		border-right:1px solid #000000;
+      		height:550px;
+      		border-top:1px solid #000000;
+      		border-bottom:1px solid #000000;
+      }
+      
+      #upperbar
+      {
+      		height:25px;
+      		font-family: sans-serif;
+      		font: 20px;
+      		margin-bottom: 5px;
+      		margin-left:70px;
+      		
+      }
+        
+     #hor_tab   xf|trigger {
+            border-left: #000000 solid 1px;
+            border-top: #000000 solid 1px;
+            border-right: #000000 solid 1px;
+            border-bottom: 0px;
+            font-weight: bold;
+            font-family: Helvetica, sans-serif;
+            font-size: .9em;
+            margin-right: 5px;
+            padding: 3px;
+            /* the following only works under FireFox */
+            -moz-border-radius: .5em .5em 0em 0em;
+            border-radius-topright: .5em;
+            border-radius-topleft: .5em;
+            margin-left:5px;
+            background-color:#cccccc;
+        }
+
+        xf|switch
+        {
+		border-top:1px solid #000000;
+        }
+        
+        
+        xf|case
+        {
+        	margin:10px;
+        }
+        
+	#page_projects xf|output
+	{
+		margin:2px;
+		border:1px solid #cccccc;
+		padding:2px;
+	}
+	
+	#page_projects_insert
+	{
+		margin:25px;
+	}

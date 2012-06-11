@@ -8,15 +8,22 @@
 #define ERROR_LOG(msg,args...)
 #endif
 
-sXformsNodeAttr * AllocateMemoryForAttribute()
+void AllocateMemoryForAttribute(sXformsNodeAttr **temp)
 {
-	sXformsNodeAttr *  temp = (sXformsNodeAttr *)malloc(sizeof(sXformsNodeAttr));
-	if( temp == NULL )
+	(*temp) = (sXformsNodeAttr *)malloc(sizeof(sXformsNodeAttr));
+	if( (*temp) == NULL )
 	{
 		fprintf(stderr,"Unable to allocate memory for sXformsNodeAttr");
-		temp = (sXformsNodeAttr *)0;
+		(*temp) = (sXformsNodeAttr *)0;
 	}
-	return temp;
+	else{
+		(*temp)->attrName = (char *)0;
+		(*temp)->attrValue = (char *)0;
+		(*temp)->private_data = (char *)0;
+		(*temp)->meta_info = (char *)0;
+		(*temp)->next = (sXformsNodeAttributeValue *)0;
+		(*temp)->prev = (sXformsNodeAttributeValue *)0;
+	}
 }
 
 #if 0
@@ -56,6 +63,7 @@ void AllocateMemoryToNode(sXformsNode **temp)
 		(*temp)->num_child = 0;
 		(*temp)->meta_info  = (char *)0; // extra public data
 		(*temp)->private_data = (char *)0; //private data
+		
 	}
 }
 
@@ -64,11 +72,13 @@ void sPrintsXformsTree(sXformsNode * head)
 	//fprintf(stdout,"\n === PRINTING NODE TREE ===");
 	if( head == 0 ){
 		fprintf(stdout,"\n Head node passed is null");
+		
 	}
 	else{
 		sXformsNode *temp ;
 		for( temp = head->child; temp != 0 ; temp=temp->next){
-			fprintf(stdout,"\n\t %s : %s",temp->type,temp->name);
+			//fprintf(stdout,"\n\t %s : %s",temp->type,temp->name);
+			sPrintsXformsNode(temp);
 			if( temp->child == 0){
 				fprintf(stdout,"\t\t-- NO CHILD ---\n");
 			}else{
@@ -91,6 +101,10 @@ void sPrintsXformsNode(sXformsNode * node)
 		fprintf(stdout,"\n Hint = %s",node->hint != 0 ? node->hint :NotDefined );
 		fprintf(stdout,"\n Help = %s",node->help != 0 ? node->help :NotDefined );
 		//fprintf(stdout,"\n Attributes = ",node->attr);
+		if(node->attr){
+			fprintf(stdout,"\n ATTRIBUTE LIST");
+			sPrintsXformsAttrList(node->attr);
+		}
 		if( node->prev != 0){
 			fprintf(stdout,"\n prev = %s:%s",node->prev->type,node->prev->name );
 		}
@@ -123,4 +137,29 @@ void sPrintsXformsNode(sXformsNode * node)
 		fprintf(stdout,"\n private data = ",node->private_data);
 		fprintf(stdout,"\n------------------------------------------------------\n");		
 	}
+}
+
+void sPrintsXformsAttrList(sXformsNodeAttr * node){
+	char * NotDefined = (char *)"NotDefined";
+	if( node != 0){
+		fprintf(stdout,"\n\t\t----------------------------------------");
+		fprintf(stdout,"\n\t\t AttrName  = %s",node->attrName);
+		fprintf(stdout,"\n\t\t AttrVal  = %s",node->attrValue);
+		if(node->meta_info){
+			fprintf(stdout,"\n\t\t Meta Info  = %s",node->meta_info);
+		}
+		else{
+			fprintf(stdout,"\n\t\t Meta Info  = %s",NotDefined);
+		}
+		if(node->private_data){
+			fprintf(stdout,"\n\t\t Private Data  = %s",node->private_data);
+		}
+		else{
+			fprintf(stdout,"\n\t\t Private Data  = %s",NotDefined);
+		}
+	}
+	if( node->next)
+		sPrintsXformsAttrList(node->next);
+	else
+		fprintf(stdout,"\n\t\t----------------------------------------");
 }

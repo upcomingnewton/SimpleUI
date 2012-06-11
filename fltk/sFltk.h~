@@ -30,5 +30,4 @@ void test_widgets();
 
 
 int sFltkUIHandler_f_Select1Handler(sXformsNode *head, int x, int y, int w, int h);
-int sFltkUIHandler_f_InputHandler(sXformsNode *head,int x, int y, int w, int h);
 #endif

@@ -28,8 +28,8 @@ sXformsNode * ParseXformsToTree(const char * xforms){
 	cur = xmlDocGetRootElement(doc);
 	
 	if( doc && cur ){
-		fprintf(stdout,"\ndoc = %u, cur = %u,",doc,cur);
-		fprintf(stdout,"\ncurrent node name is : %s, and ns is %s, extra info here is %u",cur->name,"cur->ns->prefix",cur->extra);
+		//fprintf(stdout,"\ndoc = %u, cur = %u,",doc,cur);
+		//fprintf(stdout,"\ncurrent node name is : %s, and ns is %s, extra info here is %u",cur->name,"cur->ns->prefix",cur->extra);
 		// 1. make a new element , maybe head and start exploring the tree
 		// make a new element
 		
@@ -40,15 +40,15 @@ sXformsNode * ParseXformsToTree(const char * xforms){
 			sParseNodesAndMakeTree(cur,&head,head);
 		}
 		else{
-			fprintf(stdout,"\ncould not allocate memory for head");
+			//fprintf(stdout,"\ncould not allocate memory for head");
 			exit(1);
 		}
-		xmlFreeDoc(doc);
+		//xmlFreeDoc(doc);
 	}
 	else {
 		error = 1;
 	}
-	
+	sPrintsXformsTree(head);
 	return head;
 }
 
@@ -71,13 +71,13 @@ void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head
 				temp->hint=sAppendString(temp->hint,sGetValueFromChildren(cur,(char *)"xf:hint"));  // xf:hint
 				temp->help=sAppendString(temp->help,sGetValueFromChildren(cur,(char *)"xf:help"));  // xf:help
 				tempc = sGetValueFromChildren(cur,(char *)"xf:label");
-				//fprintf(stdout,"\n ****** tempc = %s",tempc);
+				////fprintf(stdout,"\n ****** tempc = %s",tempc);
 				temp->name = sAppendString(temp->name,tempc);  //xf:label
 				//temp->attr=0;  //attributes
-				fprintf(stdout,"\n### %s : %s #####",temp->type,temp->name);
+				//fprintf(stdout,"\n### %s : %s #####",temp->type,temp->name);
 			}
 			else{
-				fprintf(stdout,"\ncould not allocate memory for %s",type);
+				//fprintf(stdout,"\ncould not allocate memory for %s",type);
 				exit(1);
 			}
 		
@@ -88,6 +88,9 @@ void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head
 			//temp->prev = (sXformsNode *)0; //TODO
 			//temp->next = (sXformsNode *)0; //TODO
 			//3. make an attributes list
+			if( cur->properties){
+				temp->attr = MakeAttributesList(cur);
+			}
 			//4. mark this node as visited
 			cur->extra = 4;
 			
@@ -99,7 +102,7 @@ void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head
 
 void sAdjustPointersForLinkedList(sXformsNode **par, sXformsNode **child)
 {
-	fprintf(stdout,"\n== (%s,%s)->(%s,%s)",(*par)->type,(*par)->name,(*child)->type,(*child)->name);
+	//fprintf(stdout,"\n== (%s,%s)->(%s,%s)",(*par)->type,(*par)->name,(*child)->type,(*child)->name);
 	sXformsNode *temp = (*par)->child;
 	sXformsNode *next = 0;
 	if ( temp == 0){
@@ -109,12 +112,12 @@ void sAdjustPointersForLinkedList(sXformsNode **par, sXformsNode **child)
 		(*par)->child = (*child);
 	}
 	else{
-		fprintf(stdout,"\n");
+		//fprintf(stdout,"\n");
 		while( temp->next != 0){
-			fprintf(stdout,"\t== (%s,%s)",temp->type,temp->name);
+			//fprintf(stdout,"\t== (%s,%s)",temp->type,temp->name);
 			temp=temp->next;
 		}
-		fprintf(stdout,"\n");
+		//fprintf(stdout,"\n");
 		(*child)->next = 0;
 		(*child)->prev=temp;
 		temp -> next = (*child);
@@ -130,7 +133,7 @@ char * sGetValueFromChildren(xmlNodePtr cur, char *nodeToSearch)
 			if((child->type=XML_ELEMENT_NODE) && (child->extra != 4)){
 				if(!strcmp(nodeToSearch,sXmlNodeName(child))){
 					// find the text node in this and then return it's content
-					//fprintf(stdout,"\n^^ type = %s, name = %s, ns = %s, content = %s \n","child->type",sXmlNodeName(child),child->ns->prefix,(char *)child->content);
+					////fprintf(stdout,"\n^^ type = %s, name = %s, ns = %s, content = %s \n","child->type",sXmlNodeName(child),child->ns->prefix,(char *)child->content);
 					child->extra = 4;
 					return sGetTextFromNode(child);
 					//return (char *)"found1";
@@ -142,6 +145,42 @@ char * sGetValueFromChildren(xmlNodePtr cur, char *nodeToSearch)
 	}
 	return (char *)"NULL";
 }
+
+sXformsNodeAttr * MakeAttributesList(xmlNodePtr cur){
+	if( cur-> properties){
+		sXformsNodeAttr *head = (sXformsNodeAttr *)0;
+		xmlAttr *attr = cur->properties;
+		while(attr && attr->type == XML_ATTRIBUTE_NODE ){
+			//fprintf(stdout,"\n ATTRIBUTE NAME = %s, and VALUE = %s",attr->name,xmlNodeListGetString(cur->doc,attr->children,1));
+			sXformsNodeAttr *temp = (sXformsNodeAttr *)0;
+			AllocateMemoryForAttribute(&temp);
+			if(temp){
+				temp->attrName = (char *)attr->name;
+				temp->attrValue = (char *)xmlNodeListGetString(cur->doc,attr->children,1);
+			}
+			else{
+				fprintf(stdout,"\n Could not allocate memory");
+				exit(1);
+			}
+			if(head == 0 ){
+				head = temp;
+			}
+			else{
+				sXformsNodeAttr *prev = head;
+				while(prev->next){
+					prev = prev->next;
+				}
+				prev->next = temp;
+				temp->prev = prev;
+			}
+			attr = attr->next;
+		}
+		return head;
+	}else{
+		return (sXformsNodeAttr *)0;
+	}
+}
+
 
 // inside element nodes, there are text nodes which contain the values, this returns the values of those text nodes
 char * sGetTextFromNode(xmlNodePtr node)

@@ -1,10 +1,14 @@
 #ifndef SIMPLE_UI_XFORMS_H
 #define SIMPLE_UI_XFORMS_H
 
+
+
 struct sXformsNodeAttributeValue
 {
 	char *attrName;
 	char *attrValue;
+	char *private_data;
+	char *meta_info;
 	struct sXformsNodeAttributeValue *next;
 	struct sXformsNodeAttributeValue *prev;
 };
@@ -30,7 +34,10 @@ struct sXformsNode
 
 typedef struct sXformsNode sXformsNode;
 typedef struct sXformsNodeAttributeValue sXformsNodeAttr;
+
 void AllocateMemoryToNode(sXformsNode **temp);
 void sPrintsXformsTree(sXformsNode * head);
 void sPrintsXformsNode(sXformsNode * node);
+void sPrintsXformsAttrList(sXformsNodeAttr * node);
+void AllocateMemoryForAttribute(sXformsNodeAttr **temp);
 #endif

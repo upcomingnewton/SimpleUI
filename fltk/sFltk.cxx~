@@ -180,7 +180,7 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
   //fprintf(stdout,"\n\n == error no === %d == \n",error);
   //sPrintsXformsTree(head);
   error = sGenerateUIFromTree(head);
-  //test_widgets();
+  test_widgets();
   //pack->end();
   scroll->end();
   w->resizable( scroll );

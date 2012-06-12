@@ -2,7 +2,7 @@
 #define SIMPLE_UI_XFORMS_H
 
 
-#define OUTPUT_TO stdout
+
 struct sXformsNodeAttributeValue
 {
 	char *attrName;
@@ -40,4 +40,5 @@ void sPrintsXformsTree(sXformsNode * head);
 void sPrintsXformsNode(sXformsNode * node);
 void sPrintsXformsAttrList(sXformsNodeAttr * node);
 void AllocateMemoryForAttribute(sXformsNodeAttr **temp);
+sXformsNode * SearchSubTreeForNodes(sXformsNode *head,char *type, sXformsNodeAttr *attr, int SearchRecursive, int ComparisonsToCheck);
 #endif

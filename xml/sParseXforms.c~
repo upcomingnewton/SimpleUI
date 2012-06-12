@@ -48,7 +48,7 @@ sXformsNode * ParseXformsToTree(const char * xforms){
 	else {
 		error = 1;
 	}
-	
+	sPrintsXformsTree(head);
 	return head;
 }
 

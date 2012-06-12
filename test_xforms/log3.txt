@@ -1,0 +1,121 @@
+
+===== SIMPLE UI TOOLKIT =====
+
+INPUT FILE = xforms/file2.xhtml
+
+fp = 6754320
+size of file is 7132
+==========================================================
+	xf:group,
+------------------------------------------------------------
+xf:select1,(null),(null)
+++++++++++++++++++++++++++++++++++++++++++++++++++
+xf:input,(null),(null)
+++++++++++++++++++++++++++++++++++++++++++++++++++
+xf:group,type,tabs
+++++++++++++++++++++++++++++++++++++++++++++++++++
+==========================================================
+==========================================================
+==========================================================
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 327455968
+	 == 11 == FAILED =
+==========================================================
+	xf:group,
+------------------------------------------------------------
+xf:select1,(null),(null)
+++++++++++++++++++++++++++++++++++++++++++++++++++
+xf:input,(null),(null)
+++++++++++++++++++++++++++++++++++++++++++++++++++
+xf:group,type,tabs
+++++++++++++++++++++++++++++++++++++++++++++++++++
+ ==** MATCHED **==
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 327455968
+	 == 2 == temp = xf:group, NULL 
+	 == 2 == temp = xf:group, NULL 
+	 == 11 == FAILED =
+==========================================================
+	xf:group,
+------------------------------------------------------------
+==========================================================
+==========================================================
+==========================================================
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 327455888
+	 == 2 == temp = xf:trigger, Welcome Page 
+	 == 3 == TYPES MATCH =
+	 == 4 == ATTRIBUTE LIST IS THERE =
+	 == 5 == TEMP ATTRIBUTE LIST IS THERE = (id,tab_page_wel)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (id,tab_page_wel)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (appearance,minimal)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (type,tab_trigger)
+	 == 7 == MATCHED =
+	 == 8 == PERFECT MATCHED =
+****** TAB NAME = Welcome Page
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Welcome Page TYPE xf:toggle, Recursive 0 attr 0
+	 == 2 == temp = xf:toggle, NULL 
+	 == 3 == TYPES MATCH =
+	 == 11 == FAILED =
+ERROR MAKING TABS
+===== SIMPLE UI TOOLKIT =====
+
+INPUT FILE = xforms/file2.xhtml
+
+fp = 6754320
+size of file is 7132
+==========================================================
+	xf:group,
+------------------------------------------------------------
+xf:select1,(null),(null)
+++++++++++++++++++++++++++++++++++++++++++++++++++
+xf:input,(null),(null)
+++++++++++++++++++++++++++++++++++++++++++++++++++
+xf:group,type,tabs
+++++++++++++++++++++++++++++++++++++++++++++++++++
+==========================================================
+==========================================================
+==========================================================
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 2748544448
+	 == 11 == FAILED =
+==========================================================
+	xf:group,
+------------------------------------------------------------
+xf:select1,(null),(null)
+++++++++++++++++++++++++++++++++++++++++++++++++++
+xf:input,(null),(null)
+++++++++++++++++++++++++++++++++++++++++++++++++++
+xf:group,type,tabs
+++++++++++++++++++++++++++++++++++++++++++++++++++
+ ==** MATCHED **==
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 2748544448
+	 == 2 == temp = xf:group, NULL 
+	 == 2 == temp = xf:group, NULL 
+	 == 11 == FAILED =
+==========================================================
+	xf:group,
+------------------------------------------------------------
+==========================================================
+==========================================================
+==========================================================
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 2748544368
+	 == 2 == temp = xf:trigger, Welcome Page 
+	 == 3 == TYPES MATCH =
+	 == 4 == ATTRIBUTE LIST IS THERE =
+	 == 5 == TEMP ATTRIBUTE LIST IS THERE = (id,tab_page_wel)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (id,tab_page_wel)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (appearance,minimal)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (type,tab_trigger)
+	 == 7 == MATCHED =
+	 == 8 == PERFECT MATCHED =
+****** TAB NAME = Welcome Page
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Welcome Page TYPE xf:toggle, Recursive 0 attr 0
+	 == 2 == temp = xf:toggle, NULL 
+	 == 3 == TYPES MATCH =
+	 == 11 == FAILED =
+ERROR MAKING TABS

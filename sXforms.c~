@@ -82,7 +82,7 @@ void sPrintsXformsTree(sXformsNode * head)
 			if( temp->child == 0){
 				fprintf(stdout,"\t\t-- NO CHILD ---\n");
 			}else{
-				fprintf(stdout,"\n\t------------- chilren -------------\n");
+				fprintf(stdout,"\n\t------------- chilren start -------------\n");
 				sPrintsXformsTree(temp);
 				fprintf(stdout,"\n\t------------- chilren end -------------\n");
 			}
@@ -162,4 +162,62 @@ void sPrintsXformsAttrList(sXformsNodeAttr * node){
 		sPrintsXformsAttrList(node->next);
 	else
 		fprintf(stdout,"\n\t\t----------------------------------------");
+}
+
+// 
+
+sXformsNode * SearchSubTreeForNodes(sXformsNode *head,char *type, sXformsNodeAttr *attr, int SearchRecursive, int ComparisonsToCheck){
+	sXformsNode *temp;
+	int num_match = 0;
+	fprintf(stdout,"\n\t\t------------------ START ----------------------");
+	fprintf(stdout,"\n\t == 1 == Head = %s, %s TYPE %s, Recursive %d attr %u",head->type,head->name,type,SearchRecursive,attr);
+	// match children
+	for(temp=head->child; temp; temp=temp->next){
+		if(!(temp->meta_info) && temp->type){
+	fprintf(stdout,"\n\t == 2 == temp = %s, %s ",temp->type,temp->name);
+			if( !strcmp(temp->type,type) ){
+	fprintf(stdout,"\n\t == 3 == TYPES MATCH =");
+				// matches, if attr list is there, match it
+				if( attr ){
+	fprintf(stdout,"\n\t == 4 == ATTRIBUTE LIST IS THERE =");
+					if( temp->attr ){
+	fprintf(stdout,"\n\t == 5 == TEMP ATTRIBUTE LIST IS THERE = (%s,%s)",temp->attr->attrName,temp->attr->attrValue );
+						// we need attributes and this node have some
+						sXformsNodeAttr *tempattr, *tempattr2;
+						for( tempattr = attr; tempattr; tempattr=tempattr->next){
+							for(tempattr2= temp->attr;  tempattr2 ; tempattr2=tempattr2->next){
+	fprintf(stdout,"\n\t == 6 == SEARCHING (%s,%s) PRESENT (%s,%s)",tempattr->attrName,tempattr->attrValue,tempattr2->attrName,tempattr2->attrValue );
+								if(!strcmp(tempattr2->attrName,tempattr->attrName) && (!strcmp(tempattr2->attrValue,tempattr->attrValue))){
+									num_match++;
+	fprintf(stdout,"\n\t == 7 == MATCHED =");
+									break;
+								}
+							}
+						}
+						if(num_match  >= ComparisonsToCheck ){
+							// return this node
+	fprintf(stdout,"\n\t == 8 == PERFECT MATCHED =");
+							return temp;
+						}
+					}
+				}
+				else{
+					// we do not require attributes
+					if((!temp->attr) || (ComparisonsToCheck == 0)){
+	fprintf(stdout,"\n\t == 9 == PERFECT MATCHED =");
+					return temp;
+				}}
+			}
+		}
+		// if we need to search recursive 
+		if(SearchRecursive){
+			sXformsNode *cr =  SearchSubTreeForNodes(head,type,attr,SearchRecursive,ComparisonsToCheck);
+			if( cr != 0){
+	fprintf(stdout,"\n\t == 10 == PERFECT MATCHED =");
+				return cr;
+			}
+		}
+	}
+	fprintf(stdout,"\n\t == 11 == FAILED =");
+	return (sXformsNode *)0;
 }

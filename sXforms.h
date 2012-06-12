@@ -40,4 +40,6 @@ void sPrintsXformsTree(sXformsNode * head);
 void sPrintsXformsNode(sXformsNode * node);
 void sPrintsXformsAttrList(sXformsNodeAttr * node);
 void AllocateMemoryForAttribute(sXformsNodeAttr **temp);
+sXformsNode * SearchSubTreeForNodes(sXformsNode *head,char *type, sXformsNodeAttr *attr, int SearchRecursive, int ComparisonsToCheck);
+void MarkChildElementsAsVisited(sXformsNode *node);
 #endif

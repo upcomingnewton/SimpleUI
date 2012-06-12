@@ -13,6 +13,8 @@ typedef int  (*sFltkUIHandler_f) (
 struct sFltkUIHandler_s {
   char *type;
   char *name;
+  char *attrname;
+  char *attrvalue;
   sFltkUIHandler_f        handler;
 };
 
@@ -31,4 +33,5 @@ void test_widgets();
 
 int sFltkUIHandler_f_Select1Handler(sXformsNode *head, int x, int y, int w, int h);
 int sFltkUIHandler_f_InputHandler(sXformsNode *head,int x, int y, int w, int h);
+int sFltkUIHandler_f_TabsHandler(sXformsNode *head,int x, int y, int w, int h);
 #endif

@@ -1,0 +1,110 @@
+
+===== SIMPLE UI TOOLKIT =====
+
+INPUT FILE = xforms/file2.xhtml
+
+fp = 6668304
+size of file is 9477
+Name of widget XFORMS in FLTK, dimensions are    0,   0, 500, 680
+Name of widget &Done, dimensions are  210, 654,  80,  25
+Name of widget BottomPaneGroup, dimensions are    0, 650, 500,  30
+ Current Group : scroll_pack, 15 9 470 672
+ == children == 
+
+ Current Group : scroll_pack, 15 9 470 672
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 0:xf-group-tabs-handler
+[fltk/sFltkWidgets.cxx][144][sGenerateUIFromTree]  height 0:xf-group-tabs-handler
+ == children == 
+
+ Current Group : scroll_pack, 15 9 470 672
+ Welcome Page
+ Current Group : pack_Welcome Page, 20 13 460 664
+ Personal Information
+ Current Group : pack_Personal Information, 20 13 460 664
+ Current Group : , 25 17 450 67
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 6731504:drop downs
+ == children == 
+
+ Current Group : , 25 17 450 67
+ == children == 
+
+ Current Group : , 25 17 450 67
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 6860800:xf-input
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 6861984:xf-input
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 6863072:xf-input
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 6864160:xf-input
+[fltk/sFltkWidgets.cxx][144][sGenerateUIFromTree]  height 6865248:radio button list
+ == children == 
+
+ Current Group : , 25 17 450 67
+ == children == 
+
+ Current Group : , 25 17 450 67
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 6872128:xf-button
+[fltk/sFltkWidgets.cxx][144][sGenerateUIFromTree]  height 0:start a new frame or a box
+ == children == 
+
+ Current Group : pack_Personal Information, 20 13 460 664
+ Current Group : , 25 17 450 67
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 6876544:xf-input
+[fltk/sFltkWidgets.cxx][144][sGenerateUIFromTree]  height 0:start a new frame or a box
+ == children == 
+
+ Current Group : pack_Personal Information, 20 13 460 664
+ Projects
+ Current Group : pack_Projects, 20 13 460 664
+ Current Group : , 25 17 450 67
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 0:xf-repeat-handlers
+ == children == 
+
+ Current Group : , 25 17 450 67
+[fltk/sFltkWidgets.cxx][144][sGenerateUIFromTree]  height 0:start a new frame or a box
+ == children == 
+
+ Current Group : pack_Projects, 20 13 460 664
+ Current Group : , 25 17 450 67
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 6910272:xf-input
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 6911424:xf-input
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 6912576:xf-input
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 6914944:xf-button
+ == children == 
+
+ Current Group : , 25 17 450 67
+ == children == 
+
+ Current Group : , 25 17 450 67
+[fltk/sFltkWidgets.cxx][144][sGenerateUIFromTree]  height 0:start a new frame or a box
+ == children == 
+
+ Current Group : pack_Projects, 20 13 460 664
+ Preferences
+ Current Group : pack_Preferences, 20 13 460 664
+ Current Group : , 25 17 450 67
+[fltk/sFltkWidgets.cxx][144][sGenerateUIFromTree]  height 6884832:check box list
+ == children == 
+
+ Current Group : , 25 17 450 67
+ == children == 
+
+ Current Group : , 25 17 450 67
+[fltk/sFltkWidgets.cxx][144][sGenerateUIFromTree]  height 0:start a new frame or a box
+ == children == 
+
+ Current Group : pack_Preferences, 20 13 460 664
+ Current Group : , 25 17 450 67
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 6896832:xf-sliders
+[fltk/sFltkWidgets.cxx][144][sGenerateUIFromTree]  height 0:start a new frame or a box
+ == children == 
+
+ Current Group : pack_Preferences, 20 13 460 664
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 672:xf-group-tabs-handler
+ == children == 
+
+ Current Group : scroll_pack, 15 9 470 672
+[fltk/sFltkWidgets.cxx][163][sGenerateUIFromTree]  height 0:xf-group-tabs-handler
+ == children == 
+
+ Current Group : scroll_pack, 15 9 470 672
+ == children == 
+
+ Current Group : scroll_pack, 15 9 470 672

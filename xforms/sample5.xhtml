@@ -1,15 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html
  xmlns="http://www.w3.org/1999/xhtml"
- xmlns:xf="http://www.w3.org/2002/xforms">
+ xmlns:xf="http://www.w3.org/2002/xforms"
+ xmlns:oicc="http://www.oyranos.org/2009/oyranos_icc"
+>
+<head>
       <xf:model>
          <xf:instance xmlns="">
             <data>
-               <PersonGivenName/>
+               <PersonGivenName>nitin</PersonGivenName>
                <PersonSurName/>
             </data>
          </xf:instance>
       </xf:model>
-      <xf:input ref="PersonGivenName" incremental="true">
+</head>
+<body>
+      <xf:input ref="/data/PersonGivenName" incremental="true">
       		<xf:label>Input First-Name:</xf:label>
       		<xf:hint>Also known as given name.</xf:hint>
       </xf:input>
@@ -19,4 +27,5 @@
       </xf:input>
 	<xf:output ref="PersonGivenName"/>
 	<xf:output ref="PersonSurName"/>
+</body>
 </html>

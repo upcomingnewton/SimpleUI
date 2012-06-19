@@ -16,6 +16,14 @@
 /* compilation
 g++  -g -I/usr/local/include -I/usr/include/freetype2 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT -o 'SimpleUIFltk' fltk/sFltk.cxx fltk/sFltk.h fltk/sFltkWidgets.cxx io/io.h io/io.c xml/sXml.h xml/sParseXforms.c sXforms.h sXforms.c simpleUI.h -L/usr/lib64 /usr/local/lib64/libfltk.a -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11 `xml2-config --cflags --libs`
  */
+ 
+/* RUNNING
+./SimpleUIFltk -i xforms/file2.xhtml
+*/
+
+void PrintWidgetDimensions(Fl_Widget *w){
+	fprintf(stdout,"\nName of widget %s, dimensions are %4d,%4d,%4d,%4d",w->label(),w->x(),w->y(),w->w(),w->h());
+}
 
 void usage(int argc, char ** argv)
 {
@@ -24,7 +32,7 @@ void usage(int argc, char ** argv)
 
 void callback_done( Fl_Widget * w, void * )
 {
-  w->window()->hide();
+  	//w->window->hide();
 }
 
 int main ( int argc , char **argv )
@@ -153,38 +161,57 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
    //fprintf(stdout,"output xml file is : %s \n\n",xforms_text);
   }
 
-
-  Fl_Double_Window * w = new Fl_Double_Window(400,475,("XFORMS in FLTK"));
+  Fl::scheme("gtk+");
+  Fl_Double_Window * w = new Fl_Double_Window(WINDOW_WIDTH,WINDOW_HEIGHT,("XFORMS in FLTK"));
+  PrintWidgetDimensions(w);
    // oyCallback_s callback = {oyOBJECT_CALLBACK_S, 0,0,0,
      //                             (void(*)())callback_help_view,0};
-    Fl_Group* o = new Fl_Group(0, 340, 400, 100);
-      Fl_Help_View * help_view = new Fl_Help_View( 0,340,400,100 );
-      help_view->box(FL_ENGRAVED_BOX);
-      help_view->color(FL_BACKGROUND_COLOR);
-      help_view->align(FL_ALIGN_LEFT);
-      help_view->selection_color(FL_DARK1);
-      help_view->value("");
-      //callback.data = help_view;
-    o->end(); // Fl_Group* o
+//    Fl_Group* o = new Fl_Group(0,0, WINDOW_WIDTH, WINDOW_HEIGHT,"main group");
+//    fprintf(stdout,"\n\n\n%s\n\n\n",o->label());
+//      Fl_Help_View * help_view = new Fl_Help_View( 0,600,500,80 );
+//      help_view->box(FL_ENGRAVED_BOX);
+//      help_view->color(FL_BACKGROUND_COLOR);
+//      help_view->align(FL_ALIGN_LEFT);
+//      help_view->selection_color(FL_DARK1);
+//      help_view->value("");
+//      //callback.data = help_view;
+//    o->end(); // Fl_Group* o
     //oyFormsArgs_ResourceSet( forms_args, OYFORMS_FLTK_HELP_VIEW_REG,
              //                (oyPointer)&callback);
 
-    Fl_Button * done_button = new Fl_Button( 160, 445, 80, 25, ("&Done"));
-    done_button->callback( callback_done, 0 );
-
-  Fl_Scroll * scroll = new Fl_Scroll( 5,1,395,338 );
-  scroll->box( FL_NO_BOX ); //FL_THIN_UP_BOX );
+	Fl_Group *BottomPaneGroup = new Fl_Group(0,(WINDOW_HEIGHT-(ROW_HEIGHT+V_SPACING)),WINDOW_WIDTH,ROW_HEIGHT+V_SPACING,"BottomPaneGroup");
+	{
+		 Fl_Button * done_button = new Fl_Button( (WINDOW_WIDTH - BUTTON_WIDTH)/2, BottomPaneGroup->y() + VER_SEP, BUTTON_WIDTH, ROW_HEIGHT, ("&Done"));
+		 done_button->callback( callback_done, 0 );
+		 PrintWidgetDimensions(done_button);
+	}
+	BottomPaneGroup->end();
+	PrintWidgetDimensions(BottomPaneGroup);
+	Fl_Scroll * scroll = new Fl_Scroll( H_SPACING,V_SPACING,WINDOW_WIDTH-2*H_SPACING,WINDOW_HEIGHT-(2*V_SPACING + ROW_HEIGHT),"scroll" );
+	scroll->box( FL_NO_BOX );
+	{
+		Fl_Pack *scroll_pack = new Fl_Pack(scroll->x(),scroll->y(),scroll->w(),WINDOW_HEIGHT -BottomPaneGroup->h() - 2*V_SPACING ,"scroll_pack");
+		scroll_pack->spacing(V_SPACING);
+		{
+			head = ParseXformsToTree( xforms_text);
+			error = sGenerateUIFromTree(head);
+		}
+		scroll_pack->end();
+	}
+	scroll->end();
+	w->resizable( scroll );
+	w->end();
+	//FL_THIN_UP_BOX );
   //OyFl_Pack_c * pack = new OyFl_Pack_c( 5,1,395,338 );
   //pack->spacing(V_SPACING);
-  head = ParseXformsToTree( xforms_text);
+  
   //fprintf(stdout,"\n\n == error no === %d == \n",error);
   //sPrintsXformsTree(head);
-  error = sGenerateUIFromTree(head);
+  
   //test_widgets();
   //pack->end();
-  scroll->end();
-  w->resizable( scroll );
-  w->end();
+  
+  
 
   //if(print)
   if(1)

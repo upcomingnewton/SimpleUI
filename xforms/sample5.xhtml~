@@ -4,12 +4,12 @@
       <xf:model>
          <xf:instance xmlns="">
             <data>
-               <PersonGivenName/>
+               <PersonGivenName>"nitin"</PersonGivenName>
                <PersonSurName/>
             </data>
          </xf:instance>
       </xf:model>
-      <xf:input ref="PersonGivenName" incremental="true">
+      <xf:input ref="/xmlns:html/xf:model/xf:instance/data/PersonGivenName" incremental="true">
       		<xf:label>Input First-Name:</xf:label>
       		<xf:hint>Also known as given name.</xf:hint>
       </xf:input>
@@ -17,6 +17,6 @@
       		<xf:label>Input Last Name:</xf:label>
       		<xf:hint>Also known as sur name or family name.</xf:hint>
       </xf:input>
-	<xf:output ref="PersonGivenName"></xf:output>
+	<xf:output ref="PersonGivenName"/>
 	<xf:output ref="PersonSurName"/>
 </html>

@@ -3,16 +3,11 @@
 #include "../sXforms.h"
 #include <libxml/parser.h>
 #include <string.h>
-
-
+#include <libxml/xpath.h>
+#include <libxml/xpathInternals.h>
 
 //struct sXformsNode *ParseXformsToTree(const char * xforms){
-char * sXmlNodeName(xmlNodePtr cur);
-char * sAppendString( char *src, char *text);
-void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head);
-char * sGetValueFromChildren(xmlNodePtr cur, char *nodeToSearch);
-void sAdjustPointersForLinkedList(sXformsNode **par, sXformsNode **child);
-char * sGetTextFromNode(xmlNodePtr node);
+
 int x = 0;
 
 sXformsNode * ParseXformsToTree(const char * xforms){
@@ -48,7 +43,9 @@ sXformsNode * ParseXformsToTree(const char * xforms){
 	else {
 		error = 1;
 	}
-	sPrintsXformsTree(head);
+	//sPrintsXformsTree(head);
+	xmlXPathObjectPtr result = sGetXpathObjectPtr((),doc);
+	fprintf(stdout,"======/// %d ///=======",result->nodesetval->nodeNr);
 	return head;
 }
 
@@ -222,7 +219,7 @@ char * sAppendString( char *src, char *text)
 		while( src[src_ctr] != '\0'){
 			temp[c++] = src[src_ctr++];
 		}
-	free(src);
+	//free(src);
 	}
 	if( text ){
 		while( text[text_ctr] != '\0' ){
@@ -256,4 +253,108 @@ char * sXmlNodeName(xmlNodePtr cur)
 		return name;
 	}
 	//fprintf(stdout,"\n\n === %s === ",name);
+}
+
+
+const char * sGetXpathValue(char *reference, xmlDocPtr doc){
+	xmlXPathContextPtr context = xmlXPathNewContext( doc );
+	char *ref;
+	char *url;
+	int error = 0;
+	xmlXPathObjectPtr result = 0;
+	const char * text = 0;
+  if( reference )
+  {
+    ref = "xmlns";
+    url = "http://www.w3.org/1999/xhtml";
+    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
+    if(error)
+      printf("Could not register %s=%s\n", ref, url);
+    ref = "xf";
+    url = "http://www.w3.org/2002/xforms";
+    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
+    if(error)
+      printf("Could not register %s=%s\n", ref, url);
+    ref = "ev";
+    url = "http://www.w3.org/2001/xml-events";
+    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
+    if(error)
+      printf("Could not register %s=%s\n", ref, url);
+      
+      
+    ref = "xsd";
+    url = "http://www.w3.org/2001/XMLSchema";
+    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
+    if(error)
+      printf("Could not register %s=%s\n", ref, url);
+    
+    
+    /* add the static part */
+    //sprintf( xpath, "/xmlns:html/xmlns:head/xf:model/xf:instance" );
+
+    //STRING_ADD( xpath, reference );
+    char *ref1 = "/xmlns:html/xmlns:head/xf:model/xf:instance";
+    ref1 = sAppendString(ref1,reference);
+	result = xmlXPathEvalExpression( (xmlChar*)ref1, context );
+    if( result && !xmlXPathNodeSetIsEmpty( result->nodesetval ) &&
+        result->nodesetval &&
+        result->nodesetval->nodeTab && result->nodesetval->nodeTab[0] &&
+        result->nodesetval->nodeTab[0]->children &&
+        strcmp((char*)result->nodesetval->nodeTab[0]->children->name, "text") == 0 &&
+        result->nodesetval->nodeTab[0]->children->content)
+      text = (char*)result->nodesetval->nodeTab[0]->children->content;
+    else
+      printf( "No result with %s\n", reference);
+
+    xmlXPathFreeObject( result );
+    xmlXPathFreeContext( context );
+  }
+  return text;
+}
+
+
+xmlXPathObjectPtr  sGetXpathObjectPtr(char *reference, xmlDocPtr doc){
+	xmlXPathContextPtr context = xmlXPathNewContext( doc );
+	char *ref;
+	char *url;
+	int error = 0;
+	xmlXPathObjectPtr result = 0;
+	const char * text = 0;
+  if( reference )
+  {
+    ref = "xmlns";
+    url = "http://www.w3.org/1999/xhtml";
+    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
+    if(error)
+      printf("Could not register %s=%s\n", ref, url);
+    ref = "xf";
+    url = "http://www.w3.org/2002/xforms";
+    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
+    if(error)
+      printf("Could not register %s=%s\n", ref, url);
+    ref = "ev";
+    url = "http://www.w3.org/2001/xml-events";
+    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
+    if(error)
+      printf("Could not register %s=%s\n", ref, url);
+      
+      
+    ref = "xsd";
+    url = "http://www.w3.org/2001/XMLSchema";
+    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
+    if(error)
+      printf("Could not register %s=%s\n", ref, url);
+    
+    
+    /* add the static part */
+    //sprintf( xpath, "/xmlns:html/xmlns:head/xf:model/xf:instance" );
+
+    //STRING_ADD( xpath, reference );
+    char *ref1 = "/xmlns:html/xmlns:head/xf:model/xf:instance";
+    ref1 = sAppendString(ref1,reference);
+	result = xmlXPathEvalExpression( (xmlChar*)ref1, context );
+
+    xmlXPathFreeContext( context );
+  }
+  return result;
 }

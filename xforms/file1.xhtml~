@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
 <html 
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xf="http://www.w3.org/2002/xforms"
@@ -68,58 +67,42 @@
 		</xf:model>
 	</head>
 	<body>
-		<xf:group id="upperbar" >
+		<div id="upperbar" >
 				SAMPLE RECRUITMENT PAGE USING X-FORMS FOR DEMO ( OPENICC )
-		</xf:group> 
-		<xf:group type="tabs">
-			<xf:group>
-
-				<xf:trigger id="tab_page_wel" appearance="minimal" type="tab_trigger">
-					<xf:label>Welcome Page</xf:label>
-					<xf:toggle case="page_welcome" ev:event="DOMActivate" />
-				</xf:trigger>
-				<xf:trigger id="tab_page_info_per" appearance="minimal" type="tab_trigger">
-					<xf:label>Personal Information</xf:label>
-					<xf:toggle case="page_info_per" ev:event="DOMActivate" />
-				</xf:trigger>
-
-				<xf:trigger id="tab_page_projects" appearance="minimal" type="tab_trigger">
-					<xf:label>Projects</xf:label>
-					<xf:toggle case="page_projects" ev:event="DOMActivate" />
-				</xf:trigger>
-				<xf:trigger id="tab_page_pref" appearance="minimal" type="tab_trigger">
-					<xf:label>Preferences</xf:label>
-					<xf:toggle case="page_pref" ev:event="DOMActivate" />
-				</xf:trigger>
-
-			</xf:group>
-		<xf:group>
+		</div> 
+		<div id="hor_tab">
+			<xf:trigger id="tab_page_wel" appearance="minimal">
+				<xf:label>Welcome Page</xf:label>
+				<xf:toggle case="page_welcome" ev:event="DOMActivate" />
+			</xf:trigger>
+			<xf:trigger id="tab_page_info_per" appearance="minimal">
+				<xf:label>Personal Information</xf:label>
+				<xf:toggle case="page_info_per" ev:event="DOMActivate" />
+			</xf:trigger>
+			<xf:trigger id="tab_page_projects" appearance="minimal">
+				<xf:label>Projects</xf:label>
+				<xf:toggle case="page_projects" ev:event="DOMActivate" />
+			</xf:trigger>
+			<xf:trigger id="tab_page_pref" appearance="minimal">
+				<xf:label>Preferences</xf:label>
+				<xf:toggle case="page_pref" ev:event="DOMActivate" />
+			</xf:trigger>
+		</div>
 		<xf:switch>
 			<xf:case id="page_welcome" selected="true">
-				<xf:group id="xf:group_page_welcome" >
-					<xf:label>welcome_tab</xf:label>
-					<xf:group type="frame">
-						<xf:label>welcome_panel</xf:label>
-						<xf:output>
-							welcome page , this is welcome page
-						</xf:output>
-					</xf:group>
-				</xf:group>
+				<div id="div_page_welcome">
+					welcome page , this is welcome page
+				</div>
 			</xf:case>
 			<xf:case id="page_info_per" selected="false">
 				<xf:group>
-				<xf:label>personal_info_tab</xf:label>
 					<!--  user name preferences -->
-					<xf:group  type="frame">
-						<xf:label>personal_info_panel</xf:label>
 						<xf:select1 ref="instance('app_personal_info')/prefix" selection="open">
 							<xf:label>Name Prefix:</xf:label>
-							<xf:choices>
 								<xf:item>
 									<xf:label>Mr. </xf:label>
 									<xf:value>Mr. </xf:value>
 								</xf:item>
-
 								<xf:item>
 									<xf:label>Mrs. </xf:label>
 									<xf:value>Mrs. </xf:value>
@@ -127,18 +110,14 @@
 								<xf:item>
 									<xf:label>Dr. </xf:label>
 									<xf:value>Dr. </xf:value>
-
 								</xf:item>
-							</xf:choices>
-						</xf:select1>
-						<br />
+						</xf:select1><br />
 						<xf:input id="fname" ref="instance('app_personal_info')/fname" incremental="true">
 								<xf:label>Enter your first name : </xf:label>
 						</xf:input>
 						<br />
 						<xf:input id="mname" ref="instance('app_personal_info')/mname">
 								<xf:label>Enter your middle name : </xf:label>
-
 						</xf:input>
 						<br />
 						<xf:input id="lname" ref="instance('app_personal_info')/lname">
@@ -147,7 +126,6 @@
 						<br />
 						<xf:input id="dob" ref="instance('app_personal_info')/dob">
 								<xf:label>Enter your date of birth : </xf:label>
-
 						</xf:input>
 						<br />
 						<xf:select1 ref="instance('app_personal_info')/gender" appearance="full" >
@@ -156,7 +134,6 @@
 									<xf:item>
 										<xf:label>Male</xf:label>
 										<xf:value>Male</xf:value>
-
 									</xf:item>
 									<xf:item>
 										<xf:label>Female</xf:label>
@@ -164,7 +141,6 @@
 									</xf:item>
 									<xf:item>
 										<xf:label>Not want to disclose</xf:label>
-
 										<xf:value>Not want to disclose</xf:value>
 									</xf:item>
 								</xf:choices>			
@@ -173,16 +149,14 @@
 						<xf:trigger id="app_personal_info_done">
 							<xf:label>DONE</xf:label>
 						</xf:trigger>
-
-					</xf:group>
-					<xf:group  type="frame">
-						<xf:label>personal_info_login_panel</xf:label>
+				</xf:group>
+				<xf:group>
+						<xf:label>Login Details</xf:label>
 						<br />
 						<xf:input id="username" ref="instance('app_personal_login')/username" incremental="true">
 								<xf:label>Prefered UserName : </xf:label>
 						</xf:input>
 						<br />
-
 						<xf:secret id="password1" ref="instance('app_personal_login')/password">
 								<xf:label>password : </xf:label>
 						</xf:secret>
@@ -191,28 +165,22 @@
 								<xf:label>password : </xf:label>
 						</xf:secret>
 						<br />
-
 						<xf:output ref="instance('app_personal_login')/username"></xf:output>
-					</xf:group>
 				</xf:group>
 			</xf:case>
 			<xf:case id="page_pref" >
-				<xf:group>
-					<xf:group id="check_buttons"  type="frame">
+					<xf:group id="check_buttons">
 						<xf:label>
 							check buttons allow you to select more than 1 item at a time
 						</xf:label>
 						<br />
-
 						<xf:select appearance="full">
 							<xf:label>select the newspaper you like</xf:label>
 							<br />
-							<xf:choices>
 							<xf:item>
 								<xf:label>newspaper-1</xf:label>
 								<xf:value>news1</xf:value>
 							</xf:item>
-
 							<xf:item>
 								<xf:label>newspaper-2</xf:label>
 								<xf:value>news2</xf:value>
@@ -220,7 +188,6 @@
 							<xf:item>
 								<xf:label>newspaper-3</xf:label>
 								<xf:value>news3</xf:value>
-
 							</xf:item>
 							<xf:item>
 								<xf:label>newspaper-4</xf:label>
@@ -228,66 +195,54 @@
 							</xf:item>
 							<xf:item>
 								<xf:label>newspaper-5</xf:label>
-
 								<xf:value>news5</xf:value>
 							</xf:item>
-							</xf:choices>
 						</xf:select>
 					</xf:group>
-					<xf:group id="sliders"  type="frame">
+					<xf:group id="sliders">
 							<xf:label>
 								sliders are used to range values
 							</xf:label>
 							<br />
-
 							<xf:range  start="1" end="10" step="1" ref="instance('pref')/slider_val" incremental="true">
      								 <xf:label>Rating of this site : </xf:label>
     							</xf:range>
 					</xf:group>
-				</xf:group>
 			</xf:case>
 			<xf:case id="page_projects">
 				<xf:group>
-					<xf:group  type="frame">
-							<xf:repeat nodeset="instance('project_info')/project" id="list">
-								<xf:output ref="StartDate"></xf:output>
-								<xf:output ref="EndDate"></xf:output>
-								<xf:output ref="KeySkills"></xf:output>
-								<xf:output ref="Desc"></xf:output>
-							</xf:repeat>
-					</xf:group>
-					<xf:group id="page_projects_insert" type="frame">
-							<xf:input ref="instance('project_info')/NewProject/StartDate" incremental="true">
-								<xf:label >Enter start date of your project : </xf:label>
-
-							</xf:input><br />
-							<xf:input ref="instance('project_info')/NewProject/EndDate" incremental="true">
-								<xf:label >Enter end date of your project : </xf:label>
-							</xf:input><br />
-							<xf:input ref="instance('project_info')/NewProject/KeySkills" incremental="true">
-								<xf:label >key skills : </xf:label>
-							</xf:input><br />
-							<xf:textarea ref="instance('project_info')/NewProject/Desc" incremental="true">
-
-								<xf:label >description : </xf:label>
-							</xf:textarea>
-						<br />	<xf:trigger>
-								<xf:label>insert after selected row</xf:label>
-								<xf:action ev:event="DOMActivate">
-									<xf:insert nodeset="instance('project_info')/project" at="index('list')" position="after" />
-									<xf:setvalue ref="instance('project_info')/project[index('list')]/StartDate" value="instance('project_info')/NewProject/StartDate" />
-
-									<xf:setvalue ref="instance('project_info')/project[index('list')]/EndDate" value="instance('project_info')/NewProject/EndDate" />
-									<xf:setvalue ref="instance('project_info')/project[index('list')]/KeySkills" value="instance('project_info')/NewProject/KeySkills" />
-									<xf:setvalue ref="instance('project_info')/project[index('list')]/Desc" value="instance('project_info')/NewProject/Desc" />							
-								</xf:action>
-							</xf:trigger>
-					</xf:group>
+						<xf:repeat nodeset="instance('project_info')/project" id="list">
+							<xf:output ref="StartDate"></xf:output>
+							<xf:output ref="EndDate"></xf:output>
+							<xf:output ref="KeySkills"></xf:output>
+							<xf:output ref="Desc"></xf:output>
+						</xf:repeat>
+				</xf:group>
+				<xf:group id="page_projects_insert">
+						<xf:input ref="instance('project_info')/NewProject/StartDate" incremental="true">
+							<xf:label >Enter start date of your project : </xf:label>
+						</xf:input><br />
+						<xf:input ref="instance('project_info')/NewProject/EndDate" incremental="true">
+							<xf:label >Enter end date of your project : </xf:label>
+						</xf:input><br />
+						<xf:input ref="instance('project_info')/NewProject/KeySkills" incremental="true">
+							<xf:label >key skills : </xf:label>
+						</xf:input><br />
+						<xf:textarea ref="instance('project_info')/NewProject/Desc" incremental="true">
+							<xf:label >description : </xf:label>
+						</xf:textarea>
+					<br />	<xf:trigger>
+							<xf:label>insert after selected row</xf:label>
+							<xf:action ev:event="DOMActivate">
+								<xf:insert nodeset="instance('project_info')/project" at="index('list')" position="after" />
+								<xf:setvalue ref="instance('project_info')/project[index('list')]/StartDate" value="instance('project_info')/NewProject/StartDate" />
+								<xf:setvalue ref="instance('project_info')/project[index('list')]/EndDate" value="instance('project_info')/NewProject/EndDate" />
+								<xf:setvalue ref="instance('project_info')/project[index('list')]/KeySkills" value="instance('project_info')/NewProject/KeySkills" />
+								<xf:setvalue ref="instance('project_info')/project[index('list')]/Desc" value="instance('project_info')/NewProject/Desc" />							
+							</xf:action>
+						</xf:trigger>
 				</xf:group>
 			</xf:case>
 		</xf:switch>
-		</xf:group>
-		</xf:group>
 	</body>
 </html>
-

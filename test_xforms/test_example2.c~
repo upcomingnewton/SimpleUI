@@ -34,7 +34,7 @@ print_element_names(xmlNode * a_node)
 
     for (cur_node = a_node; cur_node; cur_node = cur_node->next) {
         if ( cur_node->type ==  XML_ELEMENT_NODE ) {
-            printf(" %d, %s, %s\n", __LINE__,cur_node->type,cur_node->name);
+            printf(" %s, %s\n", cur_node->type,cur_node->name);
         }
 	//if(cur_node->content){
 	//	fprintf(stdout,"this is text %d\n",cur_node->content[0]);

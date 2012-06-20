@@ -3,7 +3,7 @@
 #include<string.h>
 
 
-//#define ENABLE_LOG
+#define ENABLE_LOG
 #ifdef ENABLE_LOG
 #define WriteLog printf
 #else

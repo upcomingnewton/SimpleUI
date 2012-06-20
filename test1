@@ -1,0 +1,2794 @@
+
+===== SIMPLE UI TOOLKIT =====
+
+INPUT FILE = xforms/file2.xhtml
+
+fp = 6701072
+size of file is 9790
+Name of widget XFORMS in FLTK, dimensions are    0,   0, 500, 680
+Name of widget &Done, dimensions are  210, 654,  80,  25
+Name of widget BottomPaneGroup, dimensions are    0, 650, 500,  30
+== Printing Detailed Node Info ==
+ Type = xf:model
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = xf:group:NULL
+ par = (null):head
+ child = xf:instance:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:instance
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = app_personal_info
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = xf:bind:NULL
+ par = xf:model:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:bind
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = nodeset
+		 AttrVal  = instance('app_personal_info')/dob
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = xsd:date
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:instance:NULL
+ next = xf:instance:NULL
+ par = xf:model:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:instance
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = app_personal_login
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:bind:NULL
+ next = xf:bind:NULL
+ par = xf:model:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:bind
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = nodeset
+		 AttrVal  = instance('app_personal_login')/username
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = required
+		 AttrVal  = true
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:instance:NULL
+ next = xf:bind:NULL
+ par = xf:model:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:bind
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = nodeset
+		 AttrVal  = instance('app_personal_login')/password
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = required
+		 AttrVal  = true
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:bind:NULL
+ next = xf:instance:NULL
+ par = xf:model:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:instance
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = project_info
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:bind:NULL
+ next = xf:bind:NULL
+ par = xf:model:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:bind
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = nodeset
+		 AttrVal  = instance('project_info')/project/StartDate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = xsd:date
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:instance:NULL
+ next = xf:bind:NULL
+ par = xf:model:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:bind
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = nodeset
+		 AttrVal  = instance('project_info')/project/EndDate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = xsd:date
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:bind:NULL
+ next = xf:bind:NULL
+ par = xf:model:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:bind
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = nodeset
+		 AttrVal  = instance('project_info')/NewProject/StartDate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = xsd:date
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:bind:NULL
+ next = xf:bind:NULL
+ par = xf:model:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:bind
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = nodeset
+		 AttrVal  = instance('project_info')/NewProject/EndDate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = xsd:date
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:bind:NULL
+ next = xf:instance:NULL
+ par = xf:model:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:instance
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = pref
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:bind:NULL
+ next = xf:bind:NULL
+ par = xf:model:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:bind
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = nodeset
+		 AttrVal  = instance('pref')/slider_val
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = xsd:integer
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:instance:NULL
+ next = NotDefined:NotDefined
+ par = xf:model:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = upperbar
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:model:NULL
+ next = xf:group:NULL
+ par = (null):head
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = tabs
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:group:NULL
+ next = NotDefined:NotDefined
+ par = (null):head
+ child = xf:group:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = xf:group:NULL
+ par = xf:group:NULL
+ child = xf:trigger:Welcome Page
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:trigger
+ Name = Welcome Page
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = tab_page_wel
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = appearance
+		 AttrVal  = minimal
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = tab_trigger
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = xf:trigger:Personal Information
+ par = xf:group:NULL
+ child = xf:toggle:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:toggle
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = case
+		 AttrVal  = page_welcome
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = event
+		 AttrVal  = DOMActivate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:trigger:Welcome Page
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:trigger
+ Name = Personal Information
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = tab_page_info_per
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = appearance
+		 AttrVal  = minimal
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = tab_trigger
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:trigger:Welcome Page
+ next = xf:trigger:Projects
+ par = xf:group:NULL
+ child = xf:toggle:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:toggle
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = case
+		 AttrVal  = page_info_per
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = event
+		 AttrVal  = DOMActivate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:trigger:Personal Information
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:trigger
+ Name = Projects
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = tab_page_projects
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = appearance
+		 AttrVal  = minimal
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = tab_trigger
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:trigger:Personal Information
+ next = xf:trigger:Preferences
+ par = xf:group:NULL
+ child = xf:toggle:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:toggle
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = case
+		 AttrVal  = page_projects
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = event
+		 AttrVal  = DOMActivate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:trigger:Projects
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:trigger
+ Name = Preferences
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = tab_page_pref
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = appearance
+		 AttrVal  = minimal
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = tab_trigger
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:trigger:Projects
+ next = NotDefined:NotDefined
+ par = xf:group:NULL
+ child = xf:toggle:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:toggle
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = case
+		 AttrVal  = page_pref
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = event
+		 AttrVal  = DOMActivate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:trigger:Preferences
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ prev = xf:group:NULL
+ next = NotDefined:NotDefined
+ par = xf:group:NULL
+ child = xf:switch:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:switch
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:group:NULL
+ child = xf:case:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:case
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = page_welcome
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = selected
+		 AttrVal  = true
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = xf:case:NULL
+ par = xf:switch:NULL
+ child = xf:group:welcome_tab
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = welcome_tab
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = xf:group_page_welcome
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:case:NULL
+ child = xf:group:welcome_panel
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = welcome_panel
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = frame
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:group:welcome_tab
+ child = xf:output:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:output
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:group:welcome_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:case
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = page_info_per
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = selected
+		 AttrVal  = false
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:case:NULL
+ next = xf:case:NULL
+ par = xf:switch:NULL
+ child = xf:group:personal_info_tab
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = personal_info_tab
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:case:NULL
+ child = xf:group:personal_info_panel
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = personal_info_panel
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = frame
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = xf:group:login_info_panel
+ par = xf:group:personal_info_tab
+ child = xf:select1:Name Prefix:
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:select1
+ Name = Name Prefix:
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('app_personal_info')/prefix
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = selection
+		 AttrVal  = open
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = xf:input:Enter your first name : 
+ par = xf:group:personal_info_panel
+ child = xf:choices:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:choices
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:select1:Name Prefix:
+ child = xf:item:Mr. 
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:item
+ Name = Mr. 
+ Value = Mr. 
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = xf:item:Mrs. 
+ par = xf:choices:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:item
+ Name = Mrs. 
+ Value = Mrs. 
+ Hint = NULL
+ Help = NULL
+ prev = xf:item:Mr. 
+ next = xf:item:Dr. 
+ par = xf:choices:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:item
+ Name = Dr. 
+ Value = Dr. 
+ Hint = NULL
+ Help = NULL
+ prev = xf:item:Mrs. 
+ next = NotDefined:NotDefined
+ par = xf:choices:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:input
+ Name = Enter your first name : 
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = fname
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('app_personal_info')/fname
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = incremental
+		 AttrVal  = true
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:select1:Name Prefix:
+ next = xf:input:Enter your middle name : 
+ par = xf:group:personal_info_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:input
+ Name = Enter your middle name : 
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = mname
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('app_personal_info')/mname
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:input:Enter your first name : 
+ next = xf:input:Enter your last name : 
+ par = xf:group:personal_info_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:input
+ Name = Enter your last name : 
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = lname
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('app_personal_info')/lname
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:input:Enter your middle name : 
+ next = xf:input:Enter your date of birth : 
+ par = xf:group:personal_info_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:input
+ Name = Enter your date of birth : 
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = dob
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('app_personal_info')/dob
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:input:Enter your last name : 
+ next = xf:select1:Select your gender
+ par = xf:group:personal_info_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:select1
+ Name = Select your gender
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('app_personal_info')/gender
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = appearance
+		 AttrVal  = full
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:input:Enter your date of birth : 
+ next = xf:trigger:DONE
+ par = xf:group:personal_info_panel
+ child = xf:choices:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:choices
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:select1:Select your gender
+ child = xf:item:Male
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:item
+ Name = Male
+ Value = Male
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = xf:item:Female
+ par = xf:choices:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:item
+ Name = Female
+ Value = Female
+ Hint = NULL
+ Help = NULL
+ prev = xf:item:Male
+ next = xf:item:Not want to disclose
+ par = xf:choices:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:item
+ Name = Not want to disclose
+ Value = Not want to disclose
+ Hint = NULL
+ Help = NULL
+ prev = xf:item:Female
+ next = NotDefined:NotDefined
+ par = xf:choices:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:trigger
+ Name = DONE
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = app_personal_info_done
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:select1:Select your gender
+ next = NotDefined:NotDefined
+ par = xf:group:personal_info_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = login_info_panel
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = frame
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:group:personal_info_panel
+ next = NotDefined:NotDefined
+ par = xf:group:personal_info_tab
+ child = xf:input:Prefered UserName : 
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:input
+ Name = Prefered UserName : 
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = username
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('app_personal_login')/username
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = incremental
+		 AttrVal  = true
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = xf:secret:password : 
+ par = xf:group:login_info_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:secret
+ Name = password : 
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = password1
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('app_personal_login')/password
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:input:Prefered UserName : 
+ next = xf:secret:password : 
+ par = xf:group:login_info_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:secret
+ Name = password : 
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = password2
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:secret:password : 
+ next = xf:output:NULL
+ par = xf:group:login_info_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:output
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('app_personal_login')/username
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:secret:password : 
+ next = NotDefined:NotDefined
+ par = xf:group:login_info_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:case
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = page_pref
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:case:NULL
+ next = xf:case:NULL
+ par = xf:switch:NULL
+ child = xf:group:preferences_tab
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = preferences_tab
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:case:NULL
+ child = xf:group:check_buttons_panel
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = check_buttons_panel
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = check_buttons
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = frame
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = xf:group:sliders_panel
+ par = xf:group:preferences_tab
+ child = xf:select:select the newspaper you like
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:select
+ Name = select the newspaper you like
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = appearance
+		 AttrVal  = full
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:group:check_buttons_panel
+ child = xf:choices:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:choices
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:select:select the newspaper you like
+ child = xf:item:newspaper-1
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:item
+ Name = newspaper-1
+ Value = news1
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = xf:item:newspaper-2
+ par = xf:choices:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:item
+ Name = newspaper-2
+ Value = news2
+ Hint = NULL
+ Help = NULL
+ prev = xf:item:newspaper-1
+ next = xf:item:newspaper-3
+ par = xf:choices:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:item
+ Name = newspaper-3
+ Value = news3
+ Hint = NULL
+ Help = NULL
+ prev = xf:item:newspaper-2
+ next = xf:item:newspaper-4
+ par = xf:choices:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:item
+ Name = newspaper-4
+ Value = news4
+ Hint = NULL
+ Help = NULL
+ prev = xf:item:newspaper-3
+ next = xf:item:newspaper-5
+ par = xf:choices:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:item
+ Name = newspaper-5
+ Value = news5
+ Hint = NULL
+ Help = NULL
+ prev = xf:item:newspaper-4
+ next = NotDefined:NotDefined
+ par = xf:choices:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = sliders_panel
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = sliders
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = frame
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:group:check_buttons_panel
+ next = NotDefined:NotDefined
+ par = xf:group:preferences_tab
+ child = xf:range:Rating of this site : 
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:range
+ Name = Rating of this site : 
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = start
+		 AttrVal  = 1
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = end
+		 AttrVal  = 10
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = step
+		 AttrVal  = 1
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('pref')/slider_val
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = incremental
+		 AttrVal  = true
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:group:sliders_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:case
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = page_projects
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:case:NULL
+ next = NotDefined:NotDefined
+ par = xf:switch:NULL
+ child = xf:group:project_info_tab
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = project_info_tab
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:case:NULL
+ child = xf:group:project_info_panel
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = project_info_panel
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = frame
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = xf:group:new_project_panel
+ par = xf:group:project_info_tab
+ child = xf:repeat:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:repeat
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = nodeset
+		 AttrVal  = instance('project_info')/project
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = list
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:group:project_info_panel
+ child = xf:output:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:output
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = StartDate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = xf:output:NULL
+ par = xf:repeat:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:output
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = EndDate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:output:NULL
+ next = xf:output:NULL
+ par = xf:repeat:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:output
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = KeySkills
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:output:NULL
+ next = xf:output:NULL
+ par = xf:repeat:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:output
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = Desc
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:output:NULL
+ next = NotDefined:NotDefined
+ par = xf:repeat:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:group
+ Name = new_project_panel
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = id
+		 AttrVal  = page_projects_insert
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = type
+		 AttrVal  = frame
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:group:project_info_panel
+ next = NotDefined:NotDefined
+ par = xf:group:project_info_tab
+ child = xf:input:Enter start date of your project : 
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:input
+ Name = Enter start date of your project : 
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('project_info')/NewProject/StartDate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = incremental
+		 AttrVal  = true
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = xf:input:Enter end date of your project : 
+ par = xf:group:new_project_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:input
+ Name = Enter end date of your project : 
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('project_info')/NewProject/EndDate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = incremental
+		 AttrVal  = true
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:input:Enter start date of your project : 
+ next = xf:input:key skills : 
+ par = xf:group:new_project_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:input
+ Name = key skills : 
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('project_info')/NewProject/KeySkills
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = incremental
+		 AttrVal  = true
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:input:Enter end date of your project : 
+ next = xf:textarea:description : 
+ par = xf:group:new_project_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:textarea
+ Name = description : 
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('project_info')/NewProject/Desc
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = incremental
+		 AttrVal  = true
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:input:key skills : 
+ next = xf:trigger:insert after selected row
+ par = xf:group:new_project_panel
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:trigger
+ Name = insert after selected row
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ prev = xf:textarea:description : 
+ next = NotDefined:NotDefined
+ par = xf:group:new_project_panel
+ child = xf:action:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:action
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = event
+		 AttrVal  = DOMActivate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = NotDefined:NotDefined
+ par = xf:trigger:insert after selected row
+ child = xf:insert:NULL
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+
+	------------- chilren start -------------
+
+== Printing Detailed Node Info ==
+ Type = xf:insert
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = nodeset
+		 AttrVal  = instance('project_info')/project
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = at
+		 AttrVal  = index('list')
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = position
+		 AttrVal  = after
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = NotDefined:NotDefined
+ next = xf:setvalue:NULL
+ par = xf:action:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:setvalue
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('project_info')/project[index('list')]/StartDate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = value
+		 AttrVal  = instance('project_info')/NewProject/StartDate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:insert:NULL
+ next = xf:setvalue:NULL
+ par = xf:action:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:setvalue
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('project_info')/project[index('list')]/EndDate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = value
+		 AttrVal  = instance('project_info')/NewProject/EndDate
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:setvalue:NULL
+ next = xf:setvalue:NULL
+ par = xf:action:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:setvalue
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('project_info')/project[index('list')]/KeySkills
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = value
+		 AttrVal  = instance('project_info')/NewProject/KeySkills
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:setvalue:NULL
+ next = xf:setvalue:NULL
+ par = xf:action:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+== Printing Detailed Node Info ==
+ Type = xf:setvalue
+ Name = NULL
+ Value = NULL
+ Hint = NULL
+ Help = NULL
+ ATTRIBUTE LIST
+		----------------------------------------
+		 AttrName  = ref
+		 AttrVal  = instance('project_info')/project[index('list')]/Desc
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+		 AttrName  = value
+		 AttrVal  = instance('project_info')/NewProject/Desc
+		 Meta Info  = NotDefined
+		 Private Data  = NotDefined
+		----------------------------------------
+ prev = xf:setvalue:NULL
+ next = NotDefined:NotDefined
+ par = xf:action:NULL
+ child = NotDefined:NotDefined
+ number of children = 
+ meta info = 
+ private data = 
+------------------------------------------------------
+		-- NO CHILD ---
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+	------------- chilren end -------------
+
+[sGenerateUIFromTree][181] scroll_pack start 'generic' xf:group:NULL
+[sFltkUIHandler_f_TabsHandler][204] parent = scroll_pack, dimensions of parent are (10,5,480,640)
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 2439517712
+	 == 11 == FAILED =
+[sGenerateUIFromTree][183] scroll_pack end
+[sGenerateUIFromTree][161] scroll_pack start 'specialised' xf:group:NULL
+[sFltkUIHandler_f_TabsHandler][204] parent = scroll_pack, dimensions of parent are (10,5,480,640)
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 2439517712
+	 == 2 == temp = xf:group, NULL 
+	 == 2 == temp = xf:group, NULL 
+	 == 11 == FAILED =
+[sGenerateUIFromTree][163] scroll_pack end
+[sGenerateUIFromTree][181] scroll_pack start 'generic' xf:group:NULL
+[sFltkUIHandler_f_TabsHandler][204] parent = scroll_pack, dimensions of parent are (10,5,480,640)
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 2439517600
+	 == 2 == temp = xf:trigger, Welcome Page 
+	 == 3 == TYPES MATCH =
+	 == 4 == ATTRIBUTE LIST IS THERE =
+	 == 5 == TEMP ATTRIBUTE LIST IS THERE = (id,tab_page_wel)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (id,tab_page_wel)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (appearance,minimal)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (type,tab_trigger)
+	 == 7 == MATCHED =
+	 == 8 == PERFECT MATCHED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Welcome Page TYPE xf:toggle, Recursive 0 attr 0
+	 == 2 == temp = xf:toggle, NULL 
+	 == 3 == TYPES MATCH =
+	 == 9 == PERFECT MATCHED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:trigger, Welcome Page 
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Welcome Page TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:trigger, Personal Information 
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Personal Information TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:toggle, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:trigger, Projects 
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Projects TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:toggle, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:trigger, Preferences 
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Preferences TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:toggle, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:group, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:switch, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:switch, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:case, NULL 
+	 == 3 == TYPES MATCH =
+	 == 4 == ATTRIBUTE LIST IS THERE =
+	 == 5 == TEMP ATTRIBUTE LIST IS THERE = (id,page_welcome)
+	 == 6 == SEARCHING (id,page_welcome) PRESENT (id,page_welcome)
+	 == 7 == MATCHED =
+	 == 8 == PERFECT MATCHED =
+	 == 10 == PERFECT MATCHED =
+	 == 10 == PERFECT MATCHED =
+[sGenerateUIFromTree][181] Welcome Page start 'generic' xf:group:welcome_tab
+[sFltkUIHandler_f_TabsHandler][204] parent = Welcome Page, dimensions of parent are (10,30,480,611)
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, welcome_tab TYPE xf:trigger, Recursive 0 attr 2439517184
+	 == 2 == temp = xf:group, welcome_panel 
+	 == 11 == FAILED =
+[sGenerateUIFromTree][183] Welcome Page end
+[sGenerateUIFromTree][161] Welcome Page start 'specialised' xf:group:welcome_panel
+[sGenerateUIFromTree][181] new_frame_welcome_panel start 'generic' xf:output:NULL
+[sGenerateUIFromTree][183] new_frame_welcome_panel end
+[sFltkUIHandler_f_FrameHandler][481] height = 62, after adjusting
+[sGenerateUIFromTree][163] Welcome Page end
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 2439517600
+	 == 2 == temp = xf:trigger, Personal Information 
+	 == 3 == TYPES MATCH =
+	 == 4 == ATTRIBUTE LIST IS THERE =
+	 == 5 == TEMP ATTRIBUTE LIST IS THERE = (id,tab_page_info_per)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (id,tab_page_info_per)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (appearance,minimal)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (type,tab_trigger)
+	 == 7 == MATCHED =
+	 == 8 == PERFECT MATCHED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Personal Information TYPE xf:toggle, Recursive 0 attr 0
+	 == 2 == temp = xf:toggle, NULL 
+	 == 3 == TYPES MATCH =
+	 == 9 == PERFECT MATCHED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Welcome Page TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:trigger, Personal Information 
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Personal Information TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:trigger, Projects 
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Projects TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:toggle, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:trigger, Preferences 
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Preferences TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:toggle, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:group, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:switch, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:switch, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:case, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, welcome_tab TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, welcome_panel TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:output, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:case, NULL 
+	 == 3 == TYPES MATCH =
+	 == 4 == ATTRIBUTE LIST IS THERE =
+	 == 5 == TEMP ATTRIBUTE LIST IS THERE = (id,page_info_per)
+	 == 6 == SEARCHING (id,page_info_per) PRESENT (id,page_info_per)
+	 == 7 == MATCHED =
+	 == 8 == PERFECT MATCHED =
+	 == 10 == PERFECT MATCHED =
+	 == 10 == PERFECT MATCHED =
+[sGenerateUIFromTree][181] Personal Information start 'generic' xf:group:personal_info_tab
+[sFltkUIHandler_f_TabsHandler][204] parent = Personal Information, dimensions of parent are (10,30,480,611)
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, personal_info_tab TYPE xf:trigger, Recursive 0 attr 2439517184
+	 == 2 == temp = xf:group, personal_info_panel 
+	 == 2 == temp = xf:group, login_info_panel 
+	 == 11 == FAILED =
+[sGenerateUIFromTree][183] Personal Information end
+[sGenerateUIFromTree][161] Personal Information start 'specialised' xf:group:personal_info_panel
+[sGenerateUIFromTree][181] new_frame_personal_info_panel start 'generic' xf:select1:Name Prefix:
+[sGenerateUIFromTree][183] new_frame_personal_info_panel end
+[sGenerateUIFromTree][181] new_frame_personal_info_panel start 'generic' xf:input:Enter your first name : 
+[sFltkUIHandler_f_InputHandler][325] parent = new_frame_personal_info_panel, dimensions of parent are (10,55,480,603)
+[sFltkUIHandler_f_InputHandler][329] parent = , dimensions of parent are (10,55,480,54)
+[sFltkUIHandler_f_InputHandler][334] parent = , dimensions of parent are (15,59,470,50)
+[sGenerateUIFromTree][183] new_frame_personal_info_panel end
+[sGenerateUIFromTree][181] new_frame_personal_info_panel start 'generic' xf:input:Enter your middle name : 
+[sFltkUIHandler_f_InputHandler][325] parent = new_frame_personal_info_panel, dimensions of parent are (10,55,480,603)
+[sFltkUIHandler_f_InputHandler][329] parent = , dimensions of parent are (10,109,480,54)
+[sFltkUIHandler_f_InputHandler][334] parent = , dimensions of parent are (15,113,470,50)
+[sGenerateUIFromTree][183] new_frame_personal_info_panel end
+[sGenerateUIFromTree][181] new_frame_personal_info_panel start 'generic' xf:input:Enter your last name : 
+[sFltkUIHandler_f_InputHandler][325] parent = new_frame_personal_info_panel, dimensions of parent are (10,55,480,603)
+[sFltkUIHandler_f_InputHandler][329] parent = , dimensions of parent are (10,163,480,54)
+[sFltkUIHandler_f_InputHandler][334] parent = , dimensions of parent are (15,167,470,50)
+[sGenerateUIFromTree][183] new_frame_personal_info_panel end
+[sGenerateUIFromTree][181] new_frame_personal_info_panel start 'generic' xf:input:Enter your date of birth : 
+[sFltkUIHandler_f_InputHandler][325] parent = new_frame_personal_info_panel, dimensions of parent are (10,55,480,603)
+[sFltkUIHandler_f_InputHandler][329] parent = , dimensions of parent are (10,217,480,54)
+[sFltkUIHandler_f_InputHandler][334] parent = , dimensions of parent are (15,221,470,50)
+[sGenerateUIFromTree][183] new_frame_personal_info_panel end
+[sGenerateUIFromTree][161] new_frame_personal_info_panel start 'specialised' xf:select1:Select your gender
+[sGenerateUIFromTree][163] new_frame_personal_info_panel end
+[sFltkUIHandler_f_FrameHandler][481] height = 224, after adjusting
+[sGenerateUIFromTree][163] Personal Information end
+[sGenerateUIFromTree][161] Personal Information start 'specialised' xf:group:login_info_panel
+[sGenerateUIFromTree][181] new_frame_login_info_panel start 'generic' xf:input:Prefered UserName : 
+[sFltkUIHandler_f_InputHandler][325] parent = new_frame_login_info_panel, dimensions of parent are (10,304,480,603)
+[sFltkUIHandler_f_InputHandler][329] parent = , dimensions of parent are (10,304,480,54)
+[sFltkUIHandler_f_InputHandler][334] parent = , dimensions of parent are (15,308,470,50)
+[sGenerateUIFromTree][183] new_frame_login_info_panel end
+[sGenerateUIFromTree][181] new_frame_login_info_panel start 'generic' xf:output:NULL
+[sGenerateUIFromTree][183] new_frame_login_info_panel end
+[sFltkUIHandler_f_FrameHandler][481] height = 116, after adjusting
+[sGenerateUIFromTree][163] Personal Information end
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 2439517600
+	 == 2 == temp = xf:trigger, Projects 
+	 == 3 == TYPES MATCH =
+	 == 4 == ATTRIBUTE LIST IS THERE =
+	 == 5 == TEMP ATTRIBUTE LIST IS THERE = (id,tab_page_projects)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (id,tab_page_projects)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (appearance,minimal)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (type,tab_trigger)
+	 == 7 == MATCHED =
+	 == 8 == PERFECT MATCHED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Projects TYPE xf:toggle, Recursive 0 attr 0
+	 == 2 == temp = xf:toggle, NULL 
+	 == 3 == TYPES MATCH =
+	 == 9 == PERFECT MATCHED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Welcome Page TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Personal Information TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:trigger, Projects 
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Projects TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:trigger, Preferences 
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Preferences TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:toggle, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:group, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:switch, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:switch, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:case, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, welcome_tab TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, welcome_panel TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:output, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:case, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, personal_info_tab TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, personal_info_panel TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:select1, Name Prefix: TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:choices, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:choices, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:item, Mr.  
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, Mr.  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:item, Mrs.  
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, Mrs.  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:item, Dr.  
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, Dr.  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:input, Enter your first name :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:input, Enter your middle name :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:input, Enter your last name :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:input, Enter your date of birth :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:select1, Select your gender TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:choices, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:choices, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:item, Male 
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, Male TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:item, Female 
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, Female TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:item, Not want to disclose 
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, Not want to disclose TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:trigger, DONE 
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, DONE TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, login_info_panel TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:input, Prefered UserName :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:secret, password :  
+		------------------ START ----------------------
+	 == 1 == Head = xf:secret, password :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:secret, password :  
+		------------------ START ----------------------
+	 == 1 == Head = xf:secret, password :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:output, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:case, NULL 
+	 == 3 == TYPES MATCH =
+	 == 4 == ATTRIBUTE LIST IS THERE =
+	 == 5 == TEMP ATTRIBUTE LIST IS THERE = (id,page_pref)
+	 == 6 == SEARCHING (id,page_projects) PRESENT (id,page_pref)
+		------------------ START ----------------------
+	 == 1 == Head = xf:case, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:group, preferences_tab 
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, preferences_tab TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:group, check_buttons_panel 
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, check_buttons_panel TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:select, select the newspaper you like 
+		------------------ START ----------------------
+	 == 1 == Head = xf:select, select the newspaper you like TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:choices, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:choices, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:item, newspaper-1 
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, newspaper-1 TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:item, newspaper-2 
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, newspaper-2 TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:item, newspaper-3 
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, newspaper-3 TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:item, newspaper-4 
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, newspaper-4 TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:item, newspaper-5 
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, newspaper-5 TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:group, sliders_panel 
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, sliders_panel TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:range, Rating of this site :  
+		------------------ START ----------------------
+	 == 1 == Head = xf:range, Rating of this site :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:case, NULL 
+	 == 3 == TYPES MATCH =
+	 == 4 == ATTRIBUTE LIST IS THERE =
+	 == 5 == TEMP ATTRIBUTE LIST IS THERE = (id,page_projects)
+	 == 6 == SEARCHING (id,page_projects) PRESENT (id,page_projects)
+	 == 7 == MATCHED =
+	 == 8 == PERFECT MATCHED =
+	 == 10 == PERFECT MATCHED =
+	 == 10 == PERFECT MATCHED =
+[sGenerateUIFromTree][181] Projects start 'generic' xf:group:project_info_tab
+[sFltkUIHandler_f_TabsHandler][204] parent = Projects, dimensions of parent are (10,30,480,611)
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, project_info_tab TYPE xf:trigger, Recursive 0 attr 2439517184
+	 == 2 == temp = xf:group, project_info_panel 
+	 == 2 == temp = xf:group, new_project_panel 
+	 == 11 == FAILED =
+[sGenerateUIFromTree][183] Projects end
+[sGenerateUIFromTree][161] Projects start 'specialised' xf:group:project_info_panel
+[sGenerateUIFromTree][181] new_frame_project_info_panel start 'generic' xf:output:NULL
+[sGenerateUIFromTree][183] new_frame_project_info_panel end
+[sGenerateUIFromTree][181] new_frame_project_info_panel start 'generic' xf:output:NULL
+[sGenerateUIFromTree][183] new_frame_project_info_panel end
+[sGenerateUIFromTree][181] new_frame_project_info_panel start 'generic' xf:output:NULL
+[sGenerateUIFromTree][183] new_frame_project_info_panel end
+[sGenerateUIFromTree][181] new_frame_project_info_panel start 'generic' xf:output:NULL
+[sGenerateUIFromTree][183] new_frame_project_info_panel end
+[sFltkUIHandler_f_FrameHandler][481] height = 224, after adjusting
+[sGenerateUIFromTree][163] Projects end
+[sGenerateUIFromTree][161] Projects start 'specialised' xf:group:new_project_panel
+[sGenerateUIFromTree][181] new_frame_new_project_panel start 'generic' xf:input:Enter start date of your project : 
+[sFltkUIHandler_f_InputHandler][325] parent = new_frame_new_project_panel, dimensions of parent are (10,304,480,603)
+[sFltkUIHandler_f_InputHandler][329] parent = , dimensions of parent are (10,304,480,54)
+[sFltkUIHandler_f_InputHandler][334] parent = , dimensions of parent are (15,308,470,50)
+[sGenerateUIFromTree][183] new_frame_new_project_panel end
+[sGenerateUIFromTree][181] new_frame_new_project_panel start 'generic' xf:input:Enter end date of your project : 
+[sFltkUIHandler_f_InputHandler][325] parent = new_frame_new_project_panel, dimensions of parent are (10,304,480,603)
+[sFltkUIHandler_f_InputHandler][329] parent = , dimensions of parent are (10,358,480,54)
+[sFltkUIHandler_f_InputHandler][334] parent = , dimensions of parent are (15,362,470,50)
+[sGenerateUIFromTree][183] new_frame_new_project_panel end
+[sGenerateUIFromTree][181] new_frame_new_project_panel start 'generic' xf:input:key skills : 
+[sFltkUIHandler_f_InputHandler][325] parent = new_frame_new_project_panel, dimensions of parent are (10,304,480,603)
+[sFltkUIHandler_f_InputHandler][329] parent = , dimensions of parent are (10,412,480,54)
+[sFltkUIHandler_f_InputHandler][334] parent = , dimensions of parent are (15,416,470,50)
+[sGenerateUIFromTree][183] new_frame_new_project_panel end
+[sFltkUIHandler_f_FrameHandler][481] height = 170, after adjusting
+[sGenerateUIFromTree][163] Projects end
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 2439517600
+	 == 2 == temp = xf:trigger, Preferences 
+	 == 3 == TYPES MATCH =
+	 == 4 == ATTRIBUTE LIST IS THERE =
+	 == 5 == TEMP ATTRIBUTE LIST IS THERE = (id,tab_page_pref)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (id,tab_page_pref)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (appearance,minimal)
+	 == 6 == SEARCHING (type,tab_trigger) PRESENT (type,tab_trigger)
+	 == 7 == MATCHED =
+	 == 8 == PERFECT MATCHED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Preferences TYPE xf:toggle, Recursive 0 attr 0
+	 == 2 == temp = xf:toggle, NULL 
+	 == 3 == TYPES MATCH =
+	 == 9 == PERFECT MATCHED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Welcome Page TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Personal Information TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Projects TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:trigger, Preferences 
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, Preferences TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:toggle, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:group, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:switch, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:switch, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:case, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, welcome_tab TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, welcome_panel TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:output, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:case, NULL TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, personal_info_tab TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, personal_info_panel TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:select1, Name Prefix: TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:choices, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:choices, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:item, Mr.  
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, Mr.  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:item, Mrs.  
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, Mrs.  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:item, Dr.  
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, Dr.  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:input, Enter your first name :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:input, Enter your middle name :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:input, Enter your last name :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:input, Enter your date of birth :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:select1, Select your gender TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:choices, NULL 
+		------------------ START ----------------------
+	 == 1 == Head = xf:choices, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 2 == temp = xf:item, Male 
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, Male TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:item, Female 
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, Female TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:item, Not want to disclose 
+		------------------ START ----------------------
+	 == 1 == Head = xf:item, Not want to disclose TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:trigger, DONE 
+		------------------ START ----------------------
+	 == 1 == Head = xf:trigger, DONE TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, login_info_panel TYPE xf:case, Recursive 1 attr 2439517648
+		------------------ START ----------------------
+	 == 1 == Head = xf:input, Prefered UserName :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:secret, password :  
+		------------------ START ----------------------
+	 == 1 == Head = xf:secret, password :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 2 == temp = xf:secret, password :  
+		------------------ START ----------------------
+	 == 1 == Head = xf:secret, password :  TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+		------------------ START ----------------------
+	 == 1 == Head = xf:output, NULL TYPE xf:case, Recursive 1 attr 2439517648
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 11 == FAILED =
+	 == 2 == temp = xf:case, NULL 
+	 == 3 == TYPES MATCH =
+	 == 4 == ATTRIBUTE LIST IS THERE =
+	 == 5 == TEMP ATTRIBUTE LIST IS THERE = (id,page_pref)
+	 == 6 == SEARCHING (id,page_pref) PRESENT (id,page_pref)
+	 == 7 == MATCHED =
+	 == 8 == PERFECT MATCHED =
+	 == 10 == PERFECT MATCHED =
+	 == 10 == PERFECT MATCHED =
+[sGenerateUIFromTree][181] Preferences start 'generic' xf:group:preferences_tab
+[sFltkUIHandler_f_TabsHandler][204] parent = Preferences, dimensions of parent are (10,30,480,611)
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, preferences_tab TYPE xf:trigger, Recursive 0 attr 2439517184
+	 == 2 == temp = xf:group, check_buttons_panel 
+	 == 2 == temp = xf:group, sliders_panel 
+	 == 11 == FAILED =
+[sGenerateUIFromTree][183] Preferences end
+[sGenerateUIFromTree][161] Preferences start 'specialised' xf:group:check_buttons_panel
+[sGenerateUIFromTree][161] new_frame_check_buttons_panel start 'specialised' xf:select:select the newspaper you like
+[sGenerateUIFromTree][163] new_frame_check_buttons_panel end
+[sFltkUIHandler_f_FrameHandler][481] height = 8, after adjusting
+[sGenerateUIFromTree][163] Preferences end
+[sGenerateUIFromTree][161] Preferences start 'specialised' xf:group:sliders_panel
+[sFltkUIHandler_f_FrameHandler][481] height = 8, after adjusting
+[sGenerateUIFromTree][163] Preferences end
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 2439517600
+	 == 11 == FAILED =
+[sGenerateUIFromTree][183] scroll_pack end
+[sGenerateUIFromTree][181] scroll_pack start 'generic' xf:group:NULL
+[sFltkUIHandler_f_TabsHandler][204] parent = scroll_pack, dimensions of parent are (10,5,480,640)
+		------------------ START ----------------------
+	 == 1 == Head = xf:group, NULL TYPE xf:trigger, Recursive 0 attr 2439517600
+	 == 2 == temp = xf:switch, NULL 
+	 == 11 == FAILED =
+[sGenerateUIFromTree][183] scroll_pack end

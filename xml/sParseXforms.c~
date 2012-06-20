@@ -44,8 +44,8 @@ sXformsNode * ParseXformsToTree(const char * xforms){
 		error = 1;
 	}
 	//sPrintsXformsTree(head);
-	xmlXPathObjectPtr result = sGetXpathObjectPtr((),doc);
-	fprintf(stdout,"======/// %d ///=======",result->nodesetval->nodeNr);
+	//xmlXPathObjectPtr result = sGetXpathObjectPtr((),doc);
+	//fprintf(stdout,"======/// %d ///=======",result->nodesetval->nodeNr);
 	return head;
 }
 

@@ -176,7 +176,7 @@
 
 					</xf:group>
 					<xf:group  type="frame">
-						<xf:label>personal_info_login_panel</xf:label>
+						<xf:label>login_info_panel</xf:label>
 						<br />
 						<xf:input id="username" ref="instance('app_personal_login')/username" incremental="true">
 								<xf:label>Prefered UserName : </xf:label>
@@ -198,10 +198,9 @@
 			</xf:case>
 			<xf:case id="page_pref" >
 				<xf:group>
+				<xf:label>preferences_tab</xf:label>
 					<xf:group id="check_buttons"  type="frame">
-						<xf:label>
-							check buttons allow you to select more than 1 item at a time
-						</xf:label>
+						<xf:label>check_buttons_panel</xf:label>
 						<br />
 
 						<xf:select appearance="full">
@@ -235,9 +234,7 @@
 						</xf:select>
 					</xf:group>
 					<xf:group id="sliders"  type="frame">
-							<xf:label>
-								sliders are used to range values
-							</xf:label>
+							<xf:label>sliders_panel</xf:label>
 							<br />
 
 							<xf:range  start="1" end="10" step="1" ref="instance('pref')/slider_val" incremental="true">
@@ -248,7 +245,9 @@
 			</xf:case>
 			<xf:case id="page_projects">
 				<xf:group>
+				<xf:label>project_info_tab</xf:label>
 					<xf:group  type="frame">
+					<xf:label>project_info_panel</xf:label>
 							<xf:repeat nodeset="instance('project_info')/project" id="list">
 								<xf:output ref="StartDate"></xf:output>
 								<xf:output ref="EndDate"></xf:output>
@@ -257,6 +256,7 @@
 							</xf:repeat>
 					</xf:group>
 					<xf:group id="page_projects_insert" type="frame">
+						<xf:label>new_project_panel</xf:label>
 							<xf:input ref="instance('project_info')/NewProject/StartDate" incremental="true">
 								<xf:label >Enter start date of your project : </xf:label>
 

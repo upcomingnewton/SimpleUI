@@ -34,7 +34,7 @@ void usage(int argc, char ** argv)
 
 void callback_done( Fl_Widget * w, void * )
 {
-  	//w->window->hide();
+  w->window()->hide();
 }
 
 int main ( int argc , char **argv )

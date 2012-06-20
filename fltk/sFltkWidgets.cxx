@@ -479,7 +479,7 @@ int sFltkUIHandler_f_FrameHandler(sXformsNode *head,int x, int y, int w, int h){
 		height += 2*VER_SEP;
 		new_frame->size(new_frame->w(),height);
 		WriteLog(stdout,"\n[%s][%d] height = %d, after adjusting",__func__,__LINE__,height);
-		//new_frame->box(FL_BORDER_BOX);
+		new_frame->box(FL_BORDER_BOX);
 		return new_frame->h();
 	}else{
 		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);

@@ -7,7 +7,8 @@
 #include <libxml/xpathInternals.h>
 
 //struct sXformsNode *ParseXformsToTree(const char * xforms){
-
+void print_xpath_nodes(xmlNodeSetPtr nodes, FILE* output);
+char *getInstanceXpath(sXformsNodeAttr *attr,xmlDocPtr doc);
 int x = 0;
 
 sXformsNode * ParseXformsToTree(const char * xforms){
@@ -32,7 +33,7 @@ sXformsNode * ParseXformsToTree(const char * xforms){
 		if( head != 0 ){ 
 			head->name = sAppendString(head->name,(char *)"head");
 			// start exploring the tree
-			sParseNodesAndMakeTree(cur,&head,head);
+			sParseNodesAndMakeTree(cur,&head,head,doc);
 		}
 		else{
 			//fprintf(stdout,"\ncould not allocate memory for head");
@@ -45,11 +46,11 @@ sXformsNode * ParseXformsToTree(const char * xforms){
 	}
 	sPrintsXformsTree(head);
 	//xmlXPathObjectPtr result = sGetXpathObjectPtr((),doc);
-	//fprintf(stdout,"======/// %d ///=======",result->nodesetval->nodeNr);
+	//fprintf(stdout,"======/// %s ///=======",sGetXpathValue("/xmlns:html/xmlns:head/xf:model/xf:instance[@id='app_personal_info']/app_personal_info/prefix",doc));
 	return head;
 }
 
-void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head)
+void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head, xmlDocPtr doc)
 {
 	char *type = (char *)0;
 	char *tempc = 0;
@@ -86,15 +87,21 @@ void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head
 			//temp->next = (sXformsNode *)0; //TODO
 			//3. make an attributes list
 			if( cur->properties){
-				temp->attr = MakeAttributesList(cur);
+				temp->attr = MakeAttributesList(cur,doc);
 			}
 			//4. mark this node as visited
 			cur->extra = 4;
-			
-		}
-	sParseNodesAndMakeTree(cur->children,&temp, head);
+			if ( !strcmp("xf:model",type))
+				makemodel(cur,&temp,1);
+	}
+	sParseNodesAndMakeTree(cur->children,&temp, head,doc);
 	cur = cur->next;
 	}
+}
+
+void makemodel(xmlNodePtr cur,sXformsNode **par, int pos){
+	fprintf(stdout,"\n");
+	
 }
 
 void sAdjustPointersForLinkedList(sXformsNode **par, sXformsNode **child)
@@ -143,7 +150,7 @@ char * sGetValueFromChildren(xmlNodePtr cur, char *nodeToSearch)
 	return (char *)"NULL";
 }
 
-sXformsNodeAttr * MakeAttributesList(xmlNodePtr cur){
+sXformsNodeAttr * MakeAttributesList(xmlNodePtr cur,xmlDocPtr doc ){
 	if( cur-> properties){
 		sXformsNodeAttr *head = (sXformsNodeAttr *)0;
 		xmlAttr *attr = cur->properties;
@@ -170,8 +177,18 @@ sXformsNodeAttr * MakeAttributesList(xmlNodePtr cur){
 				prev->next = temp;
 				temp->prev = prev;
 			}
+			if( !strcmp(temp->attrName,"ref")){
+				temp->meta_info = sAppendString(temp->meta_info,sGetXpathFromRefAttr(temp,doc));
+				xmlNodeSetPtr  xfinstance = sGetXpathValue(temp->meta_info,doc);
+				temp->private_data = sAppendString(temp->private_data, EvalNodeSetPtrForInstannce(xfinstance));
+				fprintf(stdout,"\n%s : %s",temp->meta_info,temp->private_data);
+			}
+			if( !strcmp(temp->attrName,"nodeset")){
+				temp->meta_info = sGetXpathFromNodeSetAttr(temp);
+			}
 			attr = attr->next;
 		}
+		//sPrintsXformsAttrList(head);
 		return head;
 	}else{
 		return (sXformsNodeAttr *)0;
@@ -232,6 +249,8 @@ char * sAppendString( char *src, char *text)
 	return temp;
 }
 
+
+
 // returns ns + ":" + name
 char * sXmlNodeName(xmlNodePtr cur)
 {
@@ -256,105 +275,211 @@ char * sXmlNodeName(xmlNodePtr cur)
 }
 
 
-const char * sGetXpathValue(char *reference, xmlDocPtr doc){
+xmlXPathContextPtr sGetXpathEvalContext(xmlDocPtr doc)
+{
 	xmlXPathContextPtr context = xmlXPathNewContext( doc );
 	char *ref;
 	char *url;
 	int error = 0;
+	ref = "xmlns";
+	url = "http://www.w3.org/1999/xhtml";
+	error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
+	if(error){
+		printf("Could not register %s=%s\n", ref, url);
+		return context;
+	}
+	ref = "xf";
+	url = "http://www.w3.org/2002/xforms";
+	error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
+	if(error){
+		printf("Could not register %s=%s\n", ref, url);
+		return context;
+	}
+	ref = "ev";
+	url = "http://www.w3.org/2001/xml-events";
+	error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
+	if(error){
+		printf("Could not register %s=%s\n", ref, url);
+		return context;
+	}
+	ref = "xsd";
+	url = "http://www.w3.org/2001/XMLSchema";
+	error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
+	if(error){
+		printf("Could not register %s=%s\n", ref, url);
+		return context;
+	}
+	return context;
+}
+
+xmlNodeSetPtr sGetXpathValue(char *reference, xmlDocPtr doc){
+	xmlXPathContextPtr context;  
 	xmlXPathObjectPtr result = 0;
-	const char * text = 0;
+	char * text = 0;
   if( reference )
   {
-    ref = "xmlns";
-    url = "http://www.w3.org/1999/xhtml";
-    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
-    if(error)
-      printf("Could not register %s=%s\n", ref, url);
-    ref = "xf";
-    url = "http://www.w3.org/2002/xforms";
-    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
-    if(error)
-      printf("Could not register %s=%s\n", ref, url);
-    ref = "ev";
-    url = "http://www.w3.org/2001/xml-events";
-    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
-    if(error)
-      printf("Could not register %s=%s\n", ref, url);
-      
-      
-    ref = "xsd";
-    url = "http://www.w3.org/2001/XMLSchema";
-    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
-    if(error)
-      printf("Could not register %s=%s\n", ref, url);
+	context = sGetXpathEvalContext(doc);
+	result = xmlXPathEvalExpression( (xmlChar*)reference, context );
+	if( result !=  NULL)
+	{
+		return result->nodesetval;
+	}
+	else return (xmlNodeSetPtr)0;
+  }
+  else return (xmlNodeSetPtr)0;
+}
     
+char * EvalNodeSetPtrForInstannce(xmlNodeSetPtr nodeset){
+	xmlNodePtr cur;
+	int numChild = nodeset ? nodeset->nodeNr : 0;
+	//fprintf(stdout,"\n[%s][%d] ENTERED == %d ==",__func__,__LINE__,numChild);
+	if( numChild == 1){
+		//fprintf(stdout,"\n[%s][%d] %d : %s",__func__,__LINE__,nodeset->nodeTab[0]->type,"name");
+		return (char *)nodeset->nodeTab[0]->children->content;
+		//cur = cur->children;
+		//return (char *)nodeset->nodeTab[0]->children->content;
+		//fprintf(stdout,"\n[%s][%d] %d : %s",__func__,__LINE__,cur->type,cur->content);
+	}
+	else{
+		return (char *)"-1";
+	}
+	//fprintf(stdout,"\n[%s][%d]",__func__,__LINE__);
+	//fprintf(stdout,"\n[%s][%d] EXITING",__func__,__LINE__);
+	return "Null";
+}
+
     
     /* add the static part */
     //sprintf( xpath, "/xmlns:html/xmlns:head/xf:model/xf:instance" );
 
-    //STRING_ADD( xpath, reference );
-    char *ref1 = "/xmlns:html/xmlns:head/xf:model/xf:instance";
-    ref1 = sAppendString(ref1,reference);
-	result = xmlXPathEvalExpression( (xmlChar*)ref1, context );
-    if( result && !xmlXPathNodeSetIsEmpty( result->nodesetval ) &&
-        result->nodesetval &&
-        result->nodesetval->nodeTab && result->nodesetval->nodeTab[0] &&
-        result->nodesetval->nodeTab[0]->children &&
-        strcmp((char*)result->nodesetval->nodeTab[0]->children->name, "text") == 0 &&
-        result->nodesetval->nodeTab[0]->children->content)
-      text = (char*)result->nodesetval->nodeTab[0]->children->content;
-    else
-      printf( "No result with %s\n", reference);
+/*    STRING_ADD( xpath, reference );*/
+/*    char *ref1 = "/xmlns:html/xmlns:head/xf:model/xf:instance";*/
+/*    ref1 = sAppendString(ref1,reference);*/
+/*    char *ref1 = "/xmlns:html/xmlns:head/xf:model/xf:instance[@id='app_personal_login']/loginform/username";*/
+/*	*/
+/*	*/
+/*	print_xpath_nodes(result->nodesetval,stdout);*/
+/*    if( result && !xmlXPathNodeSetIsEmpty( result->nodesetval ) &&*/
+/*        result->nodesetval &&*/
+/*        result->nodesetval->nodeTab && result->nodesetval->nodeTab[0] &&*/
+/*        result->nodesetval->nodeTab[0]->children &&*/
+/*        strcmp((char*)result->nodesetval->nodeTab[0]->children->name, "text") == 0 &&*/
+/*        result->nodesetval->nodeTab[0]->children->content)*/
+/*      text = (char*)result->nodesetval->nodeTab[0]->children->content;*/
+/*    else*/
+/*      printf( "\nNo result with %s", reference);*/
 
-    xmlXPathFreeObject( result );
-    xmlXPathFreeContext( context );
-  }
-  return text;
+/*    xmlXPathFreeObject( result );*/
+/*    xmlXPathFreeContext( context );*/
+/*  }*/
+/*  return text;*/
+/*}*/
+
+
+
+char *sGetXpathFromRefAttr(sXformsNodeAttr *attr,xmlDocPtr doc){
+	char *xpath = "";
+	if( !strcmp("ref",attr->attrName)){
+		
+		char *statref = "/xmlns:html/xmlns:head/xf:model/xf:instance";
+		xpath = sAppendString(xpath,statref);
+		if( CompareFirstNChars(attr->attrValue,0,"instance",0,strlen("instance")) == 1){
+			xpath = getInstanceXpath(attr,doc);
+		}
+		char *p = strchr(attr->attrValue,'/');
+		xpath = sAppendString(xpath,p);
+		//fprintf(stdout,"\n[%s][%d]\t %s",__func__,__LINE__,xpath);
+	}
+	
+	return xpath;
+}
+
+char *getInstanceXpath(sXformsNodeAttr *attr,xmlDocPtr doc){
+			int i1 = 0, i2 = 0, firstocc = 0, vallen = 0;
+			char *statxpath = "/xmlns:html/xmlns:head/xf:model/xf:instance";
+			vallen = strlen(attr->attrValue) + 1;
+			char *dupval = (char *)malloc(vallen*sizeof(char));
+			strcpy(dupval,attr->attrValue);
+			for( i1 = 0; dupval[i1] != '\'';i1++);
+			i1++;firstocc = i1;
+			for( i2 = 0; dupval[i1] != '\'';i1++, i2++);
+			char *id = "[@id=\'";// + enterid here + "\']";
+			char *idval = (char *)malloc(sizeof(char)*(i2+1));
+			for(i1 = 0; i1 < i2; i1++,firstocc++){
+				idval[i1] = dupval[firstocc];
+			}
+			idval[i1] = '\0';
+			id = sAppendString(id,idval);
+			id = sAppendString(id,"\']/data");
+			statxpath = sAppendString(statxpath,id);
+			//fprintf(stdout,"\n[%s][%d] %s",__func__,__LINE__,statxpath);
+			return statxpath;
+			//xmlNodeSetPtr  xfinstance = sGetXpathValue(statxpath,doc);
+			//EvalNodeSetPtrForInstannce(xfinstance);
+}
+
+char *sGetXpathFromNodeSetAttr(sXformsNodeAttr *attr){
+	char *xpath = "";
+/*	if( !strcmp("nodeset",attr->attrName)){*/
+/*		char *xpath = "";*/
+/*		char *statref = "/xmlns:html/xmlns:head/xf:model/xf:instance";*/
+/*		xpath = sAppendString(xpath,statref);*/
+/*		*/
+/*		fprintf(stdout,"\n[%s][%d] %s\t %s",__func__,__LINE__,attr->attrValue,xpath);*/
+/*	}*/
+	
+	return xpath;
 }
 
 
-xmlXPathObjectPtr  sGetXpathObjectPtr(char *reference, xmlDocPtr doc){
-	xmlXPathContextPtr context = xmlXPathNewContext( doc );
-	char *ref;
-	char *url;
-	int error = 0;
-	xmlXPathObjectPtr result = 0;
-	const char * text = 0;
-  if( reference )
-  {
-    ref = "xmlns";
-    url = "http://www.w3.org/1999/xhtml";
-    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
-    if(error)
-      printf("Could not register %s=%s\n", ref, url);
-    ref = "xf";
-    url = "http://www.w3.org/2002/xforms";
-    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
-    if(error)
-      printf("Could not register %s=%s\n", ref, url);
-    ref = "ev";
-    url = "http://www.w3.org/2001/xml-events";
-    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
-    if(error)
-      printf("Could not register %s=%s\n", ref, url);
-      
-      
-    ref = "xsd";
-    url = "http://www.w3.org/2001/XMLSchema";
-    error = xmlXPathRegisterNs( context, (xmlChar*)ref, (xmlChar*)url);
-    if(error)
-      printf("Could not register %s=%s\n", ref, url);
-    
-    
-    /* add the static part */
-    //sprintf( xpath, "/xmlns:html/xmlns:head/xf:model/xf:instance" );
-
-    //STRING_ADD( xpath, reference );
-    char *ref1 = "/xmlns:html/xmlns:head/xf:model/xf:instance";
-    ref1 = sAppendString(ref1,reference);
-	result = xmlXPathEvalExpression( (xmlChar*)ref1, context );
-
-    xmlXPathFreeContext( context );
-  }
-  return result;
+int CompareFirstNChars(char *src1, int start1, char *src2, int start2, int n){
+	int i = 0;
+	for( int x = 0; x < n; x++){
+		if(src1[x + start1] != src2[x + start2]){
+			return -1;
+		}
+	}
+	return 1;
 }
+
+void
+print_xpath_nodes(xmlNodeSetPtr nodes, FILE* output) {
+    xmlNodePtr cur;
+    int size;
+    int i;
+    
+    //assert(output);
+    size = (nodes) ? nodes->nodeNr : 0;
+    
+    fprintf(output, "Result (%d nodes):\n", size);
+    for(i = 0; i < size; ++i) {
+	//assert(nodes->nodeTab[i]);
+	
+	if(nodes->nodeTab[i]->type == XML_NAMESPACE_DECL) {
+	    xmlNsPtr ns;
+	    
+	    ns = (xmlNsPtr)nodes->nodeTab[i];
+	    cur = (xmlNodePtr)ns->next;
+	    if(cur->ns) { 
+	        fprintf(output, "= namespace \"%s\"=\"%s\" for node %s:%s\n", 
+		    ns->prefix, ns->href, cur->ns->href, cur->name);
+	    } else {
+	        fprintf(output, "= namespace \"%s\"=\"%s\" for node %s\n", 
+		    ns->prefix, ns->href, cur->name);
+	    }
+	} else if(nodes->nodeTab[i]->type == XML_ELEMENT_NODE) {
+	    cur = nodes->nodeTab[i];   	    
+	    if(cur->ns) { 
+    	        fprintf(output, "= element node \"%s:%s\"\n", 
+		    cur->ns->href, cur->name);
+	    } else {
+    	        fprintf(output, "= element node \"%s\"\n", 
+		    cur->name);
+	    }
+	} else {
+	    cur = nodes->nodeTab[i];    
+	    fprintf(output, "= node \"%s\": type %d\n", cur->name, cur->type);
+	}
+    }
+}
+

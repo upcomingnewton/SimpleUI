@@ -9,25 +9,33 @@
 		<link rel="stylesheet" type="text/css" href="file1.css" ></link>
 		<xf:model>
 			<xf:instance id="app_personal_info" xmlns="">
-				<data>
-					<fname >Default Value</fname>
+				<app_personal_info-1>
+					<fname>Default Value</fname>
 					<mname>NULL</mname>
-					<lname >null</lname>
+					<lname>NULL</lname>
 					<prefix>Sir</prefix>
-					<dob >0</dob>
+					<dob>0</dob>
 					<gender>male</gender>
-				</data>
+				</app_personal_info-1>
+				<app_personal_info>
+					<fname>Default Value</fname>
+					<mname>NULL</mname>
+					<lname>NULL</lname>
+					<prefix>Sir</prefix>
+					<dob>0</dob>
+					<gender>male</gender>
+				</app_personal_info>
 			</xf:instance>
 		
-			<xf:instance id="app_personal_login"  xmlns=""> 
-				<data>
+			<xf:instance id="app_personal_login"> 
+				<loginform xmlns="">
 					<username>nitin</username>
-					<password>null</password>
-				</data>
+					<password></password>
+				</loginform>
 			</xf:instance>
 		
-			<xf:instance id="project_info"  xmlns="">
-				<data>
+			<xf:instance id="project_info">
+				<Data xmlns="">
 						<project>
 								<StartDate>2012-04-01</StartDate>
 								<EndDate>2012-04-02</EndDate>
@@ -47,17 +55,17 @@
 								<Desc>desc-3</Desc>
 						</project>
 						<NewProject>
-								<StartDate>0</StartDate>
-								<EndDate>0</EndDate>
-								<KeySkills>0</KeySkills>
-								<Desc>0</Desc>
+								<StartDate></StartDate>
+								<EndDate></EndDate>
+								<KeySkills></KeySkills>
+								<Desc></Desc>
 						</NewProject>
-				</data>
+				</Data>
 			</xf:instance>
 		
-			<xf:instance id="pref" xmlns="">
-				<data>
-					<slider_val>0</slider_val>
+			<xf:instance id="pref">
+				<data xmlns="">
+					<slider_val></slider_val>
 				</data>
 			</xf:instance>
 		<!--
@@ -117,7 +125,7 @@
 					<!--  user name preferences -->
 					<xf:group  type="frame">
 						<xf:label>personal_info_panel</xf:label>
-						<xf:select1 ref="instance('app_personal_info')/prefix" selection="open">
+						<xf:select1 ref="/html/head/xf:model/xf:instance[@id='app_personal_info']/app_personal_info/prefix" selection="open">
 							<xf:label>Name Prefix:</xf:label>
 							<xf:choices>
 								<xf:item>

@@ -21,7 +21,7 @@
 //	#include <FL/Fl_Color.H>
 	
 	#include "../xml/sXml.h"
-#define EnableLog
+//#define EnableLog
 #ifdef EnableLog
 #define WriteLog fprintf
 #else

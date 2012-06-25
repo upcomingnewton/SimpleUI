@@ -239,3 +239,20 @@ void * getAttrValueFromList(sXformsNode *node,char *name){
 	}
 	return (void *)0;
 }
+
+
+sXformsNodeAttr * getAttrFromList(sXformsNode *node,char *name){
+	if( node == 0){
+		return (sXformsNodeAttr *)0;
+	}
+	if( node->attr == 0){
+		return (sXformsNodeAttr *)0;
+	}
+	sXformsNodeAttr *attr;
+	for( attr = node->attr; attr;attr = attr->next){
+		if( !strcmp(attr->attrName,name)){
+			return attr;
+		}
+	}
+	return (sXformsNodeAttr *)0;
+}

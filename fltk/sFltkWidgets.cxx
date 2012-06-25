@@ -287,54 +287,60 @@ int CalculateYPosition(Fl_Group *p){
 /* ========================================================================================== */
 
 int sFltkUIHandler_f_Select1Handler(sXformsNode *head,int x, int y, int w, int h){
-//	Fl_Group *parent = Fl_Group::current();
-//	head->meta_info = (char *)"1";
-//	if(!parent){
-//		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
-//		return -1;
-//	}
-//	else{
-//		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,parent->label(),parent->x(),parent->y(),parent->w(),parent->h());
-//		parent->begin();
-//		Fl_Group *dropdowngroup = new Fl_Group(parent->x() + HOR_SEP, parent->y() + CalculateYPosition(parent) + VER_SEP , w - 2*HOR_SEP, ROW_HEIGHT + 2*VER_SEP,"dropdowngroup");
-//		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,dropdowngroup->label(),dropdowngroup->x(),dropdowngroup->y(),dropdowngroup->w(),dropdowngroup->h());
-//		dropdowngroup->color(FL_RED);
-//		dropdowngroup->box(FL_BORDER_BOX);
-//		dropdowngroup->begin();
-//				Fl_Choice  *f = new Fl_Choice(dropdowngroup->x() + HOR_SEP,dropdowngroup->y() + VER_SEP,dropdowngroup->w() - 2*HOR_SEP,ROW_HEIGHT,head->name);
-//				// parse children here
-//				sXformsNode *xfitem = SearchSubTreeForNodes(head,(char *)"xf:item",(sXformsNodeAttr *)0,1,0);
-//				while(xfitem){
-//					// add item to drop downs
-//					f->add(xfitem->name);
-//					xfitem->meta_info = (char *)"1";
-//					xfitem = SearchSubTreeForNodes(head,(char *)"xf:item",(sXformsNodeAttr *)0,1,0);
-//				}
-//		dropdowngroup->end();
-//		return dropdowngroup->h();
-//	}
-}
-
-int sFltkUIHandler_f_InputHandler(sXformsNode *head,int x, int y, int w, int h){
 	Fl_Group *parent = Fl_Group::current();
 	head->meta_info = (char *)"1";
 	if(!parent){
 		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
+		return -1;
 	}
 	else{
 		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,parent->label(),parent->x(),parent->y(),parent->w(),parent->h());
-		//char *s = "inputgroup_";
-		//s = sAppendString(s,head->name);
-		Fl_Group *inputgroup = new Fl_Group(parent->x(),parent->y() + CalculateYPosition(parent) ,parent->w(),(2*ROW_HEIGHT + 1*VER_SEP),"");
-		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,inputgroup->label(),inputgroup->x(),inputgroup->y(),inputgroup->w(),inputgroup->h());
-		inputgroup->box(FL_BORDER_BOX);
-		inputgroup->begin();
-		Fl_Input  *f = new Fl_Input(inputgroup->x() + HOR_SEP,inputgroup->y() + VER_SEP,inputgroup->w() - 2*HOR_SEP,2*ROW_HEIGHT,"");
-		//Fl_Input  *f = new Fl_Input(parent->x() + HOR_SEP,parent->y() + VER_SEP,parent->w() - 2*HOR_SEP,ROW_HEIGHT,head->name);
-		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,f->label(),f->x(),f->y(),f->w(),f->h());
-		inputgroup->end();
-		return inputgroup->h();
+		parent->begin();
+		Fl_Group *dropdowngroup = new Fl_Group(parent->x() + HOR_SEP, parent->y() + CalculateYPosition(parent) + VER_SEP , w - 2*HOR_SEP, ROW_HEIGHT + 2*VER_SEP,"dropdowngroup");
+		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,dropdowngroup->label(),dropdowngroup->x(),dropdowngroup->y(),dropdowngroup->w(),dropdowngroup->h());
+		dropdowngroup->color(FL_RED);
+		dropdowngroup->box(FL_BORDER_BOX);
+		dropdowngroup->begin();
+				Fl_Choice  *f = new Fl_Choice(dropdowngroup->x() + HOR_SEP,dropdowngroup->y() + VER_SEP,dropdowngroup->w() - 2*HOR_SEP,ROW_HEIGHT,head->name);
+				// parse children here
+				sXformsNodeAttr *ref = getAttrFromList(head,"ref");
+				CallbackData *data = (CallbackData *)malloc(sizeof(CallbackData));
+				data->ref = ref->meta_info;
+				data->initial_val = ref->private_data;
+				data->val = ref->attrValue;
+				f->callback(Select1Handler,data);
+				sXformsNode *xfitem = SearchSubTreeForNodes(head,(char *)"xf:item",(sXformsNodeAttr *)0,1,0);
+				while(xfitem){
+					// add item to drop downs
+					f->add(xfitem->name);
+					xfitem->meta_info = (char *)"1";
+					xfitem = SearchSubTreeForNodes(head,(char *)"xf:item",(sXformsNodeAttr *)0,1,0);
+				}
+		dropdowngroup->end();
+		return dropdowngroup->h();
 	}
+}
+
+int sFltkUIHandler_f_InputHandler(sXformsNode *head,int x, int y, int w, int h){
+	Fl_Group *parent = Fl_Group::current();
+//	head->meta_info = (char *)"1";
+//	if(!parent){
+//		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
+//	}
+//	else{
+//		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,parent->label(),parent->x(),parent->y(),parent->w(),parent->h());
+//		//char *s = "inputgroup_";
+//		//s = sAppendString(s,head->name);
+//		Fl_Group *inputgroup = new Fl_Group(parent->x(),parent->y() + CalculateYPosition(parent) ,parent->w(),(2*ROW_HEIGHT + 1*VER_SEP),"");
+//		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,inputgroup->label(),inputgroup->x(),inputgroup->y(),inputgroup->w(),inputgroup->h());
+//		inputgroup->box(FL_BORDER_BOX);
+//		inputgroup->begin();
+//		Fl_Input  *f = new Fl_Input(inputgroup->x() + HOR_SEP,inputgroup->y() + VER_SEP,inputgroup->w() - 2*HOR_SEP,2*ROW_HEIGHT,"");
+//		//Fl_Input  *f = new Fl_Input(parent->x() + HOR_SEP,parent->y() + VER_SEP,parent->w() - 2*HOR_SEP,ROW_HEIGHT,head->name);
+//		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,f->label(),f->x(),f->y(),f->w(),f->h());
+//		inputgroup->end();
+//		return inputgroup->h();
+//	}
 	return 0;
 }
 

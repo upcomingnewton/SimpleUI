@@ -10,6 +10,16 @@ struct sFltkDimensions{
 	int h;
 };
 
+
+struct cb_data
+{
+	char *ref;
+	char *initial_val;
+	char *val;
+};
+
+typedef struct cb_data CallbackData;
+
 typedef int  (*sFltkUIHandler_f) (
 	sXformsNode * head,
 	int x, 
@@ -57,4 +67,9 @@ int sFltkUIHandler_f_FrameHandler(sXformsNode *head,int x, int y, int w, int h);
 int  sFltkUIHandler_f_ListItems(sXformsNode *head,int x, int y, int w, int h);
 int sFltkUIHandler_f_LabelHandler(sXformsNode *head,int x, int y, int w, int h);
 void PrintWidgetDimensions(Fl_Widget *w);
+
+sXformsNodeAttr * getAttrFromList(sXformsNode *node,char *name);
+
+
+void Select1Handler(Fl_Widget *widget, void *data);
 #endif

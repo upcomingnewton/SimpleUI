@@ -24,7 +24,7 @@ int main( int    argc,char **argv )
     }
 
     /* Get main window pointer from UI */
-    window = GTK_WIDGET( gtk_builder_get_object( builder, "SimpleUI_Sample" ) );
+    window = GTK_WIDGET( gtk_builder_get_object( builder, "Window_SampleUI" ) );
 
     gtk_builder_connect_signals( builder, NULL );
 

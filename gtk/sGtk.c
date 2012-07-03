@@ -2,19 +2,14 @@
 
 /*
  * Compile with:
- *   gcc -o  sGtk gtk/sGtk.c gtk/sGtk.h gtk/sGtkCallbacks.c `(pkg-config --cflags --libs gtk+-3.0)`
+ *   gcc -o  sGtk gtk/sGtk.c gtk/sGtk.h gtk/sGtkCallbacks.c `(pkg-config --cflags --libs gtk+-3.0)` -export-dynamic
  */
 
 #include <gtk/gtk.h>
 
 
 
-void 
-on_window_destroy  (GtkWidget *widget,GdkEvent  *event, gpointer   user_data) 
-{
-	fprintf(stdout,"\n destroy event called");
-    gtk_main_quit ();
-}
+
 
 int main( int    argc,char **argv )
 {

@@ -23,15 +23,32 @@ char * sGetValueOfTextBox(GtkWidget *widget)
 char * sGetValueOfComboBox(GtkWidget *widget)
 {
 	GtkEntry *combobox = (GtkComboBox *)widget;
-	//TODO get the value of the combo box seleted part
-	char *text = "text";
-	fprintf(stdout,"\n [%s] value is %s",__func__,text);
-	return s_dupstr(text);
+	// get the value of the combo box seleted part
+	//int p = gtk_combo_box_get_active( combobox );
+	char *txt = gtk_combo_box_get_active_id( combobox );
+	//fprintf(stdout,"\n [%s] value is [currently selected index] %d",__func__,p);
+	fprintf(stdout,"\n [%s] value is [currently selected index] %s",__func__,txt);
+	return s_dupstr("text");
 }
 
 char * sGetValueOfRadioButton(GtkWidget *widget)
 {
 	// TODO find the group, and then selected radio button
+	GSList *temp = gtk_radio_button_get_group((GtkRadioButton *)(widget));
+	GtkToggleButton *radio_btn;
+	while( temp )
+	{
+		radio_btn = (GtkToggleButton *)temp->data;
+		if ((gtk_toggle_button_get_active (radio_btn)) == TRUE )
+		{
+			// get the widget's details'
+			char *text = gtk_button_get_label((GtkButton *)radio_btn);
+			fprintf(stdout,"\n [%s] value is %s",__func__,text);
+			return s_dupstr(text);
+		}
+		temp = temp->next;
+	}
+	return "null";
 }
 
 char * sGetValueOfCheckButton(GtkWidget *widget)

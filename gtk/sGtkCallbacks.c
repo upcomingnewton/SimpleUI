@@ -105,7 +105,7 @@ void on_radiobutton_toggled(GtkToggleButton *togglebutton,gpointer user_data)
 	struct gtk_cb_data *head = (struct gtk_cb_data *)user_data;
 	print_user_data(head);
 	char *togglebutton_name = s_dupstr((char *)gtk_buildable_get_name (GTK_BUILDABLE (togglebutton)));
-	fprintf(stdout,"\n NAME OF COMBO BOX IS %s",togglebutton_name);
+	fprintf(stdout,"\n NAME OF RADIO BUTTON IS %s",togglebutton_name);
 	// search for this btn_name in user_data
 	struct gtk_cb_data *togglebutton_data = get_pointer_to_user_data_by_name(togglebutton_name,user_data);
 	// since this is a combo box, it won't have much references, 
@@ -193,31 +193,31 @@ int SearchWidget(GtkWidget *container, char *search_name,GtkWidget **t){
 			c++;
 			temp3 = temp3->next;
 		}
-		//fprintf(stdout,"\n\t\t ============== %d ===================== ",c);
+		////fprintf(stdout,"\n\t\t ============== %d ===================== ",c);
 		while(children != 0)
 		{
-			//fprintf(stdout,"\n\t =========**===== %d ===================== ",strlen(gtk_buildable_get_name(GTK_BUILDABLE(children->data))));
+			////fprintf(stdout,"\n\t =========**===== %d ===================== ",strlen(gtk_buildable_get_name(GTK_BUILDABLE(children->data))));
 			temp = children->data; //(GtkWidget *)
 			
-			//fprintf(stdout,"\n\t\t == children name == %s,%d",gtk_buildable_get_name(GTK_BUILDABLE(temp)));
+			////fprintf(stdout,"\n\t\t == children name == %s,%d",gtk_buildable_get_name(GTK_BUILDABLE(temp)));
 			if(gtk_buildable_get_name(GTK_BUILDABLE(temp)) == NULL) return 0;
 			if( !strcmp(search_name,gtk_buildable_get_name(GTK_BUILDABLE(temp))))
 			{
-				fprintf(stdout,"\n\t\t =========== FOUND");
+				//fprintf(stdout,"\n\t\t =========== FOUND");
 				(*t) =  temp;
 				return 1;
 			}
 			if( GTK_IS_CONTAINER(temp) == 1)
 			{
-				fprintf(stdout,"\n\t %% CONTAINER = %s, SEARCH FOR %s",gtk_buildable_get_name(GTK_BUILDABLE(temp)),search_name);
+				//fprintf(stdout,"\n\t %% CONTAINER = %s, SEARCH FOR %s",gtk_buildable_get_name(GTK_BUILDABLE(temp)),search_name);
 				if( SearchWidget(temp,search_name,t) == 1 ){
 					return 1;
-					fprintf(stdout,"\n\t\t =========== FOUND2");
+					//fprintf(stdout,"\n\t\t =========== FOUND2");
 				}
 			}
 			children = children->next;
 		}
-	fprintf(stdout,"\n returning 0, container = %s",gtk_buildable_get_name(GTK_BUILDABLE(container)));
+	//fprintf(stdout,"\n returning 0, container = %s",gtk_buildable_get_name(GTK_BUILDABLE(container)));
 	return 0;
 }
 

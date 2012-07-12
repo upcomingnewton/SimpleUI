@@ -118,6 +118,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="model">liststore1</property>
+                                                    <property name="id_column">1</property>
                                                     <signal name="changed" handler="on_combobox_prefix_changed" swapped="no"/>
                                                     <child>
                                                       <object class="GtkCellRendererText" id="cellrenderertext_prefix"/>
@@ -371,6 +372,7 @@
                                                         <property name="xalign">0</property>
                                                         <property name="draw_indicator">True</property>
                                                         <property name="group">radiobutton1</property>
+                                                        <signal name="toggled" handler="on_radiobutton_toggled" swapped="no"/>
                                                       </object>
                                                       <packing>
                                                         <property name="expand">False</property>
@@ -389,6 +391,7 @@
                                                         <property name="xalign">0</property>
                                                         <property name="draw_indicator">True</property>
                                                         <property name="group">radiobutton1</property>
+                                                        <signal name="toggled" handler="on_radiobutton_toggled" swapped="no"/>
                                                       </object>
                                                       <packing>
                                                         <property name="expand">False</property>
@@ -1336,16 +1339,21 @@
     <columns>
       <!-- column-name prefix_gchararry -->
       <column type="gchararray"/>
+      <!-- column-name id -->
+      <column type="gchararray"/>
     </columns>
     <data>
       <row>
         <col id="0" translatable="yes">mr.</col>
+        <col id="1" translatable="yes">mr.</col>
       </row>
       <row>
         <col id="0" translatable="yes">mrs.</col>
+        <col id="1" translatable="yes">mrs.</col>
       </row>
       <row>
         <col id="0" translatable="yes">dr.</col>
+        <col id="1" translatable="yes">dr.</col>
       </row>
     </data>
   </object>

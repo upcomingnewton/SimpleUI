@@ -58,6 +58,127 @@ void on_btn_clicked(GtkButton *btn , gpointer user_data)
 	
 }
 
+void on_combobox_prefix_changed(GtkComboBox *widget, gpointer user_data)
+{
+	struct gtk_cb_data *head = (struct gtk_cb_data *)user_data;
+	print_user_data(head);
+	char *combo_box_name = s_dupstr((char *)gtk_buildable_get_name (GTK_BUILDABLE (widget)));
+	fprintf(stdout,"\n NAME OF COMBO BOX IS %s",combo_box_name);
+	// search for this btn_name in user_data
+	struct gtk_cb_data *combo_box_data = get_pointer_to_user_data_by_name(combo_box_name,user_data);
+	// since this is a combo box, it won't have much references, 
+	// find  widgets in the gtk tree and get their values and update corresponding values.
+	if( combo_box_data == (struct gtk_cb_data *)0)
+	{
+		fprintf(stdout,"\n NO CORRESPONDING USER DATA");	
+	}
+	else
+	{
+		
+		getGtkWidgetValue(combo_box_data->meta_info,widget);
+		
+		// find all ref and update their values
+		if(combo_box_data->nextref){
+			GtkWidget *par = gtk_widget_get_toplevel( (GtkWidget *)combo_box_name); //gtk_widget_get_parent
+			if(gtk_widget_is_toplevel(par))
+			{
+				struct gtk_cb_data *temp2 = combo_box_data->nextref;
+				while(temp2 != 0)
+				{
+					GtkWidget *present_widget = (GtkWidget *)0;
+					SearchWidget(par,temp2->name,&present_widget);
+					if( present_widget != (GtkWidget *)0)
+					{
+						// get it's value
+						getGtkWidgetValue(temp2->meta_info,present_widget);
+					}
+					temp2 = temp2->next;
+				}
+			}
+		}
+	}
+}
+
+
+void on_radiobutton_toggled(GtkToggleButton *togglebutton,gpointer user_data)
+{
+	struct gtk_cb_data *head = (struct gtk_cb_data *)user_data;
+	print_user_data(head);
+	char *togglebutton_name = s_dupstr((char *)gtk_buildable_get_name (GTK_BUILDABLE (togglebutton)));
+	fprintf(stdout,"\n NAME OF COMBO BOX IS %s",togglebutton_name);
+	// search for this btn_name in user_data
+	struct gtk_cb_data *togglebutton_data = get_pointer_to_user_data_by_name(togglebutton_name,user_data);
+	// since this is a combo box, it won't have much references, 
+	// find  widgets in the gtk tree and get their values and update corresponding values.
+	if( togglebutton_data == (struct gtk_cb_data *)0)
+	{
+		fprintf(stdout,"\n NO CORRESPONDING USER DATA");	
+	}
+	else
+	{
+		getGtkWidgetValue(togglebutton_data->meta_info,togglebutton);
+		
+		// find all ref and update their values
+		if(togglebutton_data->nextref){
+			GtkWidget *par = gtk_widget_get_toplevel( (GtkWidget *)togglebutton_name); //gtk_widget_get_parent
+			if(gtk_widget_is_toplevel(par))
+			{
+				struct gtk_cb_data *temp2 = togglebutton_data->nextref;
+				while(temp2 != 0)
+				{
+					GtkWidget *present_widget = (GtkWidget *)0;
+					SearchWidget(par,temp2->name,&present_widget);
+					if( present_widget != (GtkWidget *)0)
+					{
+						// get it's value
+						getGtkWidgetValue(temp2->meta_info,present_widget);
+					}
+					temp2 = temp2->next;
+				}
+			}
+		}
+	}
+}
+
+void on_checkbutton_toggled(GtkToggleButton *togglebutton,gpointer user_data)
+{
+	struct gtk_cb_data *head = (struct gtk_cb_data *)user_data;
+	print_user_data(head);
+	char *togglebutton_name = s_dupstr((char *)gtk_buildable_get_name (GTK_BUILDABLE (togglebutton)));
+	fprintf(stdout,"\n NAME OF COMBO BOX IS %s",togglebutton_name);
+	// search for this btn_name in user_data
+	struct gtk_cb_data *togglebutton_data = get_pointer_to_user_data_by_name(togglebutton_name,user_data);
+	// since this is a combo box, it won't have much references, 
+	// find  widgets in the gtk tree and get their values and update corresponding values.
+	if( togglebutton_data == (struct gtk_cb_data *)0)
+	{
+		fprintf(stdout,"\n NO CORRESPONDING USER DATA");	
+	}
+	else
+	{
+		getGtkWidgetValue(togglebutton_data->meta_info,togglebutton);
+		
+		// find all ref and update their values
+		if(togglebutton_data->nextref){
+			GtkWidget *par = gtk_widget_get_toplevel( (GtkWidget *)togglebutton_name); //gtk_widget_get_parent
+			if(gtk_widget_is_toplevel(par))
+			{
+				struct gtk_cb_data *temp2 = togglebutton_data->nextref;
+				while(temp2 != 0)
+				{
+					GtkWidget *present_widget = (GtkWidget *)0;
+					SearchWidget(par,temp2->name,&present_widget);
+					if( present_widget != (GtkWidget *)0)
+					{
+						// get it's value
+						getGtkWidgetValue(temp2->meta_info,present_widget);
+					}
+					temp2 = temp2->next;
+				}
+			}
+		}
+	}
+}
 
 int SearchWidget(GtkWidget *container, char *search_name,GtkWidget **t){
 		GtkWidget *temp;

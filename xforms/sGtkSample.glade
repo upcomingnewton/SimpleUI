@@ -118,6 +118,13 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="model">liststore1</property>
+                                                    <signal name="changed" handler="on_combobox_prefix_changed" swapped="no"/>
+                                                    <child>
+                                                      <object class="GtkCellRendererText" id="cellrenderertext_prefix"/>
+                                                      <attributes>
+                                                        <attribute name="text">0</attribute>
+                                                      </attributes>
+                                                    </child>
                                                   </object>
                                                   <packing>
                                                     <property name="expand">False</property>
@@ -345,6 +352,7 @@
                                                         <property name="xalign">0</property>
                                                         <property name="draw_indicator">True</property>
                                                         <property name="group">radiobutton1</property>
+                                                        <signal name="toggled" handler="on_radiobutton_toggled" swapped="no"/>
                                                       </object>
                                                       <packing>
                                                         <property name="expand">False</property>
@@ -1021,6 +1029,7 @@
                                                     <property name="use_action_appearance">False</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
+                                                    <signal name="toggled" handler="on_checkbutton_toggled" swapped="no"/>
                                                   </object>
                                                   <packing>
                                                     <property name="expand">False</property>
@@ -1178,6 +1187,7 @@
                                                 <property name="margin_bottom">2</property>
                                                 <property name="lower_stepper_sensitivity">off</property>
                                                 <property name="round_digits">1</property>
+                                                <property name="has_origin">False</property>
                                               </object>
                                               <packing>
                                                 <property name="expand">False</property>
@@ -1324,7 +1334,7 @@
   </object>
   <object class="GtkListStore" id="liststore1">
     <columns>
-      <!-- column-name gchararray1 -->
+      <!-- column-name prefix_gchararry -->
       <column type="gchararray"/>
     </columns>
     <data>
@@ -1333,6 +1343,9 @@
       </row>
       <row>
         <col id="0" translatable="yes">mrs.</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">dr.</col>
       </row>
     </data>
   </object>

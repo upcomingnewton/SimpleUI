@@ -14,6 +14,8 @@ struct gtk_cb_data{
 
 gboolean  on_window_destroy  (GtkWidget *widget,GdkEvent  *event, gpointer   user_data);
 void on_btn_personal_info_clicked(GtkButton *button, gpointer user_data);
+void on_combobox_prefix_changed(GtkComboBox *widget, gpointer user_data);
+void on_radiobutton_toggled(GtkToggleButton *togglebutton,gpointer user_data);
 int SearchWidget(GtkWidget *container, char *search_name,GtkWidget **t);
 
 
@@ -26,3 +28,6 @@ struct gtk_cb_data *get_pointer_to_user_data_by_name(const char *_name, struct g
 
 char * getGtkWidgetValue(char *type, GtkWidget *widget);
 char * sGetValueOfTextBox(GtkWidget *widget);
+char * sGetValueOfComboBox(GtkWidget *widget);
+char * sGetValueOfRadioButton(GtkWidget *widget);
+char * sGetValueOfCheckButton(GtkWidget *widget);

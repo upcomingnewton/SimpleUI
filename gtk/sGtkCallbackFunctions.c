@@ -63,7 +63,7 @@ struct gtk_cb_data * MakeDummy()
 	struct gtk_cb_data *btn =  AppendNode(&head,"btn_personal_info", "NULL","NULL","btn_personal_info","xf:trigger");
 	struct gtk_cb_data *btn2 =  AppendNode(&btn->nextref,"ref2", "init_val","value","entry_FirstName","GtkEntry");
 	struct gtk_cb_data *btn3 =  AppendNode(&btn->nextref,"ref2", "init_val","value","entry_MiddleName","GtkEntry");
-	struct gtk_cb_data *btn4 =  AppendNode(&head,"ref4", "init_val","value","name","meta_info");
+	struct gtk_cb_data *btn4 =  AppendNode(&head,"combobox_prefix", "init_val","value","combobox_prefix","GtkComboBox");
 	
 	return head;
 }

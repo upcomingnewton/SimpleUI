@@ -1,5 +1,6 @@
-#define sGTK_UI_FILE  "xforms/sGtkSample.glade"
+
 #include <gtk/gtk.h>
+
 
 struct gtk_cb_data{
 	char *ref;

@@ -145,7 +145,7 @@ void on_checkbutton_toggled(GtkToggleButton *togglebutton,gpointer user_data)
 	struct gtk_cb_data *head = (struct gtk_cb_data *)user_data;
 	print_user_data(head);
 	char *togglebutton_name = s_dupstr((char *)gtk_buildable_get_name (GTK_BUILDABLE (togglebutton)));
-	fprintf(stdout,"\n NAME OF COMBO BOX IS %s",togglebutton_name);
+	fprintf(stdout,"\n NAME OF CHECK BUTTON IS %s",togglebutton_name);
 	// search for this btn_name in user_data
 	struct gtk_cb_data *togglebutton_data = get_pointer_to_user_data_by_name(togglebutton_name,user_data);
 	// since this is a combo box, it won't have much references, 

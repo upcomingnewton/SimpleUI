@@ -33,7 +33,7 @@ char * sGetValueOfComboBox(GtkWidget *widget)
 
 char * sGetValueOfRadioButton(GtkWidget *widget)
 {
-	// TODO find the group, and then selected radio button
+	// find the group, and then selected radio button
 	GSList *temp = gtk_radio_button_get_group((GtkRadioButton *)(widget));
 	GtkToggleButton *radio_btn;
 	while( temp )
@@ -53,5 +53,17 @@ char * sGetValueOfRadioButton(GtkWidget *widget)
 
 char * sGetValueOfCheckButton(GtkWidget *widget)
 {
-	// TODO find the value
+	// find the value
+	GtkToggleButton *chk_btn = (GtkToggleButton *)widget;
+	char *text = gtk_button_get_label((GtkButton *)chk_btn);
+	if((gtk_toggle_button_get_active (chk_btn)) == TRUE )
+	{
+		fprintf(stdout,"\n [%s] %s is checked",__func__,text);
+		return "TRUE";
+	}
+	else
+	{
+		fprintf(stdout,"\n [%s] %s is not checked",__func__,text);
+		return "FALSE";	
+	}
 }

@@ -5,6 +5,7 @@
 #include<malloc.h>
 #include "../simpleUI.h"
 
+
 char * sReadFileToMem(const char *filename)
 {
 	char * filetext = 0;
@@ -13,11 +14,11 @@ char * sReadFileToMem(const char *filename)
 	if((fp = fopen(filename,"r")) != 0)
 	{
 		      /* get size */
-		      fprintf(stdout,"\nfp = %u",fp);
+		      //fprintf(stdout,"\nfp = %u",fp);
 		      fseek(fp,0L,SEEK_END);
 		      /* read file possibly partitial */
 		      size = ftell (fp);
-		      fprintf(stdout,"\nsize of file is %ld",size);
+		      //fprintf(stdout,"\nsize of file is %ld",size);
 		      rewind(fp);
 
 		      /* allocate memory */

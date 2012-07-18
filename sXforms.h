@@ -27,6 +27,7 @@ struct sXformsNode
 	struct sXformsNode *child; // first child
 	struct sXformsNode *par; // parent
 	int num_child;
+	int num_siblings;
 	char * meta_info; // extra public data
 	char * private_data; //private data
 };

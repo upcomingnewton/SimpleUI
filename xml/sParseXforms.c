@@ -433,8 +433,8 @@ char *sGetXpathFromNodeSetAttr(sXformsNodeAttr *attr){
 
 
 int CompareFirstNChars(char *src1, int start1, char *src2, int start2, int n){
-	int i = 0;
-	for( int x = 0; x < n; x++){
+	int i = 0, x = 0;
+	for(  x = 0; x < n; x++){
 		if(src1[x + start1] != src2[x + start2]){
 			return -1;
 		}

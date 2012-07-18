@@ -23,8 +23,8 @@ void AllocateMemoryForAttribute(sXformsNodeAttr **temp)
 		(*temp)->attrValue = (char *)0;
 		(*temp)->private_data = (char *)0;
 		(*temp)->meta_info = (char *)0;
-		(*temp)->next = (sXformsNodeAttributeValue *)0;
-		(*temp)->prev = (sXformsNodeAttributeValue *)0;
+		(*temp)->next = (sXformsNodeAttr *)0;
+		(*temp)->prev = (sXformsNodeAttr *)0;
 	}
 }
 
@@ -63,6 +63,7 @@ void AllocateMemoryToNode(sXformsNode **temp)
 		(*temp)->child = (struct sXformsNode*)0; // first child
 		(*temp)->par  = (struct sXformsNode*)0; // parent
 		(*temp)->num_child = 0;
+		(*temp)->num_siblings = 0;
 		(*temp)->meta_info  = (char *)0; // extra public data
 		(*temp)->private_data = (char *)0; //private data
 		
@@ -131,6 +132,13 @@ void sPrintsXformsNode(sXformsNode * node)
 		else{
 			WriteLog("\n child = %s:%s",NotDefined,NotDefined);
 		}
+		if( node->num_siblings != 0){
+			WriteLog("\n num_siblings = %d",node->num_siblings);
+		}
+		else{
+			WriteLog("\n num_siblings = 0");
+		}
+		//
 		//WriteLog("\n next = ",node->next->type,node->next->name);
 		//WriteLog("\n child = ",node->child->type,node->child->name);
 		//WriteLog("\n par = ",node->par->type,node->par->name);

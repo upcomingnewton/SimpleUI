@@ -1,0 +1,7 @@
+
+                                            <child>
+                                              <object class="GtkCellRendererText" id="cellrenderertext_prefix"/>
+                                              <attributes>
+                                                <attribute name="text">0</attribute>
+                                              </attributes>
+                                            </child>

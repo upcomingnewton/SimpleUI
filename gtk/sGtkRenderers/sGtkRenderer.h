@@ -4,7 +4,7 @@
     #include "../../simpleUI.h"
     #include "../../sXforms.h"
     #define S_GTK_RENDERER_H
-    #define sGTK_UI_FILE  "xforms/sGtkSampleTest2.xml"
+    #define sGTK_UI_FILE  "xforms/sGtkSampleTest6.glade"
     #define sGTK_GLADE_MAIN_WINDOW_NAME "sGTK_GLADE_MAIN_WINDOW_NAME"
     #define GTK_WINDOW_HEIGHT "360"
     #define GTK_WINDOW_WIDTH "480"
@@ -49,6 +49,11 @@
     xmlNode *Create1ObjectNode(xmlNode *par,char *id, char *classname,char *constructor, char *type_func);
     xmlNode *CreatePackingNodeWithProperties(xmlNode *par,char **prop_name,char **translatable, char **comments, char **context, char **value, int num_prop);
     
-    
+    int CalculatePosition(sXformsNode *head);
+    xmlNode *MakeHBoxForElements(sXformsNode *head,xmlNode *node);
+    void PackElements( xmlNode *par,char *fill, char *expand, int pos);
+    void MakeLabel(sXformsNode *head,xmlNode *hbox);
+    void MakeRadioButton(sXformsNode *head, xmlNode *par,char *groupname, char *handlername, char *label, int pos);
+    void MakeChildButton(sXformsNode *head, xmlNode *par, char *handlername, char *label, int pos);
 #endif
 

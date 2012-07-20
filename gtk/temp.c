@@ -155,6 +155,7 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
    //fprintf(stdout,"output xml file is : %s \n\n",xforms_text);
   }
   head = ParseXformsToTree( xforms_text);
+  sPrintsXformsTree(head);
   gtk_init( &argc, &argv );
   builder = gtk_builder_new();
   sGenerateGladeFile(head);

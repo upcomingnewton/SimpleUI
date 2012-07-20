@@ -65,12 +65,20 @@ void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head
 		AllocateMemoryToNode(&temp);
 			if( temp != 0 ){
 				temp->type=type;
+				if(!strcmp(type,"xf:output")){
+				    // find the internal text node and it's value would be equal to this value'
+                    temp->value = sAppendString(temp->value, sGetTextFromNode(cur));
+				    temp->name = sAppendString(temp->name, temp->value);
+				}else{
 				temp->value=sAppendString(temp->value,sGetValueFromChildren(cur,(char *)"xf:value")); // search for xf:value in children of this node
+				tempc = sGetValueFromChildren(cur,(char *)"xf:label");
+				temp->name = sAppendString(temp->name,tempc);  //xf:label
+				}
 				temp->hint=sAppendString(temp->hint,sGetValueFromChildren(cur,(char *)"xf:hint"));  // xf:hint
 				temp->help=sAppendString(temp->help,sGetValueFromChildren(cur,(char *)"xf:help"));  // xf:help
-				tempc = sGetValueFromChildren(cur,(char *)"xf:label");
+				
 				////fprintf(stdout,"\n ****** tempc = %s",tempc);
-				temp->name = sAppendString(temp->name,tempc);  //xf:label
+				
 				//temp->attr=0;  //attributes
 				//fprintf(stdout,"\n### %s : %s #####",temp->type,temp->name);
 			}

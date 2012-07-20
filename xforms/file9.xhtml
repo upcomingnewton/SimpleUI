@@ -59,17 +59,17 @@
 				SAMPLE RECRUITMENT PAGE USING X-FORMS FOR DEMO ( OPENICC )
 		</xf:group> 
 		<xf:group type="tabs">
+		    <xf:label>GROUP_FOR_TABS</xf:label>
 			<xf:group>
-
+			    <xf:label>GROUP_FOR_TABS_HEADINGS</xf:label>
 				<xf:trigger id="tab_page_wel" appearance="minimal" type="tab_trigger">
-					<xf:label>Welcome Page</xf:label>
+					<xf:label>Welcome_Page</xf:label>
 					<xf:toggle case="page_welcome" ev:event="DOMActivate" />
 				</xf:trigger>
 				<xf:trigger id="tab_page_info_per" appearance="minimal" type="tab_trigger">
-					<xf:label>Personal Information</xf:label>
+					<xf:label>Personal_Information</xf:label>
 					<xf:toggle case="page_info_per" ev:event="DOMActivate" />
 				</xf:trigger>
-
 				<xf:trigger id="tab_page_projects" appearance="minimal" type="tab_trigger">
 					<xf:label>Projects</xf:label>
 					<xf:toggle case="page_projects" ev:event="DOMActivate" />
@@ -78,18 +78,16 @@
 					<xf:label>Preferences</xf:label>
 					<xf:toggle case="page_pref" ev:event="DOMActivate" />
 				</xf:trigger>
-
 			</xf:group>
 		<xf:group>
+		<xf:label>GROUP_FOR_TABS_content</xf:label>
 		<xf:switch>
 			<xf:case id="page_welcome" selected="true">
 				<xf:group id="xf:group_page_welcome" >
 					<xf:label>welcome_tab</xf:label>
 					<xf:group type="frame">
 						<xf:label>welcome_panel</xf:label>
-						<xf:output>
-							welcome page , this is welcome page
-						</xf:output>
+						<xf:output>         welcome page , this is welcome page</xf:output>
 					</xf:group>
 				</xf:group>
 			</xf:case>

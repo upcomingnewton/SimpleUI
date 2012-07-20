@@ -97,3 +97,23 @@ xmlNode * CreateXmlNode(xmlNsPtr ns, char * name)
 {
     return xmlNewNode(ns,BAD_CAST name);
 }
+
+xmlNode *CreateXmlNodeWithParent(xmlNode *par,char *name)
+{
+    xmlNode *new_node = CreateXmlNode(NULL,name);
+    xmlAddChild(par,new_node);
+    return new_node;
+}
+
+xmlNode *CreateDataRow(xmlNode *row,char *id, char *translatable,char *val)
+{
+    xmlNode * col = CreateXmlNodeWithParent(row,"col");
+    CreateNodeAttribute(col, "id", id);
+    CreateNodeAttribute(col, "translatable", translatable);
+    xmlNode *textnode = NULL;
+    textnode = xmlNewText(BAD_CAST val);
+    xmlAddChild(col,textnode);
+    return col;
+}
+
+

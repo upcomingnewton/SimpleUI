@@ -36,10 +36,14 @@
 	int gtk_f_RadioButtonList(sXformsNode *head,xmlNode *node);
 	int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node);
 	int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node);
+	int gtk_f_MakeRadioButtonGroup(sXformsNode *head,xmlNode *node);
+	int gtk_f_MakeListStoreForDropDown(sXformsNode *head,xmlNode *node);
+	
 
     
     // functions defined in sGtkRenderer_Helper.c
     xmlNode * CreateXmlNode(xmlNsPtr ns, char * name);
+    xmlNode *CreateXmlNodeWithParent(xmlNode *par,char *name);
     xmlAttr * CreateNodeAttribute(xmlNode *node, char *attrName, char *attrValue);
     xmlNode * Create1ChildNode(xmlNode *par,char *type, char *internal_child);
     xmlNode * Create1ChildNodeWithPlaceholder(xmlNode *par,char *type, char *internal_child);
@@ -48,6 +52,7 @@
     xmlNode *Create1PropertyNode(xmlNode *par,char *prop_name,char *translatable, char *comments, char *context, char *value);
     xmlNode *Create1ObjectNode(xmlNode *par,char *id, char *classname,char *constructor, char *type_func);
     xmlNode *CreatePackingNodeWithProperties(xmlNode *par,char **prop_name,char **translatable, char **comments, char **context, char **value, int num_prop);
+    xmlNode *CreateDataRow(xmlNode *row,char *id, char *translatable,char *val);
     
     int CalculatePosition(sXformsNode *head);
     xmlNode *MakeHBoxForElements(sXformsNode *head,xmlNode *node);

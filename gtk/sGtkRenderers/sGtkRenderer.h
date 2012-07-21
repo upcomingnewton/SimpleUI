@@ -53,6 +53,7 @@
     xmlNode *Create1ObjectNode(xmlNode *par,char *id, char *classname,char *constructor, char *type_func);
     xmlNode *CreatePackingNodeWithProperties(xmlNode *par,char **prop_name,char **translatable, char **comments, char **context, char **value, int num_prop);
     xmlNode *CreateDataRow(xmlNode *row,char *id, char *translatable,char *val);
+    xmlNode *CreateNodeText(xmlNode* par,char *val);
     
     int CalculatePosition(sXformsNode *head);
     xmlNode *MakeHBoxForElements(sXformsNode *head,xmlNode *node);
@@ -60,5 +61,6 @@
     void MakeLabel(sXformsNode *head,xmlNode *hbox);
     void MakeRadioButton(sXformsNode *head, xmlNode *par,char *groupname, char *handlername, char *label, int pos);
     void MakeChildButton(sXformsNode *head, xmlNode *par, char *handlername, char *label, int pos);
+    
 #endif
 

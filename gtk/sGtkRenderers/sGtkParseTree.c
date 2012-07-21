@@ -471,16 +471,14 @@ int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node)
     char *combobox_null[] = {NULL,NULL,NULL,NULL,NULL,NULL};
     char *combobox_value[] = {"200","25","True","False",liststore_name,"1"};
     CreatePropertyNodes(combobox,combobox_prop,combobox_null, combobox_null, combobox_null,combobox_value ,6);
-    //TODO signal + child 
     Create1SignalNode(combobox,"changed","on_combobox_prefix_changed",NULL, "no",NULL,NULL);
     xmlNode *CellRendererChild = Create1ChildNode(combobox,NULL,NULL);
     s = "CellRenderer_";  s = sAppendString(s,head->name);
-    xmlNode *CellRenderer = Create1ObjectNode(CellRendererChild,s,"GtkComboBox",NULL,NULL);
-    //TODO : create attributes here
-/*    <attributes>*/
-/*         <attribute name="text">0</attribute>*/
-/*    </attributes>*/
-    
+    xmlNode *CellRenderer = Create1ObjectNode(CellRendererChild,s,"GtkCellRendererText",NULL,NULL);
+    xmlNode *attr = CreateXmlNodeWithParent(CellRendererChild,"attributes");
+    xmlNode *attrchild = CreateXmlNodeWithParent(attr,"attribute");
+    CreateNodeText(attrchild,int2str[0]);
+    CreateNodeAttribute(attrchild, "name", "text");
     char *combobox_packing_prop[] = {"fill","expand","position"};
     char *combobox_packing_null[] = {NULL,NULL,NULL};
     char *combobox_packing_value[] = {"True","False","1"};
@@ -490,6 +488,8 @@ int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node)
                                     combobox_packing_null,
                                     combobox_packing_null,
                                     combobox_packing_value,3);
+    
+    sGtkGenerateUIFromTree(head,hbox);
     
     char *hbox_packing_prop[] = {"fill","expand","position"};
     char *hbox_packing_null[] = {NULL,NULL,NULL};
@@ -506,6 +506,7 @@ int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node)
 int gtk_f_RadioButtonList(sXformsNode *head,xmlNode *node)
 {
     xmlNode *hbox  = MakeHBoxForElements(head,node);
+    head->meta_info = int2str[1];
     int pos  = CalculatePosition(head);
     MakeLabel(head,hbox);
     xmlNode *buttongroupchild = Create1ChildNode(hbox,NULL,NULL);
@@ -527,17 +528,19 @@ int gtk_f_RadioButtonList(sXformsNode *head,xmlNode *node)
 			    MakeRadioButton(head,buttongrp,s, "on_radiobutton_toggled",temp->name,ctr);
 			}
     }
+    sGtkGenerateUIFromTree(head,hbox);
     PackElements(buttongroupchild,"True","False",pos);
     PackElements(hbox->parent,"True","False",pos);
 }
 
 int gtk_f_CheckBoxList(sXformsNode *head,xmlNode *node)
 {
-    //fprintf(stdout,"\n[%s][%d][head = %s]",__func__,__LINE__,head->name);
+    fprintf(stdout,"\n[%s][%d][head = %s]",__func__,__LINE__,head->name);
     //vbox-1 
     // child 1 - label
     // child-2 - buttonbox
     // child-3 - btn done
+    head->meta_info = int2str[1];
     char *s = "vbox_"; s = sAppendString(s,head->name);
     xmlNode *vboxchild = Create1ChildNode(node,NULL,NULL);
     xmlNode *vbox = Create1ObjectNode(vboxchild,s,"GtkBox",NULL,NULL);
@@ -565,23 +568,20 @@ int gtk_f_CheckBoxList(sXformsNode *head,xmlNode *node)
 			    MakeChildButton(head,buttonbox,"onclick",temp->name,ctr);
 			}
     }
-/*    MakeChildButton(head,buttonbox,"onclick","newspaper1",0);*/
-/*    MakeChildButton(head,buttonbox,"onclick","newspaper2",1);*/
-/*    MakeChildButton(head,buttonbox,"onclick","newspaper3",2);*/
     PackElements(buttonboxcontainer,"True","False",1);
+    sGtkGenerateUIFromTree(head->child,vbox);
     // done button
-    s = "done_button_"; s = sAppendString(s,head->name);
-    //xmlNode *donebtncontainer = Create1ChildNode(vbox,NULL,NULL);
-    xmlNode *hboxdonebtn = MakeHBoxForElements(head,vbox);
-    Create1ChildNodeWithPlaceholder(hboxdonebtn,NULL,NULL);
-    xmlNode *DoneButtonChild = Create1ChildNode(hboxdonebtn,NULL,NULL);
-    xmlNode *DoneButton = Create1ObjectNode(DoneButtonChild,s,"GtkButton",NULL,NULL);
-    char *DoneButtonProp[] = {"label","use_action_appearance","visible","can_focus","receives_default",""};
-    char *DoneButtonVal[] = {head->name,"False","True","True","True"};
-    char *DoneButtonTran[] = {"yes",NULL,NULL,NULL,NULL};
-    char *DoneButtonNull[] = {NULL,NULL,NULL,NULL,NULL};
-    CreatePropertyNodes(DoneButton,DoneButtonProp,DoneButtonTran,DoneButtonNull,DoneButtonNull,DoneButtonVal,5);
-    Create1ChildNodeWithPlaceholder(hboxdonebtn,NULL,NULL);
+/*    s = "done_button_"; s = sAppendString(s,head->name);*/
+/*    xmlNode *hboxdonebtn = MakeHBoxForElements(head,vbox);*/
+/*    Create1ChildNodeWithPlaceholder(hboxdonebtn,NULL,NULL);*/
+/*    xmlNode *DoneButtonChild = Create1ChildNode(hboxdonebtn,NULL,NULL);*/
+/*    xmlNode *DoneButton = Create1ObjectNode(DoneButtonChild,s,"GtkButton",NULL,NULL);*/
+/*    char *DoneButtonProp[] = {"label","use_action_appearance","visible","can_focus","receives_default",""};*/
+/*    char *DoneButtonVal[] = {head->name,"False","True","True","True"};*/
+/*    char *DoneButtonTran[] = {"yes",NULL,NULL,NULL,NULL};*/
+/*    char *DoneButtonNull[] = {NULL,NULL,NULL,NULL,NULL};*/
+/*    CreatePropertyNodes(DoneButton,DoneButtonProp,DoneButtonTran,DoneButtonNull,DoneButtonNull,DoneButtonVal,5);*/
+/*    Create1ChildNodeWithPlaceholder(hboxdonebtn,NULL,NULL);*/
     //PackElements(donebtncontainer,"True","False",2);
     PackElements(vboxchild,"True","False",0);
 }

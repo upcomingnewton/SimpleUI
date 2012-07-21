@@ -116,4 +116,10 @@ xmlNode *CreateDataRow(xmlNode *row,char *id, char *translatable,char *val)
     return col;
 }
 
-
+xmlNode *CreateNodeText(xmlNode* par,char *val)
+{
+    xmlNode *textnode = NULL;
+    textnode = xmlNewText(BAD_CAST val);
+    xmlAddChild(par,textnode);
+    return textnode;
+}

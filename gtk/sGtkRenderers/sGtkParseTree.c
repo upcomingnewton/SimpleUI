@@ -630,8 +630,7 @@ int gtk_f_InputHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_d
                                     label_packing_null,
                                     label_packing_null,
                                     label_packing_value,3);
-    s = "entry_";
-    s = sAppendString(s,head->name);
+    s = "entry_"; s = sAppendString(s,head->name);
     xmlNode *child_entry = Create1ChildNode(hbox,NULL,NULL);
     xmlNode *entry = Create1ObjectNode(child_entry,s,"GtkEntry",NULL,NULL);
     char *entry_prop[] = {"width_request","visible","can_focus","invisible_char"};
@@ -701,14 +700,14 @@ int gtk_f_ButtonHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_
     CreatePropertyNodes(button,button_prop,button_trans, button_null, button_null,button_value ,6);
     
     struct gtk_cb_data *btn =  AppendNode(cb_data_head,"REFERENCE", "NULL","NULL",s,"xf:trigger");
-/*    sXformsNode *temp = head;*/
-/*    for(temp = head;temp;temp=temp->prev)*/
-/*    {*/
-/*        if( !strcmp(temp->type,"") )*/
-/*        {*/
-/*            */
-/*        }*/
-/*    }*/
+    for(temp = head;temp;temp=temp->prev)
+    {
+        if( !strcmp(temp->type,"xf:input") )
+        {
+            s = "entry_"; s = sAppendString(s,temp->name);
+            AppendNode(&btn->nextref,"REFERENCE", "NULL","NULL",s,"GtkEntry");
+        }
+    }
     
     
     Create1SignalNode(button,"clicked","on_btn_clicked", NULL,"no",NULL,NULL);

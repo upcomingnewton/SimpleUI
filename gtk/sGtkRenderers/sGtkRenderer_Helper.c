@@ -123,3 +123,5 @@ xmlNode *CreateNodeText(xmlNode* par,char *val)
     xmlAddChild(par,textnode);
     return textnode;
 }
+
+

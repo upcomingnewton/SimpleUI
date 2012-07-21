@@ -1,4 +1,5 @@
  #ifndef S_GTK_RENDERER_H
+    #include "../sGtkCallbacks/sGtkCallbacks.h"
     #include <libxml/parser.h>
     #include <libxml/tree.h>
     #include "../../simpleUI.h"
@@ -11,7 +12,8 @@
     
 	typedef int  (*sGtkUIHandlers) (
 		sXformsNode * head,
-		xmlNode *par
+		xmlNode *par,
+		 struct gtk_cb_data *cb_data_head
 		);
 	
 	struct sGtkUIHandlers_data{
@@ -24,20 +26,20 @@
 	};
     
     //functions defined in sGtkParseTree.c
-    void sGenerateGladeFile(sXformsNode *head);
-	int sGtkGenerateUIFromTree(sXformsNode * head, xmlNode *par);
-	int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node);
-	int gtk_f_RangeHandler(sXformsNode *head,xmlNode *node);
-	int gtk_f_FrameHandler(sXformsNode *head,xmlNode *node);
-	int gtk_f_ButtonHandler(sXformsNode *head,xmlNode *node);
-	int gtk_f_LabelHandler(sXformsNode *head,xmlNode *node);
-	int gtk_f_InputHandler(sXformsNode *head,xmlNode *node);
-	int gtk_f_CheckBoxList(sXformsNode *head,xmlNode *node);
-	int gtk_f_RadioButtonList(sXformsNode *head,xmlNode *node);
-	int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node);
-	int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node);
-	int gtk_f_MakeRadioButtonGroup(sXformsNode *head,xmlNode *node);
-	int gtk_f_MakeListStoreForDropDown(sXformsNode *head,xmlNode *node);
+    struct gtk_cb_data * sGenerateGladeFile(sXformsNode *head);
+	int sGtkGenerateUIFromTree(sXformsNode * head, xmlNode *par ,struct gtk_cb_data **);
+	int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
+	int gtk_f_RangeHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
+	int gtk_f_FrameHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
+	int gtk_f_ButtonHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
+	int gtk_f_LabelHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
+	int gtk_f_InputHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
+	int gtk_f_CheckBoxList(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
+	int gtk_f_RadioButtonList(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
+	int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
+	int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
+	int gtk_f_MakeRadioButtonGroup(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
+	int gtk_f_MakeListStoreForDropDown(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
 	
 
     
@@ -59,8 +61,8 @@
     xmlNode *MakeHBoxForElements(sXformsNode *head,xmlNode *node);
     void PackElements( xmlNode *par,char *fill, char *expand, int pos);
     void MakeLabel(sXformsNode *head,xmlNode *hbox);
-    void MakeRadioButton(sXformsNode *head, xmlNode *par,char *groupname, char *handlername, char *label, int pos);
-    void MakeChildButton(sXformsNode *head, xmlNode *par, char *handlername, char *label, int pos);
+    void MakeRadioButton(sXformsNode *head, xmlNode *par,char *groupname, char *handlername, char *label, int pos, struct gtk_cb_data **cb_data_head);
+    void MakeCheckButton(sXformsNode *head, xmlNode *par, char *handlername, char *label, int pos,struct gtk_cb_data **cb_data_head);
     
 #endif
 

@@ -182,7 +182,7 @@
                                         <property name="can_focus">False</property>
                                         <property name="model">ListStoreForDropDown_Name Prefix:</property>
                                         <property name="id_column">1</property>
-                                        <signal name="changed" handler="on_combobox_prefix_changed" swapped="no"/>
+                                        <signal name="changed" handler="on_combobox_changed" swapped="no"/>
                                         <child>
                                           <object id="CellRenderer_Name Prefix:" class="GtkCellRendererText"/>
                                           <attributes>
@@ -404,7 +404,7 @@
                                         <property name="can_focus">False</property>
                                         <property name="layout_style">start</property>
                                         <child>
-                                          <object id="radiobutton_Select your gender0" class="GtkRadioButton">
+                                          <object id="radiobutton_0Male" class="GtkRadioButton">
                                             <property name="label" translatable="yes">Male</property>
                                             <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
@@ -422,7 +422,7 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object id="radiobutton_Select your gender1" class="GtkRadioButton">
+                                          <object id="radiobutton_1Female" class="GtkRadioButton">
                                             <property name="label" translatable="yes">Female</property>
                                             <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
@@ -440,7 +440,7 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object id="radiobutton_Select your gender2" class="GtkRadioButton">
+                                          <object id="radiobutton_2Not want to disclose" class="GtkRadioButton">
                                             <property name="label" translatable="yes">Not want to disclose</property>
                                             <property name="use_action_appearance">False</property>
                                             <property name="visible">True</property>
@@ -1002,7 +1002,7 @@
                                         <property name="orientation">vertical</property>
                                         <property name="layout_style">start</property>
                                         <child>
-                                          <object id="checkbutton_select the newspaper you like0" class="GtkCheckButton">
+                                          <object id="checkbutton_newspaper-10" class="GtkCheckButton">
                                             <property name="label" translatable="yes">newspaper-1</property>
                                             <property name="use_action_appearance">False</property>
                                             <property name="width_request">200</property>
@@ -1013,7 +1013,7 @@
                                             <property name="margin_bottom">2</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
-                                            <signal name="toggled" handler="onclick" swapped="no"/>
+                                            <signal name="toggled" handler="on_checkbutton_toggled" swapped="no"/>
                                           </object>
                                           <packing>
                                             <property name="fill">True</property>
@@ -1022,7 +1022,7 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object id="checkbutton_select the newspaper you like1" class="GtkCheckButton">
+                                          <object id="checkbutton_newspaper-21" class="GtkCheckButton">
                                             <property name="label" translatable="yes">newspaper-2</property>
                                             <property name="use_action_appearance">False</property>
                                             <property name="width_request">200</property>
@@ -1033,7 +1033,7 @@
                                             <property name="margin_bottom">2</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
-                                            <signal name="toggled" handler="onclick" swapped="no"/>
+                                            <signal name="toggled" handler="on_checkbutton_toggled" swapped="no"/>
                                           </object>
                                           <packing>
                                             <property name="fill">True</property>
@@ -1042,7 +1042,7 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object id="checkbutton_select the newspaper you like2" class="GtkCheckButton">
+                                          <object id="checkbutton_newspaper-32" class="GtkCheckButton">
                                             <property name="label" translatable="yes">newspaper-3</property>
                                             <property name="use_action_appearance">False</property>
                                             <property name="width_request">200</property>
@@ -1053,7 +1053,7 @@
                                             <property name="margin_bottom">2</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
-                                            <signal name="toggled" handler="onclick" swapped="no"/>
+                                            <signal name="toggled" handler="on_checkbutton_toggled" swapped="no"/>
                                           </object>
                                           <packing>
                                             <property name="fill">True</property>
@@ -1062,7 +1062,7 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object id="checkbutton_select the newspaper you like3" class="GtkCheckButton">
+                                          <object id="checkbutton_newspaper-43" class="GtkCheckButton">
                                             <property name="label" translatable="yes">newspaper-4</property>
                                             <property name="use_action_appearance">False</property>
                                             <property name="width_request">200</property>
@@ -1073,7 +1073,7 @@
                                             <property name="margin_bottom">2</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
-                                            <signal name="toggled" handler="onclick" swapped="no"/>
+                                            <signal name="toggled" handler="on_checkbutton_toggled" swapped="no"/>
                                           </object>
                                           <packing>
                                             <property name="fill">True</property>
@@ -1082,7 +1082,7 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object id="checkbutton_select the newspaper you like4" class="GtkCheckButton">
+                                          <object id="checkbutton_newspaper-54" class="GtkCheckButton">
                                             <property name="label" translatable="yes">newspaper-5</property>
                                             <property name="use_action_appearance">False</property>
                                             <property name="width_request">200</property>
@@ -1093,7 +1093,7 @@
                                             <property name="margin_bottom">2</property>
                                             <property name="xalign">0</property>
                                             <property name="draw_indicator">True</property>
-                                            <signal name="toggled" handler="onclick" swapped="no"/>
+                                            <signal name="toggled" handler="on_checkbutton_toggled" swapped="no"/>
                                           </object>
                                           <packing>
                                             <property name="fill">True</property>

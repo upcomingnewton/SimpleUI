@@ -1,13 +1,8 @@
 #include <gtk/gtk.h>
-#include "sGtk.h"
-#include "../misc/misc.h"
+#include "../sGtk.h"
+#include "sGtkCallbacks.h"
+#include "../../misc/misc.h"
 
-/*void */
-/*on_window_destroy (GtkWidget *widget, gpointer user_data)*/
-/*{*/
-/*	fprintf(stdout,"\n destroy event called");*/
-/*    gtk_main_quit ();*/
-/*}*/
 gboolean 
 on_window_destroy  (GtkWidget *widget,GdkEvent  *event, gpointer   user_data) 
 {
@@ -15,15 +10,10 @@ on_window_destroy  (GtkWidget *widget,GdkEvent  *event, gpointer   user_data)
     gtk_main_quit ();
 }
 
-void on_btn_personal_info_clicked(GtkButton *button, gpointer user_data)
-{
-	fprintf(stdout,"\nclicked !");
-}
-
 void on_btn_clicked(GtkButton *btn , gpointer user_data)
 {
 	struct gtk_cb_data *head = (struct gtk_cb_data *)user_data;
-	print_user_data(head);
+	//print_user_data(head);
 	char *btn_name = s_dupstr((char *)gtk_buildable_get_name (GTK_BUILDABLE (btn)));
 	// search for this btn_name in user_data
 	struct gtk_cb_data *btn_data = get_pointer_to_user_data_by_name(btn_name,user_data);
@@ -58,10 +48,10 @@ void on_btn_clicked(GtkButton *btn , gpointer user_data)
 	
 }
 
-void on_combobox_prefix_changed(GtkComboBox *widget, gpointer user_data)
+void on_combobox_changed(GtkComboBox *widget, gpointer user_data)
 {
 	struct gtk_cb_data *head = (struct gtk_cb_data *)user_data;
-	print_user_data(head);
+	//print_user_data(head);
 	char *combo_box_name = s_dupstr((char *)gtk_buildable_get_name (GTK_BUILDABLE (widget)));
 	fprintf(stdout,"\n NAME OF COMBO BOX IS %s",combo_box_name);
 	// search for this btn_name in user_data
@@ -103,7 +93,7 @@ void on_combobox_prefix_changed(GtkComboBox *widget, gpointer user_data)
 void on_radiobutton_toggled(GtkToggleButton *togglebutton,gpointer user_data)
 {
 	struct gtk_cb_data *head = (struct gtk_cb_data *)user_data;
-	print_user_data(head);
+	//print_user_data(head);
 	char *togglebutton_name = s_dupstr((char *)gtk_buildable_get_name (GTK_BUILDABLE (togglebutton)));
 	fprintf(stdout,"\n NAME OF RADIO BUTTON IS %s",togglebutton_name);
 	// search for this btn_name in user_data
@@ -143,7 +133,7 @@ void on_radiobutton_toggled(GtkToggleButton *togglebutton,gpointer user_data)
 void on_checkbutton_toggled(GtkToggleButton *togglebutton,gpointer user_data)
 {
 	struct gtk_cb_data *head = (struct gtk_cb_data *)user_data;
-	print_user_data(head);
+	//print_user_data(head);
 	char *togglebutton_name = s_dupstr((char *)gtk_buildable_get_name (GTK_BUILDABLE (togglebutton)));
 	fprintf(stdout,"\n NAME OF CHECK BUTTON IS %s",togglebutton_name);
 	// search for this btn_name in user_data

@@ -1,5 +1,6 @@
-#include "sGtk.h"
-#include "../misc/misc.h"
+#include "../sGtk.h"
+#include "sGtkCallbacks.h"
+#include "../../misc/misc.h"
 #include <malloc.h>
 
 struct gtk_cb_data * AllocateMemoryForGtkCBNode()
@@ -31,6 +32,7 @@ struct gtk_cb_data * AppendNode(struct gtk_cb_data **head,char *ref_, char *init
 	3. adjust pointers
 	4. return pointers to this node
 	*/
+	fprintf(stdout,"\n ==> , head = %s, name = %s, meta = %s",(*head) != 0 ? (*head)->name : "null",name_,meta_info_);
 	static int i = -1;
 	i++;
 	struct gtk_cb_data *newnode = AllocateMemoryForGtkCBNode();

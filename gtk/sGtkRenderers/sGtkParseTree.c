@@ -4,6 +4,7 @@
 #include "sGtkRenderer.h"
 #include "../../simpleUI.h"
 #include "../../sXforms.h"
+#include "../sGtkCallbacks/sGtkCallbacks.h"
 
 char *int2str[] = {"0","1","2","3","4","5","6","7","8","9"};
 int i = 0;
@@ -117,7 +118,7 @@ struct sGtkUIHandlers_data gtk_handlers[] = {
 	}
 };
 
-void sGenerateGladeFile(sXformsNode *head)
+struct gtk_cb_data * sGenerateGladeFile(sXformsNode *head)
 {
     //////////fprintf(stdout,"\n yes, it is working fine");
     xmlDoc *doc = NULL;
@@ -184,16 +185,17 @@ void sGenerateGladeFile(sXformsNode *head)
     char *ContentBox_packing_values[] = {"True","True","0"};
     CreatePackingNodeWithProperties(Main_Vbox_Child1,ContentBox_packing_propnames,ContentBox_packing_NullNodes, ContentBox_packing_NullNodes,ContentBox_packing_NullNodes,ContentBox_packing_values, 3);
     xmlNode *AddContentHere = Create1ChildNode(ContentBox,NULL,NULL);
-    
-    sGtkGenerateUIFromTree(head,AddContentHere);
+    struct gtk_cb_data *temp = (struct gtk_cb_data *)0;
+    sGtkGenerateUIFromTree(head,AddContentHere,&temp);
     // main content area
     xmlSaveFormatFileEnc(sGTK_UI_FILE, doc, "UTF-8", 1); // save file
     xmlFreeDoc(doc);  // free document
-    xmlCleanupParser();  //clean parser
+    xmlCleanupParser();  //clean parse
+    return temp;
 }
 
 
-int sGtkGenerateUIFromTree(sXformsNode * head, xmlNode *par)
+int sGtkGenerateUIFromTree(sXformsNode * head, xmlNode *par,struct gtk_cb_data **cb_data_head)
 {
 if( head == 0 ){
 	fprintf(stderr,"\n no data to read from");
@@ -203,7 +205,7 @@ else{
 	sXformsNode *temp ;
 	int x = 0;
 	for( temp = head->child;(( temp != 0 ) ) ; temp=temp->next){
-	    fprintf(stdout,"\n %s:%s,<-- M = %s -->",temp->type,temp->name,temp->meta_info);
+	    fprintf(stdout,"\n %s:%s,%s",temp->type,temp->name,temp->private_data);
 		if( temp->meta_info && !strcmp(temp->meta_info,"1")){
 			continue;
 		}
@@ -216,7 +218,7 @@ else{
 					if( (gtk_handlers[x].attrname) && (gtk_handlers[x].attrvalue) && ( !strcmp(tempattr->attrName,gtk_handlers[x].attrname) && !strcmp(tempattr->attrValue,gtk_handlers[x].attrvalue))){
 						fprintf(stdout,"\t 'specialised'");
 						//fprintf(stdout,"\n[%s][%d] start specialised %s:%s",__func__,__LINE__,temp->type,temp->name);
-						gtk_handlers[x].handler(temp,par);
+						gtk_handlers[x].handler(temp,par,cb_data_head);
 						temp->meta_info = (char *)"1"; // node visited
 						break;
 					}
@@ -236,7 +238,7 @@ else{
 			if( !strcmp(temp->type,gtk_handlers[x].type) && !gtk_handlers[x].strict){
 			    fprintf(stdout,"\t 'generic'");
 				//fprintf(stdout,"\n[%s][%d] start generic %s:%s",__func__,__LINE__,temp->type,temp->name);
-				gtk_handlers[x].handler(temp,par);
+				gtk_handlers[x].handler(temp,par,cb_data_head);
 				temp->meta_info = (char *)"1"; // node visited
 				//break;
 			}
@@ -246,14 +248,14 @@ else{
 		if( temp->child == 0){
 			continue;
 		}else{
-			sGtkGenerateUIFromTree(temp,par);
+			sGtkGenerateUIFromTree(temp,par,cb_data_head);
 		}}
 	}
 return 0;
 }
 
 
-int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node)
+int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
     fprintf(stdout,"\n[%s][%d][head = %s,%s]",__func__,__LINE__,head->type,head->name);
 	head -> meta_info = (char *)"1";
@@ -334,7 +336,7 @@ int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node)
                                             GtkNotebookGtkViewportValues,2);
                         xmlNode *TabChild = Create1ChildNode(GtkNotebookGtkViewport,NULL,NULL);
                         // tab content
-                        sGtkGenerateUIFromTree(tab_content,TabChild );
+                        sGtkGenerateUIFromTree(tab_content,TabChild ,cb_data_head);
                         // child for labels
                         s = "label_";
 						s = sAppendString(s,xftrigger->name);
@@ -372,7 +374,7 @@ int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node)
     return 0;
 }
 
-int gtk_f_FrameHandler(sXformsNode *head,xmlNode *node)
+int gtk_f_FrameHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
     fprintf(stdout,"\n[%s][%d] HEAD = %s:%s \t\t NODE = %s",__func__,__LINE__,head->name, head->type,node->name);
     int i = 0;
@@ -404,7 +406,7 @@ int gtk_f_FrameHandler(sXformsNode *head,xmlNode *node)
         CreatePropertyNodes(frame_tempvbox,frametempvboxProp,frametempvboxNull,frametempvboxNull,frametempvboxNull,frametempvboxValues,3);
         
         // parse the contents here , passing  frame_tempvbox as parent
-        sGtkGenerateUIFromTree(temp,frame_tempvbox );
+        sGtkGenerateUIFromTree(temp,frame_tempvbox ,cb_data_head);
         
         char *frametempvboxPackingProp[] = {"expand","fill","position"};
         char *frametempvboxPackingNull[] = {NULL,NULL,NULL};
@@ -421,7 +423,7 @@ int gtk_f_FrameHandler(sXformsNode *head,xmlNode *node)
 
 
 
-int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node)
+int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
     //////fprintf(stdout,"\n[%s][%d][head = %s]",__func__,__LINE__,head->name);
     int pos = -1;
@@ -461,7 +463,7 @@ int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node)
                                     label_packing_null,
                                     label_packing_value,3);
     // make a list store first here, name = liststore_ + head->name
-    gtk_f_MakeListStoreForDropDown(head,node);
+    gtk_f_MakeListStoreForDropDown(head,node,cb_data_head);
     char *liststore_name = "ListStoreForDropDown_"; liststore_name = sAppendString(liststore_name,head->name);
     s = "combo_";
     s = sAppendString(s,head->name);
@@ -471,7 +473,8 @@ int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node)
     char *combobox_null[] = {NULL,NULL,NULL,NULL,NULL,NULL};
     char *combobox_value[] = {"200","25","True","False",liststore_name,"1"};
     CreatePropertyNodes(combobox,combobox_prop,combobox_null, combobox_null, combobox_null,combobox_value ,6);
-    Create1SignalNode(combobox,"changed","on_combobox_prefix_changed",NULL, "no",NULL,NULL);
+    AppendNode(cb_data_head,"NULL-REFERENCE", "NULL-INITVAL","NULL-VAL",s,"GtkComboBox");
+    Create1SignalNode(combobox,"changed","on_combobox_changed",NULL, "no",NULL,NULL);
     xmlNode *CellRendererChild = Create1ChildNode(combobox,NULL,NULL);
     s = "CellRenderer_";  s = sAppendString(s,head->name);
     xmlNode *CellRenderer = Create1ObjectNode(CellRendererChild,s,"GtkCellRendererText",NULL,NULL);
@@ -489,7 +492,7 @@ int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node)
                                     combobox_packing_null,
                                     combobox_packing_value,3);
     
-    sGtkGenerateUIFromTree(head,hbox);
+    sGtkGenerateUIFromTree(head,hbox,cb_data_head);
     
     char *hbox_packing_prop[] = {"fill","expand","position"};
     char *hbox_packing_null[] = {NULL,NULL,NULL};
@@ -503,7 +506,7 @@ int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node)
                                     
 }
 
-int gtk_f_RadioButtonList(sXformsNode *head,xmlNode *node)
+int gtk_f_RadioButtonList(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
     xmlNode *hbox  = MakeHBoxForElements(head,node);
     head->meta_info = int2str[1];
@@ -516,7 +519,7 @@ int gtk_f_RadioButtonList(sXformsNode *head,xmlNode *node)
     char *buttongrpnull[] = {NULL,NULL,NULL};
     char *buttongrpval[] = {"True","False","start"};
     CreatePropertyNodes(buttongrp,buttongrpprop,buttongrpnull,buttongrpnull,buttongrpnull,buttongrpval,3);
-    gtk_f_MakeRadioButtonGroup(head,node);
+    gtk_f_MakeRadioButtonGroup(head,node,cb_data_head);
     s = "GtkRadioButtonGroup_"; s = sAppendString(s,head->name);
     sXformsNode *temp;
     int ctr = 0;
@@ -525,17 +528,17 @@ int gtk_f_RadioButtonList(sXformsNode *head,xmlNode *node)
 			xfchoices->meta_info = (char *)"1";
 			for( temp=xfchoices->child; temp != 0; temp=temp->next,ctr++){
 			    temp->meta_info = int2str[1];
-			    MakeRadioButton(head,buttongrp,s, "on_radiobutton_toggled",temp->name,ctr);
+			    MakeRadioButton(head,buttongrp,s, "on_radiobutton_toggled",temp->name,ctr,cb_data_head);
 			}
     }
-    sGtkGenerateUIFromTree(head,hbox);
+    sGtkGenerateUIFromTree(head,hbox,cb_data_head);
     PackElements(buttongroupchild,"True","False",pos);
     PackElements(hbox->parent,"True","False",pos);
 }
 
-int gtk_f_CheckBoxList(sXformsNode *head,xmlNode *node)
+int gtk_f_CheckBoxList(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
-    fprintf(stdout,"\n[%s][%d][head = %s]",__func__,__LINE__,head->name);
+    fprintf(stdout,"\n[%s][%d][head = %s]",__func__,__LINE__,head->private_data);
     //vbox-1 
     // child 1 - label
     // child-2 - buttonbox
@@ -565,11 +568,11 @@ int gtk_f_CheckBoxList(sXformsNode *head,xmlNode *node)
 			xfchoices->meta_info = (char *)"1";
 			for( temp=xfchoices->child; temp != 0; temp=temp->next,ctr++){
 			    temp->meta_info = int2str[1];
-			    MakeChildButton(head,buttonbox,"onclick",temp->name,ctr);
+			    MakeCheckButton(head,buttonbox,"on_checkbutton_toggled",temp->name,ctr,cb_data_head);
 			}
     }
     PackElements(buttonboxcontainer,"True","False",1);
-    sGtkGenerateUIFromTree(head->child,vbox);
+    sGtkGenerateUIFromTree(head->child,vbox,cb_data_head);
     // done button
 /*    s = "done_button_"; s = sAppendString(s,head->name);*/
 /*    xmlNode *hboxdonebtn = MakeHBoxForElements(head,vbox);*/
@@ -586,94 +589,17 @@ int gtk_f_CheckBoxList(sXformsNode *head,xmlNode *node)
     PackElements(vboxchild,"True","False",0);
 }
 
-int CalculatePosition(sXformsNode *head)
-{
-    int pos = -1;
-    sXformsNode *temp = head;
-    for(pos=-1;temp;temp=temp->prev,pos++);
-    return pos;
-}
 
-xmlNode *MakeHBoxForElements(sXformsNode *head,xmlNode *node)
-{
-    char *s = "hbox_";
-    if(head->name == 0) s = sAppendString(s,int2str[i++]);
-    else{ s = sAppendString(s,head->name); }
-    xmlNode *child = Create1ChildNode(node,NULL,NULL);
-    xmlNode *hbox = Create1ObjectNode(child,s,"GtkBox",NULL,NULL);
-    char *hbox_prop[] = {"visible","can_focus","margin_left","margin_right","margin_top","margin_bottom"};
-    char *hbox_null[] = {NULL,NULL,NULL,NULL,NULL,NULL};
-    char *hbox_value[] = {"True","False","2","2","2","2"};
-    CreatePropertyNodes(hbox,hbox_prop,hbox_null, hbox_null, hbox_null,hbox_value ,6);
-    // need to insert nodes here
-    return hbox;
-}
 
-void PackElements( xmlNode *par,char *fill, char *expand, int pos)
-{
-    char *packing_prop[] = {"fill","expand","position"};
-    char *packing_null[] = {NULL,NULL,NULL};
-    char *packing_value[] = {fill,expand,int2str[pos]};
-    CreatePackingNodeWithProperties(par,
-                                    packing_prop,
-                                    packing_null,
-                                    packing_null,
-                                    packing_null,
-                                    packing_value,3);
-}
 
-void MakeLabel(sXformsNode *head,xmlNode *hbox)
-{
-    char *s = "lbl_";
-    s = sAppendString(s,head->name);
-    xmlNode *child_label = Create1ChildNode(hbox,NULL,NULL);
-    xmlNode *label = Create1ObjectNode(child_label,s,"GtkLabel",NULL,NULL);
-    char *label_prop[] = {"width_request","height_request","visible","can_focus","margin_right","label"};
-    char *label_null[] = {NULL,NULL,NULL,NULL,NULL,NULL};
-    char *label_value[] = {"100","25","True","False","10",head->name};
-    char *label_trans[] = {NULL,NULL,NULL,NULL,NULL,"yes"};
-    CreatePropertyNodes(label,label_prop,label_trans, label_null, label_null,label_value ,6);
-    PackElements(child_label,"True","False",0);
-}
 
-void MakeRadioButton(sXformsNode *head, xmlNode *par,char *groupname, char *handlername, char *label, int pos)
-{
-    char *s = "radiobutton_"; s = sAppendString(s,head->name); s = sAppendString(s,int2str[pos]);
-    xmlNode *radiochild = Create1ChildNode(par,NULL,NULL);
-    xmlNode *radio = Create1ObjectNode(radiochild,s,"GtkRadioButton",NULL,NULL);
-    char *radio_prop[] = {"label","use_action_appearance","visible","can_focus","receives_default","xalign","draw_indicator","group"};
-    char *radio_value[] = {label,"False","True","True","False","0","True",groupname};
-    char *radio_null[] = {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
-    char *radio_trans[] = {"yes",NULL,NULL,NULL,NULL,NULL,NULL,NULL};
-    CreatePropertyNodes(radio,radio_prop,radio_trans, radio_null, radio_null,radio_value ,8);
-    Create1SignalNode(radio,"toggled",handlername, NULL, "no", NULL, NULL);
-    
-    PackElements(radiochild,"True","False",pos);
-}
-
-void MakeChildButton(sXformsNode *head, xmlNode *par, char *handlername, char *label, int pos)
-{
-    char *s = "checkbutton_"; s = sAppendString(s,head->name); s = sAppendString(s,int2str[pos]);
-    xmlNode *checkbutton = Create1ChildNode(par,NULL,NULL);
-    xmlNode *check = Create1ObjectNode(checkbutton,s,"GtkCheckButton",NULL,NULL);
-    char *check_prop[] = {"label","use_action_appearance","width_request","visible","can_focus","receives_default","margin_top","margin_bottom","xalign","draw_indicator"};
-    char *check_value[] = {label,"False","200","True","True","False","2","2","0","True"};
-    char *check_null[] = {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
-    char *check_trans[] = {"yes",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
-    CreatePropertyNodes(check,check_prop,check_trans, check_null, check_null,check_value ,10);
-    Create1SignalNode(check,"toggled",handlername, NULL, "no", NULL, NULL);
-    
-    PackElements(checkbutton,"True","False",pos);
-}
-
-int gtk_f_InputHandler(sXformsNode *head,xmlNode *node)
+int gtk_f_InputHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
     int pos = -1;
     // calculate the position of this element among it's siblings'
     head->meta_info = (char *)"1";
     sXformsNode *temp = head;
     for(pos=-1;temp;temp=temp->prev,pos++);
-    //////////fprintf(stdout,"\n[%s][%d][head = %s] POSITION = %d",__func__,__LINE__,head->name,pos);
     char *s = "hbox_";
     s = sAppendString(s,head->name);
     xmlNode *child = Create1ChildNode(node,NULL,NULL);
@@ -734,7 +660,7 @@ int gtk_f_InputHandler(sXformsNode *head,xmlNode *node)
                                     hbox_packing_value,3);
 }
 
-int gtk_f_LabelHandler(sXformsNode *head,xmlNode *node)
+int gtk_f_LabelHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
     head->meta_info = (char *)"1";
     //head->name = s;
@@ -745,15 +671,13 @@ int gtk_f_LabelHandler(sXformsNode *head,xmlNode *node)
     PackElements(hbox->parent,"True","False",pos);
 }
 
-int gtk_f_ButtonHandler(sXformsNode *head,xmlNode *node)
+int gtk_f_ButtonHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
-    ////////fprintf(stdout,"\n[%s][%d][head = %s]",__func__,__LINE__,head->name);
     int pos = -1;
     head->meta_info = (char *)"1";
     // calculate the position of this element among it's siblings'
     sXformsNode *temp = head;
     for(pos=-1;temp;temp=temp->prev,pos++);
-    ////////fprintf(stdout,"\n[%s][%d][head = %s] POSITION = %d",__func__,__LINE__,head->name,pos);
     
     char *s = "hbox_";
     s = sAppendString(s,head->name);
@@ -775,6 +699,18 @@ int gtk_f_ButtonHandler(sXformsNode *head,xmlNode *node)
     char *button_trans[] = {NULL,NULL,"yes",NULL,NULL,NULL};
     char *button_value[] = {"True","True","Done","False","True","False"};
     CreatePropertyNodes(button,button_prop,button_trans, button_null, button_null,button_value ,6);
+    
+    struct gtk_cb_data *btn =  AppendNode(cb_data_head,"REFERENCE", "NULL","NULL",s,"xf:trigger");
+/*    sXformsNode *temp = head;*/
+/*    for(temp = head;temp;temp=temp->prev)*/
+/*    {*/
+/*        if( !strcmp(temp->type,"") )*/
+/*        {*/
+/*            */
+/*        }*/
+/*    }*/
+    
+    
     Create1SignalNode(button,"clicked","on_btn_clicked", NULL,"no",NULL,NULL);
     char *button_packing_prop[] = {"fill","expand","position"};
     char *button_packing_null[] = {NULL,NULL,NULL};
@@ -799,12 +735,12 @@ int gtk_f_ButtonHandler(sXformsNode *head,xmlNode *node)
 }
 
 
-int gtk_f_RangeHandler(sXformsNode *head,xmlNode *node)
+int gtk_f_RangeHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
     //////////fprintf(stdout,"\n[%s][%d]",__func__,__LINE__);
 }
 
-int gtk_f_MakeRadioButtonGroup(sXformsNode *head,xmlNode *node)
+int gtk_f_MakeRadioButtonGroup(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
     char *s = "GtkRadioButtonGroup_"; s = sAppendString(s,head->name);
     xmlDoc *doc = node->doc;
@@ -817,7 +753,7 @@ int gtk_f_MakeRadioButtonGroup(sXformsNode *head,xmlNode *node)
     CreatePropertyNodes(GtkRadioButtonGroup,GtkRadioButtonGroupProp,GtkRadioButtonGroupTran,GtkRadioButtonGroupNull,GtkRadioButtonGroupNull,GtkRadioButtonGroupVal,8);
 }
 
-int gtk_f_MakeListStoreForDropDown(sXformsNode *head,xmlNode *node)
+int gtk_f_MakeListStoreForDropDown(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
     char *s = "ListStoreForDropDown_"; s = sAppendString(s,head->name);
     xmlDoc *doc = node->doc;
@@ -848,3 +784,86 @@ int gtk_f_MakeListStoreForDropDown(sXformsNode *head,xmlNode *node)
     }
 }
 
+// helpers
+
+void MakeCheckButton(sXformsNode *head, xmlNode *par, char *handlername, char *label, int pos, struct gtk_cb_data **cb_data_head)
+{
+    char *s = "checkbutton_"; s = sAppendString(s,label); s = sAppendString(s,int2str[pos]);
+    xmlNode *checkbutton = Create1ChildNode(par,NULL,NULL);
+    xmlNode *check = Create1ObjectNode(checkbutton,s,"GtkCheckButton",NULL,NULL);
+    char *check_prop[] = {"label","use_action_appearance","width_request","visible","can_focus","receives_default","margin_top","margin_bottom","xalign","draw_indicator"};
+    char *check_value[] = {label,"False","200","True","True","False","2","2","0","True"};
+    char *check_null[] = {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+    char *check_trans[] = {"yes",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+    CreatePropertyNodes(check,check_prop,check_trans, check_null, check_null,check_value ,10);
+    AppendNode(cb_data_head,"NULL-REFERENCE", "NULL-INITVAL","NULL-VAL",s,"GtkCheckButton");
+    Create1SignalNode(check,"toggled",handlername, NULL, "no", NULL, NULL);
+    
+    PackElements(checkbutton,"True","False",pos);
+}
+
+int CalculatePosition(sXformsNode *head)
+{
+    int pos = -1;
+    sXformsNode *temp = head;
+    for(pos=-1;temp;temp=temp->prev,pos++);
+    return pos;
+}
+
+xmlNode *MakeHBoxForElements(sXformsNode *head,xmlNode *node)
+{
+    char *s = "hbox_";
+    if(head->name == 0) s = sAppendString(s,int2str[i++]);
+    else{ s = sAppendString(s,head->name); }
+    xmlNode *child = Create1ChildNode(node,NULL,NULL);
+    xmlNode *hbox = Create1ObjectNode(child,s,"GtkBox",NULL,NULL);
+    char *hbox_prop[] = {"visible","can_focus","margin_left","margin_right","margin_top","margin_bottom"};
+    char *hbox_null[] = {NULL,NULL,NULL,NULL,NULL,NULL};
+    char *hbox_value[] = {"True","False","2","2","2","2"};
+    CreatePropertyNodes(hbox,hbox_prop,hbox_null, hbox_null, hbox_null,hbox_value ,6);
+    // need to insert nodes here
+    return hbox;
+}
+
+void PackElements( xmlNode *par,char *fill, char *expand, int pos)
+{
+    char *packing_prop[] = {"fill","expand","position"};
+    char *packing_null[] = {NULL,NULL,NULL};
+    char *packing_value[] = {fill,expand,int2str[pos]};
+    CreatePackingNodeWithProperties(par,
+                                    packing_prop,
+                                    packing_null,
+                                    packing_null,
+                                    packing_null,
+                                    packing_value,3);
+}
+
+void MakeLabel(sXformsNode *head,xmlNode *hbox)
+{
+    char *s = "lbl_";
+    s = sAppendString(s,head->name);
+    xmlNode *child_label = Create1ChildNode(hbox,NULL,NULL);
+    xmlNode *label = Create1ObjectNode(child_label,s,"GtkLabel",NULL,NULL);
+    char *label_prop[] = {"width_request","height_request","visible","can_focus","margin_right","label"};
+    char *label_null[] = {NULL,NULL,NULL,NULL,NULL,NULL};
+    char *label_value[] = {"100","25","True","False","10",head->name};
+    char *label_trans[] = {NULL,NULL,NULL,NULL,NULL,"yes"};
+    CreatePropertyNodes(label,label_prop,label_trans, label_null, label_null,label_value ,6);
+    PackElements(child_label,"True","False",0);
+}
+
+void MakeRadioButton(sXformsNode *head, xmlNode *par,char *groupname, char *handlername, char *label, int pos, struct gtk_cb_data **cb_data_head)
+{
+    char *s = "radiobutton_";s = sAppendString(s,int2str[pos]); s = sAppendString(s,label); 
+    xmlNode *radiochild = Create1ChildNode(par,NULL,NULL);
+    xmlNode *radio = Create1ObjectNode(radiochild,s,"GtkRadioButton",NULL,NULL);
+    char *radio_prop[] = {"label","use_action_appearance","visible","can_focus","receives_default","xalign","draw_indicator","group"};
+    char *radio_value[] = {label,"False","True","True","False","0","True",groupname};
+    char *radio_null[] = {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+    char *radio_trans[] = {"yes",NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+    CreatePropertyNodes(radio,radio_prop,radio_trans, radio_null, radio_null,radio_value ,8);
+    AppendNode(cb_data_head,"NULL-REFERENCE", "NULL-INITVAL","NULL-VAL",s,"GtkRadioButton");
+    Create1SignalNode(radio,"toggled",handlername, NULL, "no", NULL, NULL);
+    
+    PackElements(radiochild,"True","False",pos);
+}

@@ -1,5 +1,6 @@
-#include "sGtk.h"
-#include "../misc/misc.h"
+#include "../sGtk.h"
+#include "sGtkCallbacks.h"
+#include "../../misc/misc.h"
 #include <string.h>
 #include <gtk/gtk.h>
 

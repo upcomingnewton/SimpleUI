@@ -13,7 +13,7 @@
  
 /*
   Compile with:
-gcc -o  sGtk -g gtk/temp.c gtk/sGtk.h gtk/sGtkRenderers/sGtkParseTree.c  gtk/sGtkRenderers/sGtkRenderer_Helper.c gtk/sGtkRenderers/sGtkRenderer.h  gtk/sGtkCallbacks/sGtkCallbacks.h  gtk/sGtkCallbacks/sGtkCallbacks.c  gtk/sGtkCallbacks/sGtkCallback_HelperFunctions.c  gtk/sGtkCallbacks/sGtkCallbacks_GetValues.c   misc/misc.h  misc/string_func.c  io/io.h io/io.c xml/sXml.h xml/sParseXforms.c sXforms.h sXforms.c simpleUI.h `(pkg-config --cflags --libs gtk+-3.0)` `xml2-config --cflags --libs` -export-dynamic
+gcc -o  sGtk -g gtk/sGtk.h gtk/sGtkRenderers/sGtkParseTree.c  gtk/sGtkRenderers/sGtkRenderer_Helper.c gtk/sGtkRenderers/sGtkRenderer.h  gtk/sGtkCallbacks/sGtkCallbacks.h  gtk/sGtkCallbacks/sGtkCallbacks.c  gtk/sGtkCallbacks/sGtkCallback_HelperFunctions.c  gtk/sGtkCallbacks/sGtkCallbacks_GetValues.c   misc/misc.h  misc/string_func.c  io/io.h io/io.c xml/sXml.h xml/sParseXforms.c sXforms.h sXforms.c simpleUI.h `(pkg-config --cflags --libs gtk+-3.0)` `xml2-config --cflags --libs` -export-dynamic
  */
  
 /* RUNNING

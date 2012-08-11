@@ -99,14 +99,14 @@ public:
     QWidget *scrollAreaWidgetContents_4;
     QVBoxLayout *verticalLayout_10;
     QGridLayout *gridLayout_4;
-    QCheckBox *checkBox_4;
-    QCheckBox *checkBox;
+    QCheckBox *checkBox_newspaper1;
+    QCheckBox *checkBox_newspaper4;
     QLabel *label_15;
-    QCheckBox *checkBox_2;
-    QCheckBox *checkBox_3;
-    QCheckBox *checkBox_5;
+    QCheckBox *checkBox_newspaper3;
+    QCheckBox *checkBox_newspaper2;
+    QCheckBox *checkBox_newspaper5;
     QGridLayout *gridLayout_5;
-    QSlider *horizontalSlider;
+    QSlider *SliderDemo;
     QLabel *label_20;
     QLabel *label_16;
     QHBoxLayout *horizontalLayout_3;
@@ -403,35 +403,35 @@ public:
         gridLayout_4 = new QGridLayout();
         gridLayout_4->setSpacing(6);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        checkBox_4 = new QCheckBox(scrollAreaWidgetContents_4);
-        checkBox_4->setObjectName(QString::fromUtf8("checkBox_4"));
+        checkBox_newspaper1 = new QCheckBox(scrollAreaWidgetContents_4);
+        checkBox_newspaper1->setObjectName(QString::fromUtf8("checkBox_newspaper1"));
 
-        gridLayout_4->addWidget(checkBox_4, 1, 0, 1, 1);
+        gridLayout_4->addWidget(checkBox_newspaper1, 1, 0, 1, 1);
 
-        checkBox = new QCheckBox(scrollAreaWidgetContents_4);
-        checkBox->setObjectName(QString::fromUtf8("checkBox"));
+        checkBox_newspaper4 = new QCheckBox(scrollAreaWidgetContents_4);
+        checkBox_newspaper4->setObjectName(QString::fromUtf8("checkBox_newspaper4"));
 
-        gridLayout_4->addWidget(checkBox, 4, 0, 1, 1);
+        gridLayout_4->addWidget(checkBox_newspaper4, 4, 0, 1, 1);
 
         label_15 = new QLabel(scrollAreaWidgetContents_4);
         label_15->setObjectName(QString::fromUtf8("label_15"));
 
         gridLayout_4->addWidget(label_15, 0, 0, 1, 1);
 
-        checkBox_2 = new QCheckBox(scrollAreaWidgetContents_4);
-        checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
+        checkBox_newspaper3 = new QCheckBox(scrollAreaWidgetContents_4);
+        checkBox_newspaper3->setObjectName(QString::fromUtf8("checkBox_newspaper3"));
 
-        gridLayout_4->addWidget(checkBox_2, 3, 0, 1, 1);
+        gridLayout_4->addWidget(checkBox_newspaper3, 3, 0, 1, 1);
 
-        checkBox_3 = new QCheckBox(scrollAreaWidgetContents_4);
-        checkBox_3->setObjectName(QString::fromUtf8("checkBox_3"));
+        checkBox_newspaper2 = new QCheckBox(scrollAreaWidgetContents_4);
+        checkBox_newspaper2->setObjectName(QString::fromUtf8("checkBox_newspaper2"));
 
-        gridLayout_4->addWidget(checkBox_3, 2, 0, 1, 1);
+        gridLayout_4->addWidget(checkBox_newspaper2, 2, 0, 1, 1);
 
-        checkBox_5 = new QCheckBox(scrollAreaWidgetContents_4);
-        checkBox_5->setObjectName(QString::fromUtf8("checkBox_5"));
+        checkBox_newspaper5 = new QCheckBox(scrollAreaWidgetContents_4);
+        checkBox_newspaper5->setObjectName(QString::fromUtf8("checkBox_newspaper5"));
 
-        gridLayout_4->addWidget(checkBox_5, 5, 0, 1, 1);
+        gridLayout_4->addWidget(checkBox_newspaper5, 5, 0, 1, 1);
 
 
         verticalLayout_10->addLayout(gridLayout_4);
@@ -439,13 +439,15 @@ public:
         gridLayout_5 = new QGridLayout();
         gridLayout_5->setSpacing(6);
         gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
-        horizontalSlider = new QSlider(scrollAreaWidgetContents_4);
-        horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
-        horizontalSlider->setMaximum(100);
-        horizontalSlider->setValue(50);
-        horizontalSlider->setOrientation(Qt::Horizontal);
+        SliderDemo = new QSlider(scrollAreaWidgetContents_4);
+        SliderDemo->setObjectName(QString::fromUtf8("SliderDemo"));
+        SliderDemo->setMaximum(100);
+        SliderDemo->setValue(50);
+        SliderDemo->setOrientation(Qt::Horizontal);
+        SliderDemo->setTickPosition(QSlider::TicksBothSides);
+        SliderDemo->setTickInterval(5);
 
-        gridLayout_5->addWidget(horizontalSlider, 1, 0, 1, 1);
+        gridLayout_5->addWidget(SliderDemo, 1, 0, 1, 1);
 
         label_20 = new QLabel(scrollAreaWidgetContents_4);
         label_20->setObjectName(QString::fromUtf8("label_20"));
@@ -506,10 +508,8 @@ public:
 
 
         retranslateUi(sample1);
-        QObject::connect(BtnSliderValueDone, SIGNAL(clicked()), BtnDone_Main, SLOT(animateClick()));
-        QObject::connect(BtnSliderValueDone, SIGNAL(clicked()), BtnDone_Main, SLOT(click()));
 
-        TabWidget->setCurrentIndex(1);
+        TabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(sample1);
@@ -548,12 +548,12 @@ public:
         label_12->setText(QApplication::translate("sample1", "Enter End Date", 0, QApplication::UnicodeUTF8));
         BtnProjectInsertDone->setText(QApplication::translate("sample1", "Insert Project", 0, QApplication::UnicodeUTF8));
         TabWidget->setTabText(TabWidget->indexOf(TabProjectInfo), QApplication::translate("sample1", "Project Information", 0, QApplication::UnicodeUTF8));
-        checkBox_4->setText(QApplication::translate("sample1", "newspaper1", 0, QApplication::UnicodeUTF8));
-        checkBox->setText(QApplication::translate("sample1", "newspaper4", 0, QApplication::UnicodeUTF8));
+        checkBox_newspaper1->setText(QApplication::translate("sample1", "newspaper1", 0, QApplication::UnicodeUTF8));
+        checkBox_newspaper4->setText(QApplication::translate("sample1", "newspaper4", 0, QApplication::UnicodeUTF8));
         label_15->setText(QApplication::translate("sample1", "Select the newspaper you like", 0, QApplication::UnicodeUTF8));
-        checkBox_2->setText(QApplication::translate("sample1", "newspaper3", 0, QApplication::UnicodeUTF8));
-        checkBox_3->setText(QApplication::translate("sample1", "newspaper2", 0, QApplication::UnicodeUTF8));
-        checkBox_5->setText(QApplication::translate("sample1", "newspaper5", 0, QApplication::UnicodeUTF8));
+        checkBox_newspaper3->setText(QApplication::translate("sample1", "newspaper3", 0, QApplication::UnicodeUTF8));
+        checkBox_newspaper2->setText(QApplication::translate("sample1", "newspaper2", 0, QApplication::UnicodeUTF8));
+        checkBox_newspaper5->setText(QApplication::translate("sample1", "newspaper5", 0, QApplication::UnicodeUTF8));
         label_20->setText(QApplication::translate("sample1", "Select some value", 0, QApplication::UnicodeUTF8));
         label_16->setText(QString());
         BtnSliderValueDone->setText(QApplication::translate("sample1", "get Value", 0, QApplication::UnicodeUTF8));

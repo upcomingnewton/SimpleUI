@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="TabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="TabWelcome">
       <attribute name="title">
@@ -385,14 +385,14 @@
            <item>
             <layout class="QGridLayout" name="gridLayout_4">
              <item row="1" column="0">
-              <widget class="QCheckBox" name="checkBox_4">
+              <widget class="QCheckBox" name="checkBox_newspaper1">
                <property name="text">
                 <string>newspaper1</string>
                </property>
               </widget>
              </item>
              <item row="4" column="0">
-              <widget class="QCheckBox" name="checkBox">
+              <widget class="QCheckBox" name="checkBox_newspaper4">
                <property name="text">
                 <string>newspaper4</string>
                </property>
@@ -406,21 +406,21 @@
               </widget>
              </item>
              <item row="3" column="0">
-              <widget class="QCheckBox" name="checkBox_2">
+              <widget class="QCheckBox" name="checkBox_newspaper3">
                <property name="text">
                 <string>newspaper3</string>
                </property>
               </widget>
              </item>
              <item row="2" column="0">
-              <widget class="QCheckBox" name="checkBox_3">
+              <widget class="QCheckBox" name="checkBox_newspaper2">
                <property name="text">
                 <string>newspaper2</string>
                </property>
               </widget>
              </item>
              <item row="5" column="0">
-              <widget class="QCheckBox" name="checkBox_5">
+              <widget class="QCheckBox" name="checkBox_newspaper5">
                <property name="text">
                 <string>newspaper5</string>
                </property>
@@ -431,7 +431,7 @@
            <item>
             <layout class="QGridLayout" name="gridLayout_5">
              <item row="1" column="0">
-              <widget class="QSlider" name="horizontalSlider">
+              <widget class="QSlider" name="SliderDemo">
                <property name="maximum">
                 <number>100</number>
                </property>
@@ -440,6 +440,12 @@
                </property>
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="tickPosition">
+                <enum>QSlider::TicksBothSides</enum>
+               </property>
+               <property name="tickInterval">
+                <number>5</number>
                </property>
               </widget>
              </item>
@@ -523,39 +529,5 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections>
-  <connection>
-   <sender>BtnSliderValueDone</sender>
-   <signal>clicked()</signal>
-   <receiver>BtnDone_Main</receiver>
-   <slot>animateClick()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>84</x>
-     <y>368</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>634</x>
-     <y>435</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>BtnSliderValueDone</sender>
-   <signal>clicked()</signal>
-   <receiver>BtnDone_Main</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>112</x>
-     <y>373</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>623</x>
-     <y>432</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
 </ui>
 

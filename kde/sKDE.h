@@ -16,6 +16,8 @@ private slots:
     void on_QComboBox_current_index_change(int index);
     void on_QComboBox_current_index_change( const QString & text );
     void on_QRadioButton_toggled(bool);
+    void on_QCheckBox_toggled(bool);
+    void on_QSlider_valueChanged(int);
 private:
     struct qt_cb_data *cb_data;
     QPushButton *ui_push_button;

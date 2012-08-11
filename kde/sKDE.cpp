@@ -18,18 +18,19 @@
      
      cb_data = MakeDummy();
      
-     
+     printf("\n cp-1");
      // find widgets here 
      DisableDefaultAndConnectSignals();
-
+    printf("\n cp-2");
  }
  
 void SimpleUiKde::DisableDefaultAndConnectSignals()
  {
     struct qt_cb_data *temp = cb_data;
-    print_user_data(temp);
+    //print_user_data(temp);
     while( temp != 0)
     {
+      printf("\n %s",temp->name);
       if( !strcmp(temp->meta_info,"QPushButton"))
       {
           QPushButton *btn = qFindChild<QPushButton *>(this, temp->name);
@@ -56,6 +57,24 @@ void SimpleUiKde::DisableDefaultAndConnectSignals()
           {
               //dd->setAutoDefault(false);
               connect(btn, SIGNAL(toggled(bool)), this, SLOT(on_QRadioButton_toggled(bool)));
+          }
+      }
+      else if( !strcmp(temp->meta_info,"QCheckBox"))
+      {
+          QCheckBox *btn = qFindChild<QCheckBox *>(this, temp->name);
+          if( btn )
+          {
+              //dd->setAutoDefault(false);
+              connect(btn, SIGNAL(toggled(bool)), this, SLOT(on_QCheckBox_toggled(bool)));
+          }
+      }
+      else if( !strcmp(temp->meta_info,"QSlider"))
+      {
+          QSlider *slider = qFindChild<QSlider *>(this, temp->name);
+          if( slider )
+          {
+              //dd->setAutoDefault(false);
+              connect(slider, SIGNAL(valueChanged(int)), this, SLOT(on_QSlider_valueChanged(int)));
           }
       }
       temp = temp->next;
@@ -99,5 +118,33 @@ void SimpleUiKde::on_QComboBox_current_index_change(const QString & text)
         {
            cout << " un-checked \n";
         }
+    }
+ }
+ 
+ void SimpleUiKde::on_QCheckBox_toggled(bool value)
+ {
+    QCheckBox *btn = qobject_cast<QCheckBox *>(QObject::sender());
+    if( btn != NULL)
+    {
+        QTextStream cout(stdout);
+        cout << btn->objectName() << " == ";
+        if( value)
+        {
+           cout << " checked \n";
+        }
+        else
+        {
+           cout << " un-checked \n";
+        }
+    }
+ }
+ 
+ void SimpleUiKde::on_QSlider_valueChanged(int newval)
+ {
+    QSlider *slider = qobject_cast<QSlider *>(QObject::sender());
+    if( slider != NULL)
+    {
+        printf("\n slider val = %d",newval);
+        
     }
  }

@@ -23,7 +23,7 @@ static const uint qt_meta_data_SimpleUiKde[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -35,6 +35,8 @@ static const uint qt_meta_data_SimpleUiKde[] = {
       42,   36,   12,   12, 0x08,
       86,   81,   12,   12, 0x08,
      129,   12,   12,   12, 0x08,
+     159,   12,   12,   12, 0x08,
+     186,   12,   12,   12, 0x08,
 
        0        // eod
 };
@@ -44,6 +46,8 @@ static const char qt_meta_stringdata_SimpleUiKde[] = {
     "index\0on_QComboBox_current_index_change(int)\0"
     "text\0on_QComboBox_current_index_change(QString)\0"
     "on_QRadioButton_toggled(bool)\0"
+    "on_QCheckBox_toggled(bool)\0"
+    "on_QSlider_valueChanged(int)\0"
 };
 
 const QMetaObject SimpleUiKde::staticMetaObject = {
@@ -79,9 +83,11 @@ int SimpleUiKde::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 1: on_QComboBox_current_index_change((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: on_QComboBox_current_index_change((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 3: on_QRadioButton_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 4: on_QCheckBox_toggled((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 5: on_QSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 4;
+        _id -= 6;
     }
     return _id;
 }

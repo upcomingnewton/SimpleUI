@@ -13,6 +13,9 @@ public:
     
 private slots:
     void on_QPushButton_click();
+    void on_QComboBox_current_index_change(int index);
+    void on_QComboBox_current_index_change( const QString & text );
+    void on_QRadioButton_toggled(bool);
 private:
     struct qt_cb_data *cb_data;
     QPushButton *ui_push_button;

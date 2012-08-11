@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="TabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="TabWelcome">
       <attribute name="title">
@@ -34,8 +34,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>180</width>
-            <height>39</height>
+            <width>639</width>
+            <height>342</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -67,8 +67,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>443</width>
-            <height>426</height>
+            <width>621</width>
+            <height>432</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -113,6 +113,9 @@
                  </property>
                 </widget>
                </item>
+               <item row="4" column="2">
+                <widget class="QLineEdit" name="lineEdit_4"/>
+               </item>
                <item row="3" column="0">
                 <widget class="QLabel" name="label_5">
                  <property name="text">
@@ -120,23 +123,29 @@
                  </property>
                 </widget>
                </item>
+               <item row="0" column="2">
+                <widget class="QComboBox" name="PersonalInfo_NamePrefix">
+                 <item>
+                  <property name="text">
+                   <string>Mr.</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mrs.</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Dr.</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
                <item row="4" column="0">
                 <widget class="QLabel" name="label_6">
                  <property name="text">
                   <string>Enter your date of birth</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="2">
-                <widget class="QLineEdit" name="lineEdit_4"/>
-               </item>
-               <item row="0" column="2">
-                <widget class="QComboBox" name="comboBox"/>
-               </item>
-               <item row="5" column="1">
-                <widget class="QRadioButton" name="radioButton">
-                 <property name="text">
-                  <string>male</string>
                  </property>
                 </widget>
                </item>
@@ -148,17 +157,55 @@
                 </widget>
                </item>
                <item row="5" column="2">
-                <widget class="QRadioButton" name="radioButton_2">
-                 <property name="text">
-                  <string>female</string>
+                <widget class="QGroupBox" name="GroupBoxRadioButtons">
+                 <property name="title">
+                  <string/>
                  </property>
-                </widget>
-               </item>
-               <item row="5" column="3">
-                <widget class="QRadioButton" name="radioButton_3">
-                 <property name="text">
-                  <string>not disclose</string>
+                 <property name="checkable">
+                  <bool>false</bool>
                  </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                 <widget class="QRadioButton" name="radioButton_male">
+                  <property name="geometry">
+                   <rect>
+                    <x>30</x>
+                    <y>0</y>
+                    <width>108</width>
+                    <height>26</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>Male</string>
+                  </property>
+                 </widget>
+                 <widget class="QRadioButton" name="radioButton_female">
+                  <property name="geometry">
+                   <rect>
+                    <x>160</x>
+                    <y>0</y>
+                    <width>108</width>
+                    <height>26</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>female</string>
+                  </property>
+                 </widget>
+                 <widget class="QRadioButton" name="radioButton_none">
+                  <property name="geometry">
+                   <rect>
+                    <x>310</x>
+                    <y>0</y>
+                    <width>108</width>
+                    <height>26</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>not disclose</string>
+                  </property>
+                 </widget>
                 </widget>
                </item>
               </layout>
@@ -240,8 +287,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>225</width>
-            <height>258</height>
+            <width>639</width>
+            <height>342</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">

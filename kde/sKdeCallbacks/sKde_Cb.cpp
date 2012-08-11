@@ -66,6 +66,10 @@ struct qt_cb_data * MakeDummy()
     struct qt_cb_data *btn1 =  AppendNode(&head,"btn_personal_info", "NULL","NULL","BtnPersonalInfoDone","QPushButton");
     struct qt_cb_data *btn2 =  AppendNode(&head,"btn_personal_info", "NULL","NULL","BtnLoginInfoDone","QPushButton");
     struct qt_cb_data *btn3 =  AppendNode(&head,"btn_personal_info", "NULL","NULL","BtnProjectInsertDone","QPushButton");
+    struct qt_cb_data *dd1 =  AppendNode(&head,"btn_personal_info", "NULL","NULL","PersonalInfo_NamePrefix","QComboBox");
+    struct qt_cb_data *radio_button1 =  AppendNode(&head,"btn_personal_info", "NULL","NULL","radioButton_male","QRadioButton");
+    struct qt_cb_data *radio_button2 =  AppendNode(&head,"btn_personal_info", "NULL","NULL","radioButton_female","QRadioButton");
+    struct qt_cb_data *radio_button3 =  AppendNode(&head,"btn_personal_info", "NULL","NULL","radioButton_none","QRadioButton");
     //struct qt_cb_data *CheckBtn1 =  AppendNode(&head,"btn_personal_info", "NULL","NULL","checkbutton_newpaper1","GtkCheckButton");
     //struct qt_cb_data *CheckBtn2 =  AppendNode(&head,"btn_personal_info", "NULL","NULL","checkbutton_newpaper3","GtkCheckButton");
     //struct qt_cb_data *CheckBtn3 =  AppendNode(&head,"btn_personal_info", "NULL","NULL","checkbutton_newpaper5","GtkCheckButton");

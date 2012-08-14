@@ -145,8 +145,8 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
   //sPrintsXformsTree(head);
 
 
-  cb_data = sKdeGenerateGladeFile(head);
-      QApplication a(argc, argv);
+    cb_data = sKdeGenerateGladeFile(head);
+    QApplication a(argc, argv);
     SimpleUiKde w;
     w.show();
     

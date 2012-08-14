@@ -14,7 +14,474 @@
       </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item/>
+      <item>
+        <widget class="QTabWidget" name="TabWidget">
+          <property name="currentIndex">
+            <number>0</number>
+          </property>
+          <widget class="QWidget" name="Tab_Welcome_Page">
+            <attribute name="title">
+              <string>Welcome_Page</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="Tab_VerticalLayout_Welcome_Page">
+              <item>
+                <widget class="QScrollArea" name="Tab_QScrollArea_Welcome_Page">
+                  <property name="widgetResizable">
+                    <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="Tab_QScrollAreaContent_Welcome_Page">
+                    <property name="geometry">
+                      <rect>
+                        <x>0</x>
+                        <y>0</y>
+                        <width>639</width>
+                        <height>342</height>
+                      </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutWelcome_Page">
+                      <item>
+                        <layout class="QGridLayout" name="Layout_welcome_panel">
+                          <item row="0" column="0">
+                            <widget class="QLabel" name="Label_0">
+                              <property name="text">
+                                <string>NULL</string>
+                              </property>
+                            </widget>
+                          </item>
+                        </layout>
+                      </item>
+                      <item>
+                        <spacer name="Spacer_welcome_panel">
+                          <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                            <size>
+                              <width>20</width>
+                              <height>40</height>
+                            </size>
+                          </property>
+                        </spacer>
+                      </item>
+                    </layout>
+                  </widget>
+                </widget>
+              </item>
+            </layout>
+          </widget>
+          <widget class="QWidget" name="Tab_Personal_Information">
+            <attribute name="title">
+              <string>Personal_Information</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="Tab_VerticalLayout_Personal_Information">
+              <item>
+                <widget class="QScrollArea" name="Tab_QScrollArea_Personal_Information">
+                  <property name="widgetResizable">
+                    <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="Tab_QScrollAreaContent_Personal_Information">
+                    <property name="geometry">
+                      <rect>
+                        <x>0</x>
+                        <y>0</y>
+                        <width>639</width>
+                        <height>342</height>
+                      </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutPersonal_Information">
+                      <item>
+                        <layout class="QGridLayout" name="Layout_personal_info_panel">
+                          <item row="0" column="0">
+                            <widget class="QLabel" name="Label_DDlbl_0">
+                              <property name="text">
+                                <string>Name Prefix:</string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="0" column="2">
+                            <widget class="QComboBox" name="DD_0">
+                              <item>
+                                <property name="text">
+                                  <string>Mr. </string>
+                                </property>
+                              </item>
+                              <item>
+                                <property name="text">
+                                  <string>Mrs. </string>
+                                </property>
+                              </item>
+                              <item>
+                                <property name="text">
+                                  <string>Dr. </string>
+                                </property>
+                              </item>
+                            </widget>
+                          </item>
+                          <item row="1" column="0">
+                            <widget class="QLabel" name="Label_Inputlbl_0">
+                              <property name="text">
+                                <string>Enter your first name : </string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="1" column="2">
+                            <widget class="QLineEdit" name="Input_0"/>
+                          </item>
+                          <item row="2" column="0">
+                            <widget class="QLabel" name="Label_Inputlbl_1">
+                              <property name="text">
+                                <string>Enter your middle name : </string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="2" column="2">
+                            <widget class="QLineEdit" name="Input_1"/>
+                          </item>
+                          <item row="3" column="0">
+                            <widget class="QLabel" name="Label_Inputlbl_2">
+                              <property name="text">
+                                <string>Enter your last name : </string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="3" column="2">
+                            <widget class="QLineEdit" name="Input_2"/>
+                          </item>
+                          <item row="4" column="0">
+                            <widget class="QLabel" name="Label_Inputlbl_3">
+                              <property name="text">
+                                <string>Enter your date of birth : </string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="4" column="2">
+                            <widget class="QLineEdit" name="Input_3"/>
+                          </item>
+                          <item row="5" column="0">
+                            <widget class="QLabel" name="DDlbl_0">
+                              <property name="text">
+                                <string>Select your gender</string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="5" column="2">
+                            <widget class="QGroupBox" name="QGroupBox_0">
+                              <property name="title"/>
+                              <property name="checkable">
+                                <bool>false</bool>
+                              </property>
+                              <property name="checked">
+                                <bool>false</bool>
+                              </property>
+                              <widget class="QRadioButton" name="radio_0">
+                                <property name="geometry">
+                                  <rect>
+                                    <x>5</x>
+                                    <y>0</y>
+                                    <width>108</width>
+                                    <height>26</height>
+                                  </rect>
+                                </property>
+                                <property name="text">
+                                  <string>Male</string>
+                                </property>
+                              </widget>
+                              <widget class="QRadioButton" name="radio_1">
+                                <property name="geometry">
+                                  <rect>
+                                    <x>85</x>
+                                    <y>0</y>
+                                    <width>108</width>
+                                    <height>26</height>
+                                  </rect>
+                                </property>
+                                <property name="text">
+                                  <string>Female</string>
+                                </property>
+                              </widget>
+                              <widget class="QRadioButton" name="radio_2">
+                                <property name="geometry">
+                                  <rect>
+                                    <x>165</x>
+                                    <y>0</y>
+                                    <width>108</width>
+                                    <height>26</height>
+                                  </rect>
+                                </property>
+                                <property name="text">
+                                  <string>Not want to disclose</string>
+                                </property>
+                              </widget>
+                            </widget>
+                          </item>
+                          <item row="6" column="0">
+                            <widget class="QPushButton" name="Btn_0">
+                              <property name="text">
+                                <string>NULL</string>
+                              </property>
+                            </widget>
+                          </item>
+                        </layout>
+                      </item>
+                      <item>
+                        <spacer name="Spacer_personal_info_panel">
+                          <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                            <size>
+                              <width>20</width>
+                              <height>40</height>
+                            </size>
+                          </property>
+                        </spacer>
+                      </item>
+                      <item>
+                        <layout class="QGridLayout" name="Layout_personal_info_panel">
+                          <item row="0" column="0">
+                            <widget class="QLabel" name="Label_Inputlbl_4">
+                              <property name="text">
+                                <string>Prefered UserName : </string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="0" column="2">
+                            <widget class="QLineEdit" name="Input_4"/>
+                          </item>
+                          <item row="1" column="0">
+                            <widget class="QLabel" name="Label_Inputlbl_5">
+                              <property name="text">
+                                <string>password : </string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="1" column="2">
+                            <widget class="QLineEdit" name="Input_5"/>
+                          </item>
+                          <item row="2" column="0">
+                            <widget class="QLabel" name="Label_Inputlbl_6">
+                              <property name="text">
+                                <string>confirm password : </string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="2" column="2">
+                            <widget class="QLineEdit" name="Input_6"/>
+                          </item>
+                          <item row="3" column="0">
+                            <widget class="QLabel" name="Label_1">
+                              <property name="text">
+                                <string>NULL</string>
+                              </property>
+                            </widget>
+                          </item>
+                        </layout>
+                      </item>
+                      <item>
+                        <spacer name="Spacer_personal_info_panel">
+                          <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                            <size>
+                              <width>20</width>
+                              <height>40</height>
+                            </size>
+                          </property>
+                        </spacer>
+                      </item>
+                    </layout>
+                  </widget>
+                </widget>
+              </item>
+            </layout>
+          </widget>
+          <widget class="QWidget" name="Tab_Projects">
+            <attribute name="title">
+              <string>Projects</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="Tab_VerticalLayout_Projects">
+              <item>
+                <widget class="QScrollArea" name="Tab_QScrollArea_Projects">
+                  <property name="widgetResizable">
+                    <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="Tab_QScrollAreaContent_Projects">
+                    <property name="geometry">
+                      <rect>
+                        <x>0</x>
+                        <y>0</y>
+                        <width>639</width>
+                        <height>342</height>
+                      </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutProjects">
+                      <item>
+                        <layout class="QGridLayout" name="Layout_new_project_panel">
+                          <item row="0" column="0">
+                            <widget class="QLabel" name="Label_Inputlbl_7">
+                              <property name="text">
+                                <string>Enter start date of your project : </string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="0" column="2">
+                            <widget class="QLineEdit" name="Input_7"/>
+                          </item>
+                          <item row="1" column="0">
+                            <widget class="QLabel" name="Label_Inputlbl_8">
+                              <property name="text">
+                                <string>Enter end date of your project : </string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="1" column="2">
+                            <widget class="QLineEdit" name="Input_8"/>
+                          </item>
+                          <item row="2" column="0">
+                            <widget class="QLabel" name="Label_Inputlbl_9">
+                              <property name="text">
+                                <string>key skills : </string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="2" column="2">
+                            <widget class="QLineEdit" name="Input_9"/>
+                          </item>
+                          <item row="3" column="0">
+                            <widget class="QLabel" name="Label_Inputlbl_10">
+                              <property name="text">
+                                <string>description : </string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="3" column="2">
+                            <widget class="QLineEdit" name="Input_10"/>
+                          </item>
+                          <item row="4" column="0">
+                            <widget class="QPushButton" name="Btn_1">
+                              <property name="text">
+                                <string>NULL</string>
+                              </property>
+                            </widget>
+                          </item>
+                        </layout>
+                      </item>
+                      <item>
+                        <spacer name="Spacer_new_project_panel">
+                          <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                            <size>
+                              <width>20</width>
+                              <height>40</height>
+                            </size>
+                          </property>
+                        </spacer>
+                      </item>
+                    </layout>
+                  </widget>
+                </widget>
+              </item>
+            </layout>
+          </widget>
+          <widget class="QWidget" name="Tab_Preferences">
+            <attribute name="title">
+              <string>Preferences</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="Tab_VerticalLayout_Preferences">
+              <item>
+                <widget class="QScrollArea" name="Tab_QScrollArea_Preferences">
+                  <property name="widgetResizable">
+                    <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="Tab_QScrollAreaContent_Preferences">
+                    <property name="geometry">
+                      <rect>
+                        <x>0</x>
+                        <y>0</y>
+                        <width>639</width>
+                        <height>342</height>
+                      </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutPreferences">
+                      <item>
+                        <layout class="QGridLayout" name="Layout_check_buttons_panel">
+                          <item row="0" column="0">
+                            <widget class="QCheckBox" name="CheckBox_0">
+                              <property name="text">
+                                <string>newspaper-1</string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="1" column="0">
+                            <widget class="QCheckBox" name="CheckBox_1">
+                              <property name="text">
+                                <string>newspaper-2</string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="2" column="0">
+                            <widget class="QCheckBox" name="CheckBox_2">
+                              <property name="text">
+                                <string>newspaper-3</string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="3" column="0">
+                            <widget class="QCheckBox" name="CheckBox_3">
+                              <property name="text">
+                                <string>newspaper-4</string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="4" column="0">
+                            <widget class="QCheckBox" name="CheckBox_4">
+                              <property name="text">
+                                <string>newspaper-5</string>
+                              </property>
+                            </widget>
+                          </item>
+                        </layout>
+                      </item>
+                      <item>
+                        <spacer name="Spacer_check_buttons_panel">
+                          <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                            <size>
+                              <width>20</width>
+                              <height>40</height>
+                            </size>
+                          </property>
+                        </spacer>
+                      </item>
+                      <item>
+                        <layout class="QGridLayout" name="Layout_check_buttons_panel"/>
+                      </item>
+                      <item>
+                        <spacer name="Spacer_check_buttons_panel">
+                          <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                            <size>
+                              <width>20</width>
+                              <height>40</height>
+                            </size>
+                          </property>
+                        </spacer>
+                      </item>
+                    </layout>
+                  </widget>
+                </widget>
+              </item>
+            </layout>
+          </widget>
+        </widget>
+      </item>
       <item>
         <layout class="QHBoxLayout" name="horizontalLayout2">
           <item>

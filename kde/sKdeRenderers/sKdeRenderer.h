@@ -13,9 +13,7 @@
 	typedef int  (*sKdeUIHandlers) (
 		sXformsNode * head,
 		xmlNode *par,
-		struct qt_cb_data *cb_data_head, 
-		int row, 
-		int column
+		struct qt_cb_data **cb_data_head
 		);
 	
 	struct sKdeUIHandlers_data{
@@ -29,7 +27,16 @@
     
     //functions defined in sGtkParseTree.c
 struct qt_cb_data * sKdeGenerateGladeFile(sXformsNode *head);
+int sKdeGenerateUIFromTree(sXformsNode * head, xmlNode *par,struct qt_cb_data **cb_data_head);
 
+int kde_f_TabsHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
+int kde_f_FrameHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
+int kde_f_LabelHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
+int kde_f_ButtonHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
+int kde_f_InputHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
+int kde_f_Select1Handler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
+int kde_f_RadioButtonList(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
+int kde_f_CheckBoxList(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
 	
 
     
@@ -47,5 +54,6 @@ xmlNode *CreateLayout(xmlNode *par,char *classname, char *name );
 xmlNode *CreateSpacer(xmlNode *par,char *spacerName, char *orientation, char *width, char *height );
 xmlNode *CreateItemNode(xmlNode *par,xmlNode *child, char * row, char * column);
 xmlNode * CreateXmlNode(xmlNsPtr ns, char * name);
+xmlNode *CreateStringAttribute(xmlNode *par, char *strval );
 #endif
 

@@ -18,10 +18,10 @@
      
      cb_data = MakeDummy();
      
-     printf("\n cp-1");
+     //printf("\n cp-1");
      // find widgets here 
      DisableDefaultAndConnectSignals();
-    printf("\n cp-2");
+    //printf("\n cp-2");
  }
  
 void SimpleUiKde::DisableDefaultAndConnectSignals()
@@ -30,7 +30,7 @@ void SimpleUiKde::DisableDefaultAndConnectSignals()
     //print_user_data(temp);
     while( temp != 0)
     {
-      printf("\n %s",temp->name);
+      //printf("\n %s",temp->name);
       if( !strcmp(temp->meta_info,"QPushButton"))
       {
           QPushButton *btn = qFindChild<QPushButton *>(this, temp->name);

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+  <class>SimpleUiKde</class>
+  <widget class="QWidget" name="classwidget">
+    <property name="windowTitle">
+      <string>sKDE_MAIN_WINDOW_NAME</string>
+    </property>
+    <property name="geometry">
+      <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>458</width>
+        <height>681</height>
+      </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+        <widget class="QTabWidget" name="TabWidget">
+          <property name="currentIndex">
+            <number>0</number>
+          </property>
+          <widget class="QWidget" name="Tab_Welcome_Page">
+            <attribute name="title">
+              <string>Welcome_Page</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="Tab_VerticalLayout_Welcome_Page">
+              <item>
+                <widget class="QScrollArea" name="Tab_QScrollArea_Welcome_Page">
+                  <property name="widgetResizable">
+                    <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="Tab_QScrollAreaContent_Welcome_Page">
+                    <property name="geometry">
+                      <rect>
+                        <x>0</x>
+                        <y>0</y>
+                        <width>639</width>
+                        <height>342</height>
+                      </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutWelcome_Page">
+                      <item>
+                        <layout class="QGridLayout" name="Layout_welcome_panel">
+                          <item row="0" column="0">
+                            <widget class="QLabel" name="Label_0">
+                              <property name="text">
+                                <string>         welcome page , this is welcome page</string>
+                              </property>
+                            </widget>
+                          </item>
+                        </layout>
+                      </item>
+                    </layout>
+                  </widget>
+                </widget>
+              </item>
+            </layout>
+          </widget>
+          <widget class="QWidget" name="Tab_Personal_Information">
+            <attribute name="title">
+              <string>Personal_Information</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="Tab_VerticalLayout_Personal_Information">
+              <item>
+                <widget class="QScrollArea" name="Tab_QScrollArea_Personal_Information">
+                  <property name="widgetResizable">
+                    <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="Tab_QScrollAreaContent_Personal_Information">
+                    <property name="geometry">
+                      <rect>
+                        <x>0</x>
+                        <y>0</y>
+                        <width>639</width>
+                        <height>342</height>
+                      </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutPersonal_Information">
+                      <item>
+                        <layout class="QGridLayout" name="Layout_personal_info_panel"/>
+                      </item>
+                      <item>
+                        <layout class="QGridLayout" name="Layout_personal_info_panel">
+                          <item row="0" column="0">
+                            <widget class="QLabel" name="Label_0">
+                              <property name="text">
+                                <string>HíIGHêuéã</string>
+                              </property>
+                            </widget>
+                          </item>
+                        </layout>
+                      </item>
+                    </layout>
+                  </widget>
+                </widget>
+              </item>
+            </layout>
+          </widget>
+          <widget class="QWidget" name="Tab_Projects">
+            <attribute name="title">
+              <string>Projects</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="Tab_VerticalLayout_Projects">
+              <item>
+                <widget class="QScrollArea" name="Tab_QScrollArea_Projects">
+                  <property name="widgetResizable">
+                    <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="Tab_QScrollAreaContent_Projects">
+                    <property name="geometry">
+                      <rect>
+                        <x>0</x>
+                        <y>0</y>
+                        <width>639</width>
+                        <height>342</height>
+                      </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutProjects">
+                      <item>
+                        <layout class="QGridLayout" name="Layout_new_project_panel"/>
+                      </item>
+                    </layout>
+                  </widget>
+                </widget>
+              </item>
+            </layout>
+          </widget>
+          <widget class="QWidget" name="Tab_Preferences">
+            <attribute name="title">
+              <string>Preferences</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="Tab_VerticalLayout_Preferences">
+              <item>
+                <widget class="QScrollArea" name="Tab_QScrollArea_Preferences">
+                  <property name="widgetResizable">
+                    <bool>true</bool>
+                  </property>
+                  <widget class="QWidget" name="Tab_QScrollAreaContent_Preferences">
+                    <property name="geometry">
+                      <rect>
+                        <x>0</x>
+                        <y>0</y>
+                        <width>639</width>
+                        <height>342</height>
+                      </rect>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayoutPreferences">
+                      <item>
+                        <layout class="QGridLayout" name="Layout_check_buttons_panel"/>
+                      </item>
+                      <item>
+                        <layout class="QGridLayout" name="Layout_check_buttons_panel"/>
+                      </item>
+                    </layout>
+                  </widget>
+                </widget>
+              </item>
+            </layout>
+          </widget>
+        </widget>
+      </item>
+      <item>
+        <layout class="QHBoxLayout" name="horizontalLayout2">
+          <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+                <spacer name="horizontalSpacer">
+                  <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                    <size>
+                      <width>40</width>
+                      <height>20</height>
+                    </size>
+                  </property>
+                </spacer>
+              </item>
+              <item>
+                <widget class="QPushButton" name="BtnDone_Main">
+                  <property name="text">
+                    <string>Done</string>
+                  </property>
+                </widget>
+              </item>
+            </layout>
+          </item>
+        </layout>
+      </item>
+    </layout>
+  </widget>
+</ui>

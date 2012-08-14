@@ -12,3 +12,20 @@ char * s_dupstr(char *src)
 	}
 	return _dest;
 }
+
+char * itoa(int number)
+{
+  char int2str[] = {'0','1','2','3','4','5','6','7','8','9'};
+  int remainder = -1;
+  char *buffer = (char *)malloc(sizeof(char)*10);
+  int x = 0;
+  buffer[9] = '\0';
+  for( x = 8; number > 0 ; x--)
+  {
+    remainder = number % 10;
+    number = number/10;
+    buffer[x] = int2str[remainder];
+  }
+  printf("\n[****] Entered Number = %d, converted = %s",number,buffer[x+1]);
+  return (buffer + x+1);
+}

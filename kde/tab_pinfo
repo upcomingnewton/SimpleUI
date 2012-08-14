@@ -1,0 +1,221 @@
+<widget class="QWidget" name="TabPersonalInformation">
+      <attribute name="title">
+       <string>Personal Information</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>621</width>
+            <height>432</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <layout class="QGridLayout" name="gridLayout">
+               <item row="1" column="2">
+                <widget class="QLineEdit" name="lineEdit"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>Enter your first name</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="2">
+                <widget class="QLineEdit" name="lineEdit_3"/>
+               </item>
+               <item row="2" column="2">
+                <widget class="QLineEdit" name="lineEdit_2"/>
+               </item>
+               <item row="5" column="0">
+                <widget class="QLabel" name="label_7">
+                 <property name="text">
+                  <string>Select your gender</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_4">
+                 <property name="text">
+                  <string>Enter your middle name</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_3">
+                 <property name="text">
+                  <string>Name Prefix</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="2">
+                <widget class="QLineEdit" name="lineEdit_4"/>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_5">
+                 <property name="text">
+                  <string>Enter your last name</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QComboBox" name="PersonalInfo_NamePrefix">
+                 <item>
+                  <property name="text">
+                   <string>Mr.</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Mrs.</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Dr.</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="label_6">
+                 <property name="text">
+                  <string>Enter your date of birth</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="0">
+                <widget class="QPushButton" name="BtnPersonalInfoDone">
+                 <property name="text">
+                  <string>Done</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="2">
+                <widget class="QGroupBox" name="GroupBoxRadioButtons">
+                 <property name="title">
+                  <string/>
+                 </property>
+                 <property name="checkable">
+                  <bool>false</bool>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                 <widget class="QRadioButton" name="radioButton_male">
+                  <property name="geometry">
+                   <rect>
+                    <x>30</x>
+                    <y>0</y>
+                    <width>108</width>
+                    <height>26</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>Male</string>
+                  </property>
+                 </widget>
+                 <widget class="QRadioButton" name="radioButton_female">
+                  <property name="geometry">
+                   <rect>
+                    <x>160</x>
+                    <y>0</y>
+                    <width>108</width>
+                    <height>26</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>female</string>
+                  </property>
+                 </widget>
+                 <widget class="QRadioButton" name="radioButton_none">
+                  <property name="geometry">
+                   <rect>
+                    <x>310</x>
+                    <y>0</y>
+                    <width>108</width>
+                    <height>26</height>
+                   </rect>
+                  </property>
+                  <property name="text">
+                   <string>not disclose</string>
+                  </property>
+                 </widget>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QGridLayout" name="gridLayout_2">
+               <item row="0" column="1">
+                <widget class="QLabel" name="label_8">
+                 <property name="text">
+                  <string>User Name</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="2">
+                <widget class="QLineEdit" name="lineEdit_7"/>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLineEdit" name="lineEdit_6"/>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="label_9">
+                 <property name="text">
+                  <string>Password</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLineEdit" name="lineEdit_5"/>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLabel" name="label_10">
+                 <property name="text">
+                  <string>Confirm Password</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QPushButton" name="BtnLoginInfoDone">
+                 <property name="text">
+                  <string>Done</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+

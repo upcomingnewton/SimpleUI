@@ -36,9 +36,12 @@ xmlNode *Create1PropertyNode(xmlNode *par,char *prop_name,char *prop_type, char 
     if( value != NULL) { 
         xmlNode *propvalue = NULL;
         propvalue  = CreateXmlNode(NULL,prop_type);
-        xmlNode *textnode = NULL;
-        textnode = xmlNewText(BAD_CAST value);
-        xmlAddChild(propvalue,textnode);
+        if( value != 0)
+        {
+          xmlNode *textnode = NULL;
+          textnode = xmlNewText(BAD_CAST value);
+          xmlAddChild(propvalue,textnode);
+        }
         xmlAddChild(new_node,propvalue);
     }
     xmlAddChild(par,new_node);
@@ -53,9 +56,11 @@ xmlNode *Create1WidgetNode(xmlNode *par,char *name, char *classname,char **prop_
     if( classname != NULL) { CreateNodeAttribute(new_node,"class",classname); }
     if( name != NULL) { CreateNodeAttribute(new_node,"name",name); }
     xmlAddChild(par,new_node);
-    for( i = 0 ; i < num_prop ; i++)
-    {
-    	Create1PropertyNode(new_node,prop_name[i],prop_type[i],value[i]);
+    if(prop_name != 0 && prop_type != 0 && value != 0 ){
+      for( i = 0 ; i < num_prop ; i++)
+      {
+      	Create1PropertyNode(new_node,prop_name[i],prop_type[i],value[i]);
+      }
     }
     return new_node;
 }
@@ -106,7 +111,10 @@ xmlNode *CreateStringProperty(xmlNode *par,char *propname, char *strval )
   xmlNode *new_node = NULL;
   new_node = CreateXmlNode(NULL,"property");
   CreateNodeAttribute(new_node,"name",propname); 
-  Create1ObjectNode(new_node,"string",strval);
+  if ( strval != 0)
+  {
+      Create1ObjectNode(new_node,"string",strval);
+  }
   xmlAddChild(par,new_node);
 }
 
@@ -117,25 +125,6 @@ xmlNode *CreateLayout(xmlNode *par,char *classname, char *name )
   CreateNodeAttribute(layoutNode,"name",name); 
   return layoutNode;
 }
-
-
-/*
-
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       
-*/
 
 xmlNode *CreateSpacer(xmlNode *par,char *spacerName, char *orientation, char *width, char *height )
 {
@@ -180,4 +169,13 @@ xmlNode *CreateItemNode(xmlNode *par,xmlNode *child, char * row, char * column)
 xmlNode * CreateXmlNode(xmlNsPtr ns, char * name)
 {
     return xmlNewNode(ns,BAD_CAST name);
+}
+
+xmlNode *CreateStringAttribute(xmlNode *par, char *strval )
+{
+  xmlNode *new_node = NULL;
+  new_node = CreateXmlNode(NULL,"attribute");
+  CreateNodeAttribute(new_node,"name","title"); 
+  Create1ObjectNode(new_node,"string",strval);
+  xmlAddChild(par,new_node);
 }

@@ -13,7 +13,7 @@
 	typedef int  (*sGtkUIHandlers) (
 		sXformsNode * head,
 		xmlNode *par,
-		 struct gtk_cb_data *cb_data_head
+		 struct gtk_cb_data **cb_data_head
 		);
 	
 	struct sGtkUIHandlers_data{

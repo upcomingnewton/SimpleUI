@@ -11,8 +11,8 @@
 CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_XML_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED
-CFLAGS        = -m64 -pipe -O2 -D_REENTRANT -Wall -W $(DEFINES)
-CXXFLAGS      = -m64 -pipe -O2 -D_REENTRANT -Wall -W $(DEFINES)
+CFLAGS        = -m64 -pipe -O2 -D_REENTRANT  $(DEFINES)
+CXXFLAGS      = -m64 -pipe -O2 -D_REENTRANT  $(DEFINES)
 INCPATH       = -I/usr/include/libxml2 -I/usr/share/qt4/mkspecs/default -I. -I/usr/include/QtUiTools -I/usr/include/QtCore -I/usr/include/QtGui -I/usr/include/QtXml -I/usr/include -I. -IsKdeCallbacks -IsKdeRenderers -I.
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
@@ -234,7 +234,8 @@ sKde_Cb.o: sKdeCallbacks/sKde_Cb.cpp ../misc/misc.h \
 sKdeParseTree.o: sKdeRenderers/sKdeParseTree.cpp sKdeRenderers/sKdeRenderer.h \
 		sKdeCallbacks/sKde_Cb.h \
 		../simpleUI.h \
-		../sXforms.h
+		../sXforms.h \
+		../misc/misc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sKdeParseTree.o sKdeRenderers/sKdeParseTree.cpp
 
 sKdeRenderer_Helper.o: sKdeRenderers/sKdeRenderer_Helper.cpp sKdeRenderers/sKdeRenderer.h \

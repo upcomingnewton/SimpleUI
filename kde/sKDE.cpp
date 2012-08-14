@@ -11,7 +11,7 @@
      : QWidget(parent)
  {
      QUiLoader loader;
-     QFile file(":/forms/sKde.ui");
+     QFile file("sKde.ui");
      file.open(QFile::ReadOnly);
      QWidget *formWidget = loader.load(&file, this);
      file.close();

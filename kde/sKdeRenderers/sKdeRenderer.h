@@ -6,6 +6,7 @@
     #include "../../sXforms.h"
     #define S_KDE_RENDERER_H
     #define sKDE_UI_FILE  "sKde.ui"
+    #define sKDE_CLOSE_BUTTON  "BtnDone_Main"
     #define sKDE_MAIN_WINDOW_NAME "sKDE_MAIN_WINDOW_NAME"
     #define KDE_WINDOW_HEIGHT "681"
     #define KDE_WINDOW_WIDTH "458"

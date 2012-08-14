@@ -118,7 +118,7 @@
                             </widget>
                           </item>
                           <item row="1" column="0">
-                            <widget class="QLabel" name="Label_Inputlbl_0">
+                            <widget class="QLabel" name="Inputlbl_0">
                               <property name="text">
                                 <string>Enter your first name : </string>
                               </property>
@@ -128,7 +128,7 @@
                             <widget class="QLineEdit" name="Input_0"/>
                           </item>
                           <item row="2" column="0">
-                            <widget class="QLabel" name="Label_Inputlbl_1">
+                            <widget class="QLabel" name="Inputlbl_1">
                               <property name="text">
                                 <string>Enter your middle name : </string>
                               </property>
@@ -138,7 +138,7 @@
                             <widget class="QLineEdit" name="Input_1"/>
                           </item>
                           <item row="3" column="0">
-                            <widget class="QLabel" name="Label_Inputlbl_2">
+                            <widget class="QLabel" name="Inputlbl_2">
                               <property name="text">
                                 <string>Enter your last name : </string>
                               </property>
@@ -148,7 +148,7 @@
                             <widget class="QLineEdit" name="Input_2"/>
                           </item>
                           <item row="4" column="0">
-                            <widget class="QLabel" name="Label_Inputlbl_3">
+                            <widget class="QLabel" name="Inputlbl_3">
                               <property name="text">
                                 <string>Enter your date of birth : </string>
                               </property>
@@ -239,7 +239,7 @@
                       <item>
                         <layout class="QGridLayout" name="Layout_personal_info_panel">
                           <item row="0" column="0">
-                            <widget class="QLabel" name="Label_Inputlbl_4">
+                            <widget class="QLabel" name="Inputlbl_4">
                               <property name="text">
                                 <string>Prefered UserName : </string>
                               </property>
@@ -249,7 +249,7 @@
                             <widget class="QLineEdit" name="Input_4"/>
                           </item>
                           <item row="1" column="0">
-                            <widget class="QLabel" name="Label_Inputlbl_5">
+                            <widget class="QLabel" name="Inputlbl_5">
                               <property name="text">
                                 <string>password : </string>
                               </property>
@@ -259,7 +259,7 @@
                             <widget class="QLineEdit" name="Input_5"/>
                           </item>
                           <item row="2" column="0">
-                            <widget class="QLabel" name="Label_Inputlbl_6">
+                            <widget class="QLabel" name="Inputlbl_6">
                               <property name="text">
                                 <string>confirm password : </string>
                               </property>
@@ -319,7 +319,7 @@
                       <item>
                         <layout class="QGridLayout" name="Layout_new_project_panel">
                           <item row="0" column="0">
-                            <widget class="QLabel" name="Label_Inputlbl_7">
+                            <widget class="QLabel" name="Inputlbl_7">
                               <property name="text">
                                 <string>Enter start date of your project : </string>
                               </property>
@@ -329,7 +329,7 @@
                             <widget class="QLineEdit" name="Input_7"/>
                           </item>
                           <item row="1" column="0">
-                            <widget class="QLabel" name="Label_Inputlbl_8">
+                            <widget class="QLabel" name="Inputlbl_8">
                               <property name="text">
                                 <string>Enter end date of your project : </string>
                               </property>
@@ -339,7 +339,7 @@
                             <widget class="QLineEdit" name="Input_8"/>
                           </item>
                           <item row="2" column="0">
-                            <widget class="QLabel" name="Label_Inputlbl_9">
+                            <widget class="QLabel" name="Inputlbl_9">
                               <property name="text">
                                 <string>key skills : </string>
                               </property>
@@ -349,7 +349,7 @@
                             <widget class="QLineEdit" name="Input_9"/>
                           </item>
                           <item row="3" column="0">
-                            <widget class="QLabel" name="Label_Inputlbl_10">
+                            <widget class="QLabel" name="Inputlbl_10">
                               <property name="text">
                                 <string>description : </string>
                               </property>

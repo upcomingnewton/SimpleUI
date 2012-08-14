@@ -146,12 +146,13 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
 
 
   cb_data = sKdeGenerateGladeFile(head);
+  print_user_data(cb_data);
       QApplication a(argc, argv);
-    SimpleUiKde w;
+    SimpleUiKde w(cb_data);
     w.show();
     
     return a.exec();
-  //print_user_data(cb_data);
+  
   /*
   if( ! gtk_builder_add_from_file( builder, sGTK_UI_FILE, &error ) )
     {

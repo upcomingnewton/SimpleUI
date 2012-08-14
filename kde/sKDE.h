@@ -9,7 +9,7 @@ class SimpleUiKde : public QWidget
     Q_OBJECT
     
 public:
-    SimpleUiKde(QWidget *parent = 0);
+    SimpleUiKde(struct qt_cb_data *temp,QWidget *parent = 0);
     
 private slots:
     void on_QPushButton_click();

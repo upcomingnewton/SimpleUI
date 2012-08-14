@@ -13,6 +13,8 @@ int i = 0;
 int row = 0;
 int column = 0;
 sKdeUIHandlers handler[100];
+int InputCountStart = 0;
+int inputctr = 0;
 struct sKdeUIHandlers_data kde_handlers[] = {
 	{
 		(char *)"xf:select1",
@@ -136,7 +138,7 @@ struct qt_cb_data * sKdeGenerateGladeFile(sXformsNode *head)
        xmlNode *horizontalLayout = CreateLayout(horizontalLayout2Item,"QHBoxLayout","horizontalLayout");
        xmlNode *spacer = CreateSpacer(horizontalLayout,"horizontalSpacer","Qt::Horizontal","40","20");
        xmlNode *DoneBtnItem = CreateItemNode(horizontalLayout,0,0,0);
-       xmlNode *DoneBtn = Create1WidgetNodeWithStringProp(DoneBtnItem,"BtnDone_Main","QPushButton","text","Done");
+       xmlNode *DoneBtn = Create1WidgetNodeWithStringProp(DoneBtnItem,sKDE_CLOSE_BUTTON,"QPushButton","text","Done");
     
     xmlNode *layoutdefault = CreateXmlNode(NULL,"layoutdefault");
     CreateNodeAttribute(layoutdefault,"spacing","6");
@@ -149,6 +151,7 @@ struct qt_cb_data * sKdeGenerateGladeFile(sXformsNode *head)
     xmlSaveFormatFileEnc(sKDE_UI_FILE, doc, "UTF-8", 1); // save file
     xmlFreeDoc(doc);  // free document
     xmlCleanupParser();  //clean parse
+    AppendNode(&temp,"NULL-REFERENCE", "NULL-INITVAL","NULL-VAL",sKDE_CLOSE_BUTTON,"QPushButton");
     return temp;
 }
 
@@ -209,6 +212,7 @@ else{
 			sKdeGenerateUIFromTree(temp,par,cb_data_head);
 		}}
 	}
+	
 return 0;
 }
 
@@ -299,7 +303,7 @@ int kde_f_Select1Handler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_
     
     xmlNode *dditem = CreateItemNode(node,0,int2str[row],int2str[2]);
     xmlNode *dd = Create1WidgetNode(dditem,sAppendString("DD_",int2str[ddctr]),"QComboBox",0,0,0,0);
-    
+    AppendNode(cb_data_head,"NULL-REFERENCE", "NULL-INITVAL","NULL-VAL",sAppendString("DD_",int2str[ddctr]),"QComboBox");
     sXformsNode *temp;
     sXformsNode *xfchoices = SearchSubTreeForNodes(head,(char *)"xf:choices",(sXformsNodeAttr *)0,0,0);
     if( xfchoices ){
@@ -337,6 +341,7 @@ int kde_f_RadioButtonList(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb
 			    sprintf(buffer,"%d",5 + 80*ctr);
 			    temp->meta_info = int2str[1];
 			    xmlNode *radio = Create1WidgetNode(QGroupBox,sAppendString("radio_",int2str[ctr]),"QRadioButton",0,0,0,0);
+			    AppendNode(cb_data_head,"NULL-REFERENCE", "NULL-INITVAL","NULL-VAL",sAppendString("radio_",int2str[ctr]),"QRadioButton");
           Create1GeometryProp(radio,buffer,"0","108", "26"); 
           CreateStringProperty(radio,"text",temp->name);
 			}
@@ -357,7 +362,8 @@ int kde_f_CheckBoxList(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_da
 			for( temp=xfchoices->child; temp != 0; ctr++,row++, temp=temp->next){
 			    xmlNode *item = CreateItemNode(node,0,int2str[row],int2str[0]);
 			    temp->meta_info = int2str[1];
-          Create1WidgetNodeWithStringProp(item,sAppendString("CheckBox_",int2str[checkboxctr++]),"QCheckBox","text",temp->name);
+          Create1WidgetNodeWithStringProp(item,sAppendString("CheckBox_",int2str[checkboxctr]),"QCheckBox","text",temp->name);
+          AppendNode(cb_data_head,"NULL-REFERENCE", "NULL-INITVAL","NULL-VAL",sAppendString("CheckBox_",int2str[checkboxctr++]),"QCheckBox");
 			}
     }
     row++;
@@ -365,12 +371,13 @@ int kde_f_CheckBoxList(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_da
 
 int kde_f_InputHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head)
 {
-    static int inputctr = 0;
+    
     head->meta_info = (char *)"1";
     xmlNode *lblitem = CreateItemNode(node,0,int2str[row],int2str[0]);
-    Create1WidgetNodeWithStringProp(lblitem,sAppendString("Label_",sAppendString("Inputlbl_",int2str[inputctr])), "QLabel","text", head->name); 
+    Create1WidgetNodeWithStringProp(lblitem,sAppendString("Inputlbl_",int2str[inputctr]), "QLabel","text", head->name); 
     xmlNode *inputitem = CreateItemNode(node,0,int2str[row],int2str[2]);
     Create1WidgetNode(inputitem,sAppendString("Input_",int2str[inputctr]),"QLineEdit",0,0,0,0);
+    //AppendNode(&btn->nextref,"REFERENCE", "NULL","NULL",sAppendString("Input_",int2str[inputctr]),"QLineEdit");
     row++;
     inputctr++;
 }
@@ -388,7 +395,15 @@ int kde_f_ButtonHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_d
     static int btnctr = 0;
     head->meta_info = (char *)"1";
     xmlNode *item = CreateItemNode(node,0,int2str[row++],int2str[0]);
-    Create1WidgetNodeWithStringProp(item,sAppendString("Btn_",int2str[btnctr++]), "QPushButton","text", head->name);
+    Create1WidgetNodeWithStringProp(item,sAppendString("Btn_",int2str[btnctr]), "QPushButton","text", head->name);
+    struct qt_cb_data *btn =  AppendNode(cb_data_head,"REFERENCE", "NULL","NULL",sAppendString("Btn_",int2str[btnctr]),"QPushButton");
+    int i = 0;
+    for( i = InputCountStart; i < inputctr; i++)
+    {
+      AppendNode(&btn->nextref,"REFERENCE", "NULL","NULL",sAppendString("Input_",int2str[i]),"QLineEdit");
+    }
+    InputCountStart = inputctr;
+    btnctr++;
 }
 
 int kde_f_RangeHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head)
@@ -401,7 +416,10 @@ int kde_f_RangeHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_da
     char *proptype[] = {"number","number","enum","enum","number"};
     char *propval[] = {"100","50","Qt::Horizontal","QSlider::TicksBothSides","5"};
     char *propname[] = {"maximum","value","orientation","tickPosition","tickInterval"};
-    Create1WidgetNode(item,sAppendString("Slider_",int2str[sliderctr++]),"QSlider",propname,proptype,propval,5);
+    Create1WidgetNode(item,sAppendString("Slider_",int2str[sliderctr]),"QSlider",propname,proptype,propval,5);
+    AppendNode(cb_data_head,"REFERENCE", "NULL","NULL",sAppendString("Slider_",int2str[sliderctr]),"QSlider");
+    sliderctr++;
+    row++;
 }
 
 

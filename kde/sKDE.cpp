@@ -1,13 +1,14 @@
 #include <QtUiTools/QUiLoader>
 #include <QtUiTools/QtUiTools>
  #include <QtGui>
-
+#include <string.h>
  #include "sKDE.h"
  #include "sKdeCallbacks/sKde_Cb.h"
+ #include "sKdeRenderers/sKdeRenderer.h"
  #include <QPushButton>
  #include <QTextStream>
  #include <QApplication>
-  SimpleUiKde::SimpleUiKde(QWidget *parent)
+  SimpleUiKde::SimpleUiKde(struct qt_cb_data *temp, QWidget *parent)
      : QWidget(parent)
  {
      QUiLoader loader;
@@ -16,7 +17,7 @@
      QWidget *formWidget = loader.load(&file, this);
      file.close();
      
-     cb_data = MakeDummy();
+     cb_data = temp;
      
      //printf("\n cp-1");
      // find widgets here 
@@ -34,11 +35,17 @@ void SimpleUiKde::DisableDefaultAndConnectSignals()
       if( !strcmp(temp->meta_info,"QPushButton"))
       {
           QPushButton *btn = qFindChild<QPushButton *>(this, temp->name);
-          if( btn )
+          if(btn && !strcmp(temp->name,sKDE_CLOSE_BUTTON) )
+          {
+              btn->setAutoDefault(false);
+              connect(btn, SIGNAL(clicked()), qApp, SLOT(quit()));
+          }
+          else if( btn )
           {
               btn->setAutoDefault(false);
               connect(btn, SIGNAL(clicked()), this, SLOT(on_QPushButton_click()));
           }
+          
       }
       else if( !strcmp(temp->meta_info,"QComboBox"))
       {
@@ -88,6 +95,31 @@ void SimpleUiKde::DisableDefaultAndConnectSignals()
     {
         QTextStream cout(stdout);
         cout << btn->objectName() << "\n";
+        // find this object name in the cb_data and then get it's next ref
+        struct qt_cb_data *temp = cb_data;
+        while( temp )
+        {
+          if( !strcmp(temp->name,btn->objectName().toStdString().c_str()))
+          {
+            struct qt_cb_data *temp2 = temp->nextref;
+             while(temp2 != 0)
+	          {
+	            QLineEdit *input = qFindChild<QLineEdit *>(this, temp2->name);
+		          if( input != NULL)
+		          {
+			            // get it's value
+			            cout << "INPUT " << input->objectName() << " VALUE " << input->text() << "\n";
+		          }
+		        temp2 = temp2->next;
+	          }
+            break;
+          }
+          else
+          {
+            printf("\n not found %s", temp->name);
+          }
+          temp = temp->next;
+        }
     }
     //QApplication::quit();
  }

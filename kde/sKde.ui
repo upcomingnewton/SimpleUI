@@ -217,7 +217,7 @@
                           <item row="6" column="0">
                             <widget class="QPushButton" name="Btn_0">
                               <property name="text">
-                                <string>NULL</string>
+                                <string>DONE</string>
                               </property>
                             </widget>
                           </item>
@@ -361,7 +361,7 @@
                           <item row="4" column="0">
                             <widget class="QPushButton" name="Btn_1">
                               <property name="text">
-                                <string>NULL</string>
+                                <string>insert after selected row</string>
                               </property>
                             </widget>
                           </item>
@@ -459,7 +459,34 @@
                         </spacer>
                       </item>
                       <item>
-                        <layout class="QGridLayout" name="Layout_check_buttons_panel"/>
+                        <layout class="QGridLayout" name="Layout_check_buttons_panel">
+                          <item row="0" column="0">
+                            <widget class="QLabel" name="LabelSlider_0">
+                              <property name="text">
+                                <string>Rating of this site : </string>
+                              </property>
+                            </widget>
+                          </item>
+                          <item row="1" column="0">
+                            <widget class="QSlider" name="Slider_1">
+                              <property name="maximum">
+                                <number>100</number>
+                              </property>
+                              <property name="value">
+                                <number>50</number>
+                              </property>
+                              <property name="orientation">
+                                <enum>Qt::Horizontal</enum>
+                              </property>
+                              <property name="tickPosition">
+                                <enum>QSlider::TicksBothSides</enum>
+                              </property>
+                              <property name="tickInterval">
+                                <number>5</number>
+                              </property>
+                            </widget>
+                          </item>
+                        </layout>
                       </item>
                       <item>
                         <spacer name="Spacer_check_buttons_panel">

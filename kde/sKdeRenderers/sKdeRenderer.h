@@ -37,6 +37,7 @@ int kde_f_InputHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_da
 int kde_f_Select1Handler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
 int kde_f_RadioButtonList(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
 int kde_f_CheckBoxList(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
+int kde_f_RangeHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
 	
 
     

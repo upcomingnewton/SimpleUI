@@ -94,14 +94,14 @@ struct sKdeUIHandlers_data kde_handlers[] = {
 		1,
 		(sKdeUIHandlers)kde_f_FrameHandler
 	},
-//	{
-//		(char *)"xf:range",
-//		(char *)"xf-sliders",
-//		(char *)0,
-//		(char *)0,
-//		1,
-//		(sKdeUIHandlers)kde_f_RangeHandler
-//	},
+	{
+		(char *)"xf:range",
+		(char *)"xf-sliders",
+		(char *)0,
+		(char *)0,
+		0,
+		(sKdeUIHandlers)kde_f_RangeHandler
+	},
 	{
 		(char *)0,
   		(char *)0,
@@ -126,14 +126,13 @@ struct qt_cb_data * sKdeGenerateGladeFile(sXformsNode *head)
     xmlNode *classname = Create1ObjectNode(root_node,"class", "SimpleUiKde"); // create main window
     xmlNode * classwidget = Create1WidgetNodeWithStringProp(root_node,"classwidget","QWidget","windowTitle",sKDE_MAIN_WINDOW_NAME);
     Create1GeometryProp(classwidget,"0","0",KDE_WINDOW_WIDTH, KDE_WINDOW_HEIGHT);
-    xmlNode *main_layout = CreateLayout(classwidget,"QVBoxLayout","verticalLayout_2");//TODO
-    //TODO Create an item here, which contains all things
+    xmlNode *main_layout = CreateLayout(classwidget,"QVBoxLayout","verticalLayout_2");
       xmlNode *ContentItem = CreateItemNode(main_layout,0,0,0);
       
       
-       xmlNode *lowerBarItem = CreateItemNode(main_layout,0,0,0);//TODO parent ?
+       xmlNode *lowerBarItem = CreateItemNode(main_layout,0,0,0);
        xmlNode *horizontalLayout2 = CreateLayout(lowerBarItem,"QHBoxLayout","horizontalLayout2");
-       xmlNode *horizontalLayout2Item = CreateItemNode(horizontalLayout2,0,0,0);//TODO parent ?
+       xmlNode *horizontalLayout2Item = CreateItemNode(horizontalLayout2,0,0,0);
        xmlNode *horizontalLayout = CreateLayout(horizontalLayout2Item,"QHBoxLayout","horizontalLayout");
        xmlNode *spacer = CreateSpacer(horizontalLayout,"horizontalSpacer","Qt::Horizontal","40","20");
        xmlNode *DoneBtnItem = CreateItemNode(horizontalLayout,0,0,0);
@@ -163,10 +162,11 @@ else{
 	sXformsNode *temp ;
 	int x = 0;
 	for( temp = head->child;(( temp != 0 ) ) ; temp=temp->next){
-	    //fprintf(stdout,"\n %s:%s,%s",temp->type,temp->name,temp->private_data);
+	 //fprintf(stdout,"\n %s:%s,%s",temp->type,temp->name,temp->private_data);
 		if( temp->meta_info && !strcmp(temp->meta_info,"1")){
 			continue;
 		}
+		//fprintf(stdout,"\n cp-1");
 		x = 0;
 		if(temp->attr){
 			while(kde_handlers[x].type != 0){
@@ -271,16 +271,18 @@ int kde_f_TabsHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_dat
 
 int kde_f_FrameHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head)
 {
-     fprintf(stdout,"\n[%s][%d] HEAD = %s:%s \t\t NODE = %s",__func__,__LINE__,head->name, head->type,node->name);
+
      int i = 0; 
      sXformsNode *temp = head; 
      head -> meta_info = (char *)"1"; 
      for( i = 0; temp;  i++, temp = temp->next) 
      {
+        fprintf(stdout,"\n[%s][%d] HEAD = %s:%s \t\t NODE = %s",__func__,__LINE__,temp->name, temp->type,node->name);
         row = 0;
         xmlNode *ItemContent = CreateItemNode(node,0,0,0);
         xmlNode *GridLayout = CreateLayout(ItemContent,"QGridLayout",sAppendString("Layout_",head->name) );
         temp -> meta_info = (char *)"1"; 
+        sPrintsXformsTree(temp);
         sKdeGenerateUIFromTree(temp,GridLayout ,cb_data_head); 
         CreateSpacer(node,sAppendString("Spacer_",head->name),"Qt::Vertical","20","40");
      } 
@@ -290,7 +292,6 @@ int kde_f_FrameHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_da
 int kde_f_Select1Handler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head)
 {
     static int ddctr = 0;
-    fprintf(stdout,"\n[%s][%d][head = %s]",__func__,__LINE__,head->name);
     head->meta_info = (char *)"1";
     
     xmlNode *lblitem = CreateItemNode(node,0,int2str[row],int2str[0]);
@@ -317,7 +318,6 @@ int kde_f_Select1Handler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_
 int kde_f_RadioButtonList(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head)
 {
     static int radioctr = 0;
-    fprintf(stdout,"\n[%s][%d][head = %s]",__func__,__LINE__,head->name);
     head->meta_info = (char *)"1";
   
     xmlNode *lblitem = CreateItemNode(node,0,int2str[row],int2str[0]);
@@ -348,7 +348,6 @@ int kde_f_RadioButtonList(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb
 int kde_f_CheckBoxList(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head)
 {
     static int checkboxctr = 0;
-    fprintf(stdout,"\n[%s][%d][head = %s]",__func__,__LINE__,head->name);
     head->meta_info = (char *)"1"; 
     sXformsNode *temp;
     sXformsNode *xfchoices = SearchSubTreeForNodes(head,(char *)"xf:choices",(sXformsNodeAttr *)0,0,0);
@@ -368,9 +367,8 @@ int kde_f_InputHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_da
 {
     static int inputctr = 0;
     head->meta_info = (char *)"1";
-    fprintf(stdout,"\n[%s][%d] HEAD = %s:%s \t\t NODE = %s",__func__,__LINE__,head->name, head->type,node->name);
     xmlNode *lblitem = CreateItemNode(node,0,int2str[row],int2str[0]);
-    Create1WidgetNodeWithStringProp(lblitem,sAppendString("Label_",sAppendString("Inputlbl_",int2str[inputctr])), "QLabel","text", head->name); //TODO fix naming issue
+    Create1WidgetNodeWithStringProp(lblitem,sAppendString("Label_",sAppendString("Inputlbl_",int2str[inputctr])), "QLabel","text", head->name); 
     xmlNode *inputitem = CreateItemNode(node,0,int2str[row],int2str[2]);
     Create1WidgetNode(inputitem,sAppendString("Input_",int2str[inputctr]),"QLineEdit",0,0,0,0);
     row++;
@@ -381,7 +379,6 @@ int kde_f_LabelHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_da
 {
     static int labelctr = 0;
     head->meta_info = (char *)"1";
-    fprintf(stdout,"\n[%s][%d] HEAD = %s:%s \t\t NODE = %s",__func__,__LINE__,head->name, head->type,node->name);
     xmlNode *item = CreateItemNode(node,0,int2str[row++],int2str[0]);
     Create1WidgetNodeWithStringProp(item,sAppendString("Label_",int2str[labelctr++]), "QLabel","text", "NULL"); //TODO fix naming issue
 }
@@ -390,60 +387,22 @@ int kde_f_ButtonHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_d
 {
     static int btnctr = 0;
     head->meta_info = (char *)"1";
-    fprintf(stdout,"\n[%s][%d] HEAD = %s:%s \t\t NODE = %s",__func__,__LINE__,head->name, head->type,node->name);
     xmlNode *item = CreateItemNode(node,0,int2str[row++],int2str[0]);
-    Create1WidgetNodeWithStringProp(item,sAppendString("Btn_",int2str[btnctr++]), "QPushButton","text", "NULL"); //TODO fix naming issue
+    Create1WidgetNodeWithStringProp(item,sAppendString("Btn_",int2str[btnctr++]), "QPushButton","text", head->name);
 }
 
+int kde_f_RangeHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head)
+{
+    fprintf(stdout,"\n[%s][%d] HEAD = %s:%s \t\t NODE = %s",__func__,__LINE__,head->name, head->type,node->name);
+    static int sliderctr = 0;
+    xmlNode *lblitem = CreateItemNode(node,0,int2str[row++],int2str[0]);
+    Create1WidgetNodeWithStringProp(lblitem,sAppendString("LabelSlider_",int2str[sliderctr++]), "QLabel","text", head->name); 
+    xmlNode *item = CreateItemNode(node,0,int2str[row++],int2str[0]);
+    char *proptype[] = {"number","number","enum","enum","number"};
+    char *propval[] = {"100","50","Qt::Horizontal","QSlider::TicksBothSides","5"};
+    char *propname[] = {"maximum","value","orientation","tickPosition","tickInterval"};
+    Create1WidgetNode(item,sAppendString("Slider_",int2str[sliderctr++]),"QSlider",propname,proptype,propval,5);
+}
 
-
-/*int gtk_f_RangeHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)*/
-/*{*/
-/*    ////////////fprintf(stdout,"\n[%s][%d]",__func__,__LINE__);*/
-/*}*/
-
-/*int gtk_f_MakeRadioButtonGroup(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)*/
-/*{*/
-/*    char *s = "GtkRadioButtonGroup_"; s = sAppendString(s,head->name);*/
-/*    xmlDoc *doc = node->doc;*/
-/*    xmlNode *root = xmlDocGetRootElement(doc); */
-/*    xmlNode *GtkRadioButtonGroup =  Create1ObjectNode(root,s,"GtkRadioButton",NULL,NULL);*/
-/*    char *GtkRadioButtonGroupProp[] = {"label","use_action_appearance","visible","can_focus","receives_default","xalign","active","draw_indicator"};*/
-/*    char *GtkRadioButtonGroupVal[] = {"radiobutton","False","True","True","False","0","True","True"};*/
-/*    char *GtkRadioButtonGroupNull[] = {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};*/
-/*    char *GtkRadioButtonGroupTran[] = {"yes",NULL,NULL,NULL,NULL,NULL,NULL,NULL};*/
-/*    CreatePropertyNodes(GtkRadioButtonGroup,GtkRadioButtonGroupProp,GtkRadioButtonGroupTran,GtkRadioButtonGroupNull,GtkRadioButtonGroupNull,GtkRadioButtonGroupVal,8);*/
-/*}*/
-
-/*int gtk_f_MakeListStoreForDropDown(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)*/
-/*{*/
-/*    char *s = "ListStoreForDropDown_"; s = sAppendString(s,head->name);*/
-/*    xmlDoc *doc = node->doc;*/
-/*    xmlNode *root = xmlDocGetRootElement(doc); */
-/*    xmlNode *GtkRadioButtonGroup =  Create1ObjectNode(root,s,"GtkListStore",NULL,NULL);*/
-/*    // make columns*/
-/*    xmlNode *col_cont = CreateXmlNodeWithParent(GtkRadioButtonGroup,"columns");*/
-/*    xmlNode *data_cont = CreateXmlNodeWithParent(GtkRadioButtonGroup,"data");*/
-/*    // since it is a drop down, it will contain 2 cols, id and text*/
-/*    int i = 0;*/
-/*    for( i = 0; i < 2; i++)*/
-/*    {*/
-/*        xmlNode *col = CreateXmlNodeWithParent(col_cont,"column");*/
-/*        CreateNodeAttribute(col,"type","gchararray");*/
-/*    }*/
-/*    // add data here*/
-/*        sXformsNode *temp;*/
-/*    int ctr = 0;*/
-/*    sXformsNode *xfchoices = SearchSubTreeForNodes(head,(char *)"xf:choices",(sXformsNodeAttr *)0,0,0);*/
-/*    if( xfchoices ){*/
-/*			xfchoices->meta_info = (char *)"1";*/
-/*			for( temp=xfchoices->child; temp != 0; temp=temp->next,ctr++){*/
-/*			    temp->meta_info = int2str[1];*/
-/*			    xmlNode *row = CreateXmlNodeWithParent(data_cont,"row");*/
-/*                CreateDataRow(row,int2str[0],"yes",temp->name);*/
-/*                CreateDataRow(row,int2str[1],"yes",temp->name);*/
-/*			}*/
-/*    }*/
-/*}*/
 
 

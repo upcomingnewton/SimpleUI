@@ -10,6 +10,20 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
+
+/*
+gcc -o sgtk -g gtk/sGtk.c gtk/sGtk.h gtk/sGtkRenderers/sGtkParseTree.c gtk/sGtkRenderers/sGtkRenderer_Helper.c gtk/sGtkRenderers/sGtkRenderer.h gtk/sGtkCallbacks/sGtkCallbacks.h gtk/sGtkCallbacks/sGtkCallbacks.c gtk/sGtkCallbacks/sGtkCallback_HelperFunctions.c gtk/sGtkCallbacks/sGtkCallback_GetValues.c misc/misc.h misc/string_func.c io/io.h io/io.c xml/sXml.h xml/sParseXforms.c sXforms.h sXforms.c simpleUI.h `(pkg-config --cflags --libs gtk+-3.0)` `xml2-config --cflags --libs` -export-dynamic
+*/
+
+/*
+./sgtk -i xforms/file2.xhtml
+*/
+
+void usage(int argc, char ** argv)
+{
+	fprintf(stdout,"incorrect usage\n");
+}
+
 #if defined(LIBXML_TREE_ENABLED) && defined(LIBXML_OUTPUT_ENABLED)
 int main ( int argc , char **argv )
 {

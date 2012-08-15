@@ -6,8 +6,47 @@
 gboolean 
 on_window_destroy  (GtkWidget *widget,GdkEvent  *event, gpointer   user_data) 
 {
-	fprintf(stdout,"\n destroy event called");
+	//fprintf(stdout,"\n destroy event called");
     gtk_main_quit ();
+}
+
+void on_Range_value_changed(GtkRange *range,gpointer user_data){
+  struct gtk_cb_data *head = (struct gtk_cb_data *)user_data;
+  //print_user_data(head);
+  char *rangename = s_dupstr((char *)gtk_buildable_get_name (GTK_BUILDABLE (range)));
+  //printf("\n NAME OF RANGE Is %s", rangename);
+  struct gtk_cb_data *rangedata = get_pointer_to_user_data_by_name(rangename,user_data);
+  if( rangedata== (struct gtk_cb_data *)0)
+	{
+		fprintf(stdout,"\n NO CORRESPONDING USER DATA");
+	}
+	else
+	{
+		getGtkWidgetValue("GtkRange",range);
+		
+		// find all ref and update their values
+		/*
+		if(togglebutton_data->nextref){
+			GtkWidget *par = gtk_widget_get_toplevel( (GtkWidget *)togglebutton_name); //gtk_widget_get_parent
+			if(gtk_widget_is_toplevel(par))
+			{
+				struct gtk_cb_data *temp2 = togglebutton_data->nextref;
+				while(temp2 != 0)
+				{
+					GtkWidget *present_widget = (GtkWidget *)0;
+					SearchWidget(par,temp2->name,&present_widget);
+					if( present_widget != (GtkWidget *)0)
+					{
+						// get it's value
+						getGtkWidgetValue(temp2->meta_info,present_widget);
+					}
+					temp2 = temp2->next;
+				}
+			}
+		}
+		*/
+	}
+	
 }
 
 void on_btn_clicked(GtkButton *btn , gpointer user_data)
@@ -25,7 +64,7 @@ void on_btn_clicked(GtkButton *btn , gpointer user_data)
 	//GtkWidget *par = gtk_widget_get_parent( (GtkWidget *)btn);
 	if(gtk_widget_is_toplevel(par))
 	{
-		fprintf(stdout,"\n par-name is : %s",gtk_buildable_get_name (GTK_BUILDABLE (par)));
+		//fprintf(stdout,"\n par-name is : %s",gtk_buildable_get_name (GTK_BUILDABLE (par)));
 	}
 	
 	// find all ref and update their values
@@ -41,10 +80,10 @@ void on_btn_clicked(GtkButton *btn , gpointer user_data)
 		}
 		temp2 = temp2->next;
 	}
-	fprintf(stdout,"\n Button clicked %s", gtk_buildable_get_name (GTK_BUILDABLE (btn)));
+	//fprintf(stdout,"\n Button clicked %s", gtk_buildable_get_name (GTK_BUILDABLE (btn)));
 	GtkWidgetPath *  gpath =    gtk_widget_get_path (btn);
 	char * g_path_str  = gtk_widget_path_to_string (gpath);
-	fprintf(stdout,"\n path is : %s",g_path_str);
+	//fprintf(stdout,"\n path is : %s",g_path_str);
 	
 }
 
@@ -53,7 +92,7 @@ void on_combobox_changed(GtkComboBox *widget, gpointer user_data)
 	struct gtk_cb_data *head = (struct gtk_cb_data *)user_data;
 	//print_user_data(head);
 	char *combo_box_name = s_dupstr((char *)gtk_buildable_get_name (GTK_BUILDABLE (widget)));
-	fprintf(stdout,"\n NAME OF COMBO BOX IS %s",combo_box_name);
+	//fprintf(stdout,"\n NAME OF COMBO BOX IS %s",combo_box_name);
 	// search for this btn_name in user_data
 	struct gtk_cb_data *combo_box_data = get_pointer_to_user_data_by_name(combo_box_name,user_data);
 	// since this is a combo box, it won't have much references, 

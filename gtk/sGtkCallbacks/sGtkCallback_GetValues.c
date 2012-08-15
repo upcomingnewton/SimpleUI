@@ -10,6 +10,7 @@ char * getGtkWidgetValue(char *type, GtkWidget *widget)
 	else if(!strcmp(type,"GtkComboBox")) return  sGetValueOfComboBox(widget);
 	else if(!strcmp(type,"GtkRadioButton")) return  sGetValueOfRadioButton(widget);
 	else if(!strcmp(type,"GtkCheckButton")) return  sGetValueOfCheckButton(widget);
+	else if(!strcmp(type,"GtkRange")) return  getRangeValue(widget);
 	else return (char *)0;
 }
 
@@ -67,4 +68,14 @@ char * sGetValueOfCheckButton(GtkWidget *widget)
 		fprintf(stdout,"\n [%s] %s is not checked",__func__,text);
 		return "FALSE";	
 	}
+}
+
+char * getRangeValue(GtkWidget * widget)
+{
+	GtkRange *range = (GtkRange *)widget;
+	gdouble value = gtk_range_get_value(range);
+	char buf[5];
+	sprintf(buf,"%.1f",value);
+	fprintf(stdout,"\n [%s] value is %s",__func__,buf);
+	return (buf);
 }

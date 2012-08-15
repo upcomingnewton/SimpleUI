@@ -5,7 +5,7 @@
     #include "../../simpleUI.h"
     #include "../../sXforms.h"
     #define S_GTK_RENDERER_H
-    #define sGTK_UI_FILE  "xforms/sGtkSampleTest6.glade"
+    #define sGTK_UI_FILE  "xforms/sGtkSampleTest6.xml"
     #define sGTK_GLADE_MAIN_WINDOW_NAME "sGTK_GLADE_MAIN_WINDOW_NAME"
     #define GTK_WINDOW_HEIGHT "360"
     #define GTK_WINDOW_WIDTH "480"
@@ -40,6 +40,7 @@
 	int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
 	int gtk_f_MakeRadioButtonGroup(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
 	int gtk_f_MakeListStoreForDropDown(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
+	int MakeAdjustment(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head,char *name);
 	
 
     

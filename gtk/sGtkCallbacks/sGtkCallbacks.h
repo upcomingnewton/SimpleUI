@@ -18,12 +18,14 @@
     void on_combobox_changed(GtkComboBox *widget, gpointer user_data);
     void on_radiobutton_toggled(GtkToggleButton *togglebutton,gpointer user_data);
     void on_checkbutton_toggled(GtkToggleButton *togglebutton,gpointer user_data);
+    void on_Range_value_changed(GtkRange *range,gpointer user_data);
     
     //helper
     int SearchWidget(GtkWidget *container, char *search_name,GtkWidget **t);
     
     //// sGtkCallbacks_GetValues.c
     char * getGtkWidgetValue(char *type, GtkWidget *widget);
+    char * getRangeValue(GtkWidget * range);
     char * sGetValueOfTextBox(GtkWidget *widget);
     char * sGetValueOfComboBox(GtkWidget *widget);
     char * sGetValueOfRadioButton(GtkWidget *widget);

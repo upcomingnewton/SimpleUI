@@ -124,21 +124,3 @@ xmlNode *CreateNodeText(xmlNode* par,char *val)
     return textnode;
 }
 
-<item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-
-xmlNode *CreateSpacer()
-{
-    
-}

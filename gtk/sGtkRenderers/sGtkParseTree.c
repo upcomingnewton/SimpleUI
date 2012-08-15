@@ -7,6 +7,7 @@
 #include "../../misc/misc.h"
 #include "../sGtkCallbacks/sGtkCallbacks.h"
 
+
 char *int2str[] = {"0","1","2","3","4","5","6","7","8","9"};
 int i = 0;
 sGtkUIHandlers handler[100];
@@ -97,7 +98,7 @@ struct sGtkUIHandlers_data gtk_handlers[] = {
 		(char *)"xf-sliders",
 		(char *)0,
 		(char *)0,
-		1,
+		0,  
 		(sGtkUIHandlers)gtk_f_RangeHandler
 	},
 /*	{*/
@@ -121,7 +122,6 @@ struct sGtkUIHandlers_data gtk_handlers[] = {
 
 struct gtk_cb_data * sGenerateGladeFile(sXformsNode *head)
 {
-    //////////fprintf(stdout,"\n yes, it is working fine");
     xmlDoc *doc = NULL;
     xmlNode *root_node = NULL;
     xmlNode *current_node = NULL;
@@ -199,17 +199,17 @@ struct gtk_cb_data * sGenerateGladeFile(sXformsNode *head)
 int sGtkGenerateUIFromTree(sXformsNode * head, xmlNode *par,struct gtk_cb_data **cb_data_head)
 {
 if( head == 0 ){
-	fprintf(stderr,"\n no data to read from");
+	fprintf(stderr,"\n no data to read from\n");
 	exit(1);
 }
 else{
 	sXformsNode *temp ;
 	int x = 0;
 	for( temp = head->child;(( temp != 0 ) ) ; temp=temp->next){
-	    fprintf(stdout,"\n %s:%s,%s",temp->type,temp->name,temp->private_data);
 		if( temp->meta_info && !strcmp(temp->meta_info,"1")){
 			continue;
 		}
+		fprintf(stdout,"\n == %s : %s ==",temp->meta_info, temp->name);
 		x = 0;
 		if(temp->attr){
 			while(gtk_handlers[x].type != 0){
@@ -217,8 +217,7 @@ else{
 				sXformsNodeAttr *tempattr;
 				for( tempattr = temp->attr; tempattr; tempattr=tempattr->next){
 					if( (gtk_handlers[x].attrname) && (gtk_handlers[x].attrvalue) && ( !strcmp(tempattr->attrName,gtk_handlers[x].attrname) && !strcmp(tempattr->attrValue,gtk_handlers[x].attrvalue))){
-						fprintf(stdout,"\t 'specialised'");
-						//fprintf(stdout,"\n[%s][%d] start specialised %s:%s",__func__,__LINE__,temp->type,temp->name);
+						fprintf(stdout,"\n[%s][%d] start specialised %s:%s",__func__,__LINE__,temp->type,temp->name);
 						gtk_handlers[x].handler(temp,par,cb_data_head);
 						temp->meta_info = (char *)"1"; // node visited
 						break;
@@ -237,7 +236,6 @@ else{
 			x = 0;
 			while(gtk_handlers[x].type != 0){
 			if( !strcmp(temp->type,gtk_handlers[x].type) && !gtk_handlers[x].strict){
-			    fprintf(stdout,"\t 'generic'");
 				//fprintf(stdout,"\n[%s][%d] start generic %s:%s",__func__,__LINE__,temp->type,temp->name);
 				gtk_handlers[x].handler(temp,par,cb_data_head);
 				temp->meta_info = (char *)"1"; // node visited
@@ -258,7 +256,7 @@ return 0;
 
 int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
-    fprintf(stdout,"\n[%s][%d][head = %s,%s]",__func__,__LINE__,head->type,head->name);
+  fprintf(stdout,"\n[%s][%d][head = %s,%s]",__func__,__LINE__,head->type,head->name);
 	head -> meta_info = (char *)"1";
 	sXformsNodeAttr xf_trigger_attr = {"type","tab_trigger",(char *)0,(char *)0,(sXformsNodeAttr *)0,(sXformsNodeAttr *)0};
 	int flag_t = 1;
@@ -268,12 +266,11 @@ int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_da
 /*	    // find the parent of this xmlNode child, if it is scrolled window, then add gtkviewport*/
 	    xmlNode *par = node->parent;
         if(par == NULL ){
-            //fprintf(stderr,"\n no parent found \n");
+            fprintf(stderr,"\n no parent found \n");
             exit(1);
         }
 	    xmlAttr *attr = par->properties;
 	    while(attr && attr->type == XML_ATTRIBUTE_NODE ){
-			//////////fprintf(stdout,"\n ATTRIBUTE NAME = %s, and VALUE = %s",attr->name,xmlNodeListGetString(node->doc,attr->children,1));
 			if( !strcmp("class",attr->name) && !strcmp("GtkScrolledWindow",xmlNodeListGetString(node->doc,attr->children,1)))
 			{
                 xmlNode *ViewPort = Create1ObjectNode(node,"viewport_scrolledwindow_ContentArea","GtkViewport",NULL,NULL);
@@ -362,7 +359,7 @@ int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_da
 				}
 			}
 		}else{
-			//////////fprintf(stdout,"\n[%s][%d]ERROR MAKING TABS",__FILE__,__LINE__);
+			fprintf(stdout,"\n[%s][%d]ERROR MAKING TABS",__FILE__,__LINE__);
 			exit(1);
 		}
 		xftrigger->meta_info = (char *)"1";
@@ -395,7 +392,6 @@ int gtk_f_FrameHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_d
         // 2. then add one vertical box 
         // 3. parse the contents for this group
         // 4. then add packing information
-        //////////fprintf(stdout, "\n[%s][%d]NUMBER = %d",__func__,__LINE__,i);
         temp->meta_info = (char *)"1";
         xmlNode *child = Create1ChildNode(tempvbox,NULL,NULL);
         
@@ -419,20 +415,18 @@ int gtk_f_FrameHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_d
                                         frametempvboxPackingNull,
                                         frametempvboxPackingValues,3);
     }
-    fprintf(stdout,"\n[%s][%d] NUMBER OF CHILDREN %d",__func__,__LINE__,i);
 }
 
 
 
 int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
-    //////fprintf(stdout,"\n[%s][%d][head = %s]",__func__,__LINE__,head->name);
+    fprintf(stdout,"\n[%s][%d][head = %s]",__func__,__LINE__,head->name);
     int pos = -1;
     // calculate the position of this element among it's siblings'
     head->meta_info = (char *)"1";
     sXformsNode *temp = head;
     for(pos=-1;temp;temp=temp->prev,pos++);
-    //////fprintf(stdout,"\n[%s][%d][head = %s] POSITION = %d",__func__,__LINE__,head->name,pos);
     char *s = "hbox_";
     s = sAppendString(s,head->name);
     
@@ -666,7 +660,6 @@ int gtk_f_LabelHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_d
     //head->name = s;
     xmlNode *hbox  = MakeHBoxForElements(head,node);
     int pos  = CalculatePosition(head);
-    fprintf(stdout,"\n[%s][%d][head = %s] POSITION = %d",__func__,__LINE__,head->name,pos);
     MakeLabel(head,hbox);
     PackElements(hbox->parent,"True","False",pos);
 }
@@ -697,7 +690,7 @@ int gtk_f_ButtonHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_
     char *button_prop[] = {"visible","can_focus","label","use_action_appearance","receives_default","use_action_appearance"};
     char *button_null[] = {NULL,NULL,NULL,NULL,NULL,NULL};
     char *button_trans[] = {NULL,NULL,"yes",NULL,NULL,NULL};
-    char *button_value[] = {"True","True","Done","False","True","False"};
+    char *button_value[] = {"True","True",head->name,"False","True","False"};
     CreatePropertyNodes(button,button_prop,button_trans, button_null, button_null,button_value ,6);
     
     struct gtk_cb_data *btn =  AppendNode(cb_data_head,"REFERENCE", "NULL","NULL",s,"xf:trigger");
@@ -737,7 +730,37 @@ int gtk_f_ButtonHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_
 
 int gtk_f_RangeHandler(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
 {
-    //////////fprintf(stdout,"\n[%s][%d]",__func__,__LINE__);
+    static int scalectr = 0;
+    int pos = -1;
+    head->meta_info = (char *)"1";
+    // calculate the position of this element among it's siblings'
+    sXformsNode *temp = head;
+    fprintf(stdout,"\n *************** RANGE ***[%s][%d]",__func__,__LINE__);
+   // 1. first make label in a vertical row , `
+    gtk_f_LabelHandler(head,node,cb_data_head);
+    pos = CalculatePosition(head);
+   // 2. make slider
+    xmlNode *child = Create1ChildNode(node,NULL,NULL);
+    xmlNode *scale = Create1ObjectNode(child,sAppendString("GtkScale_",int2str[scalectr]),"GtkScale",NULL,NULL);
+    char *scale_prop[] = {"visible","can_focus","margin_left","margin_right","margin_top","margin_bottom","adjustment","lower_stepper_sensitivity","round_digits"};
+    char *scale_null[] = {NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL};
+    char *scale_value[] = {"True","True","2","2","2","2",sAppendString("GtkScale_Adjustment_",int2str[scalectr]),"off","1"};
+    CreatePropertyNodes(scale,scale_prop,scale_null, scale_null, scale_null,scale_value ,9);
+    char *scale_packing_prop[] = {"fill","expand","position"};
+    char *scale_packing_null[] = {NULL,NULL,NULL};
+    char *scale_packing_value[] = {"True","False",int2str[pos]};
+    CreatePackingNodeWithProperties(child,
+                                    scale_packing_prop,
+                                    scale_packing_null,
+                                    scale_packing_null,
+                                    scale_packing_null,
+                                    scale_packing_value,3);
+    // make an adjustment here
+    // <signal name="value-changed" handler="getRangeValue" swapped="no"/>
+    AppendNode(cb_data_head,"NULL-REFERENCE", "NULL-INITVAL","NULL-VAL",sAppendString("GtkScale_",int2str[scalectr]),"GtkScale");
+    Create1SignalNode(scale,"value-changed","on_Range_value_changed", NULL, "no", NULL, NULL);
+    MakeAdjustment(head,node,cb_data_head,sAppendString("GtkScale_Adjustment_",int2str[scalectr]));
+    scalectr++;
 }
 
 int gtk_f_MakeRadioButtonGroup(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head)
@@ -782,6 +805,19 @@ int gtk_f_MakeListStoreForDropDown(sXformsNode *head,xmlNode *node,struct gtk_cb
                 CreateDataRow(row,int2str[1],"yes",temp->name);
 			}
     }
+}
+
+int MakeAdjustment(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head,char *name)
+{
+    xmlDoc *doc = node->doc;
+    xmlNode *root = xmlDocGetRootElement(doc); 
+    xmlNode *Adjustment =  Create1ObjectNode(root,name,"GtkAdjustment",NULL,NULL);
+    
+    char *Adjustment_prop[] = {"upper","step_increment","page_increment"};
+    char *Adjustment_value[] = {"100","1","1"};
+    char *Adjustment_null[] = {NULL,NULL,NULL};
+    CreatePropertyNodes(Adjustment,Adjustment_prop,Adjustment_null, Adjustment_null, Adjustment_null,Adjustment_value ,3);
+    
 }
 
 // helpers

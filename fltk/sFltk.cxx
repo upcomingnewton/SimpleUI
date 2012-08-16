@@ -18,11 +18,11 @@ g++  -g -I/usr/local/include -I/usr/include/freetype2 -D_LARGEFILE_SOURCE -D_LAR
  */
  
 /* RUNNING
-./SimpleUIFltk -i xforms/file2.xhtml
+./SimpleUIFltk -i xforms/file9.xhtml
 */
 
 void PrintWidgetDimensions(Fl_Widget *w){
-	fprintf(stdout,"\nName of widget %s, dimensions are %4d,%4d,%4d,%4d",w->label(),w->x(),w->y(),w->w(),w->h());
+	fprintf(stdout,"\n[== %s ==], dimensions are %4d,%4d,%4d,%4d",w->label(),w->x(),w->y(),w->w(),w->h());
 }
 
 void usage(int argc, char ** argv)
@@ -179,26 +179,30 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
     //oyFormsArgs_ResourceSet( forms_args, OYFORMS_FLTK_HELP_VIEW_REG,
              //                (oyPointer)&callback);
 
-	Fl_Group *BottomPaneGroup = new Fl_Group(0,(WINDOW_HEIGHT-(ROW_HEIGHT+V_SPACING)),WINDOW_WIDTH,ROW_HEIGHT+V_SPACING,"BottomPaneGroup");
-	{
-		 Fl_Button * done_button = new Fl_Button( (WINDOW_WIDTH - BUTTON_WIDTH)/2, BottomPaneGroup->y() + VER_SEP, BUTTON_WIDTH, ROW_HEIGHT, ("&Done"));
-		 done_button->callback( callback_done, 0 );
-		 PrintWidgetDimensions(done_button);
-	}
-	BottomPaneGroup->end();
-	PrintWidgetDimensions(BottomPaneGroup);
-	Fl_Scroll * scroll = new Fl_Scroll( H_SPACING,V_SPACING,WINDOW_WIDTH-2*H_SPACING,WINDOW_HEIGHT-(2*V_SPACING + ROW_HEIGHT),"scroll" );
+  Fl_Scroll * scroll = new Fl_Scroll( H_SPACING,V_SPACING,WINDOW_WIDTH-2*H_SPACING,WINDOW_HEIGHT-(5*V_SPACING + ROW_HEIGHT),"" );
 	scroll->box( FL_NO_BOX );
 	{
-		Fl_Pack *scroll_pack = new Fl_Pack(scroll->x(),scroll->y(),scroll->w(),WINDOW_HEIGHT -BottomPaneGroup->h() - 2*V_SPACING ,"scroll_pack");
+		Fl_Pack *scroll_pack = new Fl_Pack(scroll->x(),scroll->y(),scroll->w(),WINDOW_HEIGHT,"scroll_pack"); //TODO height of this widget
 		scroll_pack->spacing(V_SPACING);
 		{
 			head = ParseXformsToTree( xforms_text);
 			error = sGenerateUIFromTree(head);
 		}
 		scroll_pack->end();
+		PrintWidgetDimensions(scroll_pack);
 	}
 	scroll->end();
+  PrintWidgetDimensions(scroll);
+  
+	Fl_Group *BottomPaneGroup = new Fl_Group(H_SPACING,scroll->h() + 3*V_SPACING,WINDOW_WIDTH - 2*H_SPACING,ROW_HEIGHT+3*V_SPACING ,"");
+	{
+		 Fl_Button * done_button = new Fl_Button( (BottomPaneGroup->w() - BUTTON_WIDTH)/2, BottomPaneGroup->y() + V_SPACING, BUTTON_WIDTH, ROW_HEIGHT + V_SPACING, ("&Done"));
+		 done_button->callback( callback_done, 0 );
+		 PrintWidgetDimensions(done_button);
+	}
+	BottomPaneGroup->end();
+	PrintWidgetDimensions(BottomPaneGroup);
+	
 	w->resizable( scroll );
 	w->end();
 	//FL_THIN_UP_BOX );

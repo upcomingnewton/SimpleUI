@@ -18,6 +18,7 @@
 	#include<FL/Fl_Box.H>
 	#include <FL/Fl_Round_Button.H>
 	#include <FL/Fl_Button.H>
+	#include <FL/Fl_Output.H>
 //	#include <FL/Fl_Color.H>
 	
 	#include "../xml/sXml.h"
@@ -28,7 +29,8 @@
 #define WriteLog
 #endif
 
-int CalculateYPosition(Fl_Group *p);
+int CalculateYPosition(Fl_Group *p,char *s);
+char *int2str[] = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"};
 
 struct sFltkUIHandler_s fltk_handlers[] = {
 	{
@@ -76,7 +78,7 @@ struct sFltkUIHandler_s fltk_handlers[] = {
   		(char *)"xf-button",
   		(char *)0,
   		(char *)0,
-  		1,
+  		0,
   		(sFltkUIHandler_f)sFltkUIHandler_f_ButtonHandler
 	},
 	{
@@ -100,18 +102,25 @@ struct sFltkUIHandler_s fltk_handlers[] = {
 		(char *)"xf-sliders",
 		(char *)0,
 		(char *)0,
-		1,
+		0,
 		(sFltkUIHandler_f)sFltkUIHandler_f_RangeHandler
 	},
 	{
-		(char *)"xf:repeat",
-		(char *)"xf-repeat-handlers",
-		(char *)0,
-		(char *)0,
-		1,
-		(sFltkUIHandler_f)sFltkUIHandler_f_TableHandler
+	    (char *)"xf:secret",
+	    (char *)"password",
+	    (char *)0,
+	    (char *)0,
+	    0,
+	    (sFltkUIHandler_f)sFltkUIHandler_f_InputHandler
 	},
-
+	{
+	    (char *)"xf:textarea",
+	    (char *)"password",
+	    (char *)0,
+	    (char *)0,
+	    0,
+	    (sFltkUIHandler_f)sFltkUIHandler_f_InputHandler
+	},
 	{
 		(char *)0,
   		(char *)0,
@@ -273,17 +282,109 @@ void MarkChildElementsAsVisited(sXformsNode *node){
 
 // HELPER FUNCTION
 /* ========================================================================================== */
-int CalculateYPosition(Fl_Group *p){
-	int height = 0;
-	Fl_Widget *temp;
-	if(p->children()){
-		for( int i = 0; i < p->children(); i++){
-			temp = p->child(i);
-			height += temp->h();
-		}
-	}
-	return height;
+int CalculateTreeChildre(sXformsNode *head)
+{
+    // since it is a frame , hence none of it's children would have been implemented till now
+    sXformsNode * temp = head->child;
+    int count = 0;
+    for( count = 0;temp ;  temp=temp->next)
+    {
+      count = count + 1;
+      if( !strcmp(temp->type,"xf:select1"))
+      {
+      // it can be a radio button group
+        // check attributes for appearance == full
+        sXformsNodeAttr *tempattr;
+				for( tempattr = temp->attr; tempattr; tempattr=tempattr->next){
+						if(( !strcmp(tempattr->attrName,"appearance") && !strcmp(tempattr->attrValue,"full"))){
+						    count = count + CalculateTreeChildre(temp->child) + 1;
+						}
+				}
+      }
+      else if( !strcmp(temp->type,"xf:select"))
+      {
+        // it is a check box list
+        count = count + CalculateTreeChildre(temp->child) + 1;
+      }
+      else if( !strcmp(temp->type,"xf:range"))
+      {
+        // it is a check box list
+        count = count  + 1;
+      }
+    }
+    printf("\n HEAD = %s, CHULDREN ARE %d",head->name, count);
+    return count;
 }
+
+int CalculateYPosition(Fl_Group *p, char *s){
+  
+	int height = 0, i = 0;
+	Fl_Widget *temp;
+	printf("\n[%s]",s);
+	if(p->children()){
+		for(i = 0; i < p->children(); i++)
+		{
+			temp = p->child(i);
+			printf("\n\t[CAL_POSITION][%s][%d,%d,%d,%d] %d, %d",temp->label(),temp->x(),temp->y(),temp->w(),temp->h(),i, i*(temp->h() + V_SPACING));
+		  height += temp->h() + V_SPACING;
+		}
+		printf("\n[CAL_POSITION][%s][%d,%d,%d,%d] %d, %d",p->label(),p->x(),p->y(),p->w(),p->h(),i, height);
+		return height;
+	}
+	printf("\n[CAL_POSITION][%s][%d,%d,%d,%d] NO-CHILDREN",p->label(),p->x(),p->y(),p->w(),p->h());
+	return 0;
+}
+
+void PrintGroupDetails(Fl_Group *p)
+{
+  printf("\n =================== %s ==============",p->label());
+  Fl_Widget *temp;
+    PrintWidgetDimensions(p);
+    printf("\n NUBER OF CHILDREN = %d",p->children());
+    if(p->children()){
+      for(int i = 0; i < p->children(); i++){
+          temp=p->child(i);
+          PrintWidgetDimensions(temp);
+        }
+    }
+  printf("\n ================================");
+}
+/* ========================================================================================== */
+
+int sFltkUIHandler_f_FrameHandler(sXformsNode *head,int x, int y, int w, int h){
+  static int frameCounter = 0;
+	Fl_Group *parent = Fl_Group::current();
+	int height = 0;
+	head -> meta_info = (char *)"1";
+	if(parent){
+	  printf("\n [GROUP] %s",head->name);
+    //TODO there was a sepator group here which separates this group from others
+    CalculateTreeChildre(head);
+    // TODO CalculateYPosition is being used to find number of children and then calculate height of parent. It is based on assumption
+    // that all it's children fit in 1 row , that is , no sub-tabs are defined etc. A better approach is to change height of this 
+    // group after it's children have been rendered. But in doing so, fltk resizes children along with it. Find some method to change 
+    // or resize the parent group without changing dimensions of child widgets
+		Fl_Group *new_frame = new Fl_Group(parent->x(),CalculateYPosition(parent,head->name) + parent->y() ,parent->w(),(CalculateTreeChildre(head)*(V_SPACING + ROW_HEIGHT)) + V_SPACING,"");
+		//new_frame->color(FL_YELLOW);
+		//new_frame->labelcolor(FL_RED);
+		new_frame->begin();
+			sGenerateUIFromTree(head);
+		new_frame->end();
+		//TODO calculate new height and adjust it's height
+		
+//		new_frame->resize(new_frame->x(),new_frame->y(),new_frame->w(),CalculateYPosition(new_frame,head->name) + V_SPACING);
+//		printf(" ......(%d,%d,%d,%d)",new_frame->x(),new_frame->y(),new_frame->w(),new_frame->h());
+  		new_frame->box(FL_BORDER_BOX);
+//		PrintGroupDetails(new_frame);
+//		return new_frame->h();
+		frameCounter++;
+		return 0;
+	}else{
+		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
+		return -1;
+	}
+}
+
 /* ========================================================================================== */
 
 int sFltkUIHandler_f_Select1Handler(sXformsNode *head,int x, int y, int w, int h){
@@ -291,24 +392,11 @@ int sFltkUIHandler_f_Select1Handler(sXformsNode *head,int x, int y, int w, int h
 	head->meta_info = (char *)"1";
 	if(!parent){
 		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
-		return -1;
+		exit(1);
 	}
 	else{
-		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,parent->label(),parent->x(),parent->y(),parent->w(),parent->h());
 		parent->begin();
-		Fl_Group *dropdowngroup = new Fl_Group(parent->x() + HOR_SEP, parent->y() + CalculateYPosition(parent) + VER_SEP , w - 2*HOR_SEP, ROW_HEIGHT + 2*VER_SEP,"dropdowngroup");
-		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,dropdowngroup->label(),dropdowngroup->x(),dropdowngroup->y(),dropdowngroup->w(),dropdowngroup->h());
-		dropdowngroup->color(FL_RED);
-		dropdowngroup->box(FL_BORDER_BOX);
-		dropdowngroup->begin();
-				Fl_Choice  *f = new Fl_Choice(dropdowngroup->x() + HOR_SEP,dropdowngroup->y() + VER_SEP,dropdowngroup->w() - 2*HOR_SEP,ROW_HEIGHT,head->name);
-				// parse children here
-				sXformsNodeAttr *ref = getAttrFromList(head,"ref");
-				CallbackData *data = (CallbackData *)malloc(sizeof(CallbackData));
-				data->ref = ref->meta_info;
-				data->initial_val = ref->private_data;
-				data->val = ref->attrValue;
-				f->callback(Select1Handler,data);
+				Fl_Choice  *f = new Fl_Choice(parent->x() + H_SPACING +  LABEL_WIDTH ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), WIDGET_WIDTH(parent->w()) , ROW_HEIGHT,head->name);
 				sXformsNode *xfitem = SearchSubTreeForNodes(head,(char *)"xf:item",(sXformsNodeAttr *)0,1,0);
 				while(xfitem){
 					// add item to drop downs
@@ -316,198 +404,131 @@ int sFltkUIHandler_f_Select1Handler(sXformsNode *head,int x, int y, int w, int h
 					xfitem->meta_info = (char *)"1";
 					xfitem = SearchSubTreeForNodes(head,(char *)"xf:item",(sXformsNodeAttr *)0,1,0);
 				}
-		dropdowngroup->end();
-		return dropdowngroup->h();
+		return 0;
 	}
 }
 
 int sFltkUIHandler_f_InputHandler(sXformsNode *head,int x, int y, int w, int h){
 	Fl_Group *parent = Fl_Group::current();
-//	head->meta_info = (char *)"1";
-//	if(!parent){
-//		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
-//	}
-//	else{
-//		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,parent->label(),parent->x(),parent->y(),parent->w(),parent->h());
-//		//char *s = "inputgroup_";
-//		//s = sAppendString(s,head->name);
-//		Fl_Group *inputgroup = new Fl_Group(parent->x(),parent->y() + CalculateYPosition(parent) ,parent->w(),(2*ROW_HEIGHT + 1*VER_SEP),"");
-//		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,inputgroup->label(),inputgroup->x(),inputgroup->y(),inputgroup->w(),inputgroup->h());
-//		inputgroup->box(FL_BORDER_BOX);
-//		inputgroup->begin();
-//		Fl_Input  *f = new Fl_Input(inputgroup->x() + HOR_SEP,inputgroup->y() + VER_SEP,inputgroup->w() - 2*HOR_SEP,2*ROW_HEIGHT,"");
-//		//Fl_Input  *f = new Fl_Input(parent->x() + HOR_SEP,parent->y() + VER_SEP,parent->w() - 2*HOR_SEP,ROW_HEIGHT,head->name);
-//		WriteLog(stdout,"\n[%s][%d] parent = %s, dimensions of parent are (%d,%d,%d,%d)",__func__,__LINE__,f->label(),f->x(),f->y(),f->w(),f->h());
-//		inputgroup->end();
-//		return inputgroup->h();
-//	}
+	head->meta_info = (char *)"1";
+	if(!parent){
+		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
+		exit(1);
+	}
+	else{
+		//Fl_Group *inputgroup = new Fl_Group(parent->x(),parent->y() + CalculateYPosition(parent) ,parent->w(),(2*ROW_HEIGHT + 1*VER_SEP),"");
+		//inputgroup->box(FL_BORDER_BOX);
+		//inputgroup->begin();
+		//Fl_Input  *f = new Fl_Input(inputgroup->x() + HOR_SEP,inputgroup->y() + VER_SEP,inputgroup->w() - 2*HOR_SEP,2*ROW_HEIGHT,"");
+		//Fl_Input  *f = new Fl_Input(parent->x() + HOR_SEP,parent->y() + VER_SEP,parent->w() - 2*HOR_SEP,ROW_HEIGHT,head->name);
+		Fl_Input  *f = new Fl_Input(parent->x() + H_SPACING +  LABEL_WIDTH ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), WIDGET_WIDTH(parent->w()) , ROW_HEIGHT,head->name);
+		//inputgroup->end();
+	}
 	return 0;
 }
 
 int sFltkUIHandler_f_RangeHandler(sXformsNode *head,int x, int y, int w, int h){
-//	Fl_Group *parent = Fl_Group::current();
-//	head->meta_info = (char *)"1";
-//	if(!parent){
-//		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
-//	}
-//	else{
-//		Fl_Group *slidergroup = new Fl_Group(parent->x(),parent->y(),parent->w(),(ROW_HEIGHT + 2*VER_SEP),"slidergroup");
-//		Fl_Value_Slider *slider;
-//		int *start = 0;
-//		int *end = 0;
-//		int *step = 0;
-//		slider = new Fl_Value_Slider(slidergroup->x() + HOR_SEP,slidergroup->y() + VER_SEP,slidergroup->w() - 2*HOR_SEP,ROW_HEIGHT,head->name);
-//		slider->type(FL_HORIZONTAL);
-//		start = (int *)getAttrValueFromList(head,"start");
-//		end = (int *)getAttrValueFromList(head,"end");
-//		step = (int *)getAttrValueFromList(head,"step");
-//		slider->bounds((double)(*start),(double)(*end));
-//		slidergroup->end();
-//		return slidergroup->h();
-//	}
-//	return 0;
-}
-
-
-
-int sFltkUIHandler_f_TableHandler(sXformsNode *head,int x, int y, int w, int h){
-	//xmlXPathObjectPtr r  = sGetXpathValue("nodeset", xmlDocPtr doc)
+	Fl_Group *parent = Fl_Group::current();
+	head->meta_info = (char *)"1";
+	if(!parent){
+		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
+	}
+	else{
+	  Fl_Output *Label = new Fl_Output(parent->x() + H_SPACING  ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), parent->w() - 2*H_SPACING , ROW_HEIGHT,"");
+	    Label->value(head->name);
+		Fl_Value_Slider *slider;
+		int *start = 0;
+		int *end = 0;
+		int *step = 0;
+		slider = new Fl_Value_Slider(parent->x() + H_SPACING  ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(),parent->w() - 2*H_SPACING , ROW_HEIGHT,"");
+		slider->type(FL_HORIZONTAL);
+		slider->bounds(0.0,100.0);
+	}
 	return 0;
 }
 
-
 int sFltkUIHandler_f_RadioButtonList(sXformsNode *head,int x, int y, int w, int h){
-//	Fl_Group *parent = Fl_Group::current();
-//	int height = VER_SEP + ROW_HEIGHT;
-//	head->meta_info = (char *)"1"; 
-//	if(!parent){
-//		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
-//	}
-//	
-//	else{
-//		sXformsNode *temp;
-//		int ctr = 0;
-//		sXformsNode *xfchoices = SearchSubTreeForNodes(head,(char *)"xf:choices",(sXformsNodeAttr *)0,0,0);
-//		if( xfchoices ){
-//			xfchoices->meta_info = (char *)"1";
-//			Fl_Group *RadioButtonListGroup = new Fl_Group(x,y,w,height);
-//			RadioButtonListGroup->begin();
-//			{
-
-//				for( temp=xfchoices->child; temp != 0; temp=temp->next, ctr++){
-//					height += sGenerateUIFromTree(temp);
-//				}
-//			}
-//			RadioButtonListGroup->size(RadioButtonListGroup->w(),height);
-//			RadioButtonListGroup->end();
-//		}
-//	}
+	Fl_Group *parent = Fl_Group::current();
+	head->meta_info = (char *)"1"; 
+	if(!parent){
+		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
+	}
+	else{
+		sXformsNode *temp;
+		int ctr = 0;
+		sXformsNode *xfchoices = SearchSubTreeForNodes(head,(char *)"xf:choices",(sXformsNodeAttr *)0,0,0);
+		if( xfchoices ){
+			xfchoices->meta_info = (char *)"1";
+			
+			Fl_Group *RadioButtonListGroup = new Fl_Group(parent->x(),CalculateYPosition(parent,head->name) + parent->y() ,parent->w(),((CalculateTreeChildre(xfchoices) + 1)*(V_SPACING + ROW_HEIGHT)),"");
+			RadioButtonListGroup->begin();
+			Fl_Output *Label = new Fl_Output(RadioButtonListGroup->x() + H_SPACING  ,CalculateYPosition(RadioButtonListGroup,head->name) + V_SPACING+ RadioButtonListGroup->y(), RadioButtonListGroup->w() - 2*H_SPACING , ROW_HEIGHT,"");
+	    Label->value(head->name);
+			{
+				for( temp=xfchoices->child; temp != 0; temp=temp->next, ctr++){
+				    Fl_Round_Button *btn = new  Fl_Round_Button(RadioButtonListGroup->x() + H_SPACING ,CalculateYPosition(RadioButtonListGroup,head->name) + V_SPACING+ RadioButtonListGroup->y(), RadioButtonListGroup->w() - 2*H_SPACING , ROW_HEIGHT,temp->name);
+				    {
+				      btn->down_box(FL_ROUND_DOWN_BOX);
+				      btn->type(102);
+				    }
+				}
+			}
+			RadioButtonListGroup->end();
+		}
+	}
 }
 
 
 
 int sFltkUIHandler_f_CheckBoxList(sXformsNode *head,int x, int y, int w, int h){
-//	Fl_Group *parent = Fl_Group::current();
-//	int height = parent->y();
-//	if( parent->children() == 0){
-//		height += TAB_HEIGHT;
-//	}
-//	head->meta_info = (char *)"1"; 
-//	if(!parent){
-//		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
-//	}
-//	
-//	else{
-//		sXformsNode *temp;
-//		int ctr = 0;
-//		height += 1*VER_SEP;
-//		Fl_Box *CheckBoxListBox = new Fl_Box(x+HOR_SEP,height,parent->w() - 2*HOR_SEP,h,head->name);
-//		CheckBoxListBox->box(FL_BORDER_BOX);
-//		{
-//			for( temp=head->child; temp != 0; temp=temp->next, ctr++){
-//				height += VER_SEP;
-//				Fl_Check_Button *btn = new Fl_Check_Button(CheckBoxListBox->x() + HOR_SEP,height ,CheckBoxListBox->w() - HOR_SEP,ROW_HEIGHT,temp->name);
-//				height += ROW_HEIGHT;
-//				temp->meta_info = (char *)"1";
-//			}
-//		}
-//		height += VER_SEP;
-//		CheckBoxListBox->size(CheckBoxListBox->w(),height);
-//	}
-//	return 0;
+	Fl_Group *parent = Fl_Group::current();
+	head->meta_info = (char *)"1"; 
+	if(!parent){
+		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
+	}
+	
+	else{
+		sXformsNode *temp;
+		sXformsNode *xfchoices = SearchSubTreeForNodes(head,(char *)"xf:choices",(sXformsNodeAttr *)0,0,0);
+		if( xfchoices ){
+		int ctr = 0;
+		xfchoices->meta_info = (char *)"1";
+		Fl_Output *Label = new Fl_Output(parent->x() + H_SPACING  ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), parent->w() - 2*H_SPACING , ROW_HEIGHT,"");
+	    Label->value(head->name);
+			for( temp=xfchoices->child; temp != 0; ctr++,temp=temp->next){
+				Fl_Check_Button *btn = new Fl_Check_Button(parent->x() + H_SPACING  ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), WIDGET_WIDTH(parent->w()) , ROW_HEIGHT,temp->name);
+				temp->meta_info = (char *)"1";
+			}
+		}
+		}
+	return 0;
 }
 
 
 int sFltkUIHandler_f_ButtonHandler(sXformsNode *head,int x, int y, int w, int h){
-//	Fl_Group *parent = Fl_Group::current();
-//	head->meta_info = (char *)"1"; 
-//	if(!parent){
-//		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
-//	}
-//	
-//	else{
-//		sXformsNode *temp;
-//		int ctr = 0;
-//		Fl_Group *ButtonGroup = new Fl_Group(x,y,w,4*ROW_HEIGHT);
-//		{
-//			//Fl_Box *RadioListBox = new Fl_Box(x+HOR_SEP,y,parent->w() - 2*HOR_SEP,4*ROW_HEIGHT,head->name);
-//			ButtonGroup->box(FL_BORDER_BOX);
-//			{
-//				Fl_Button *btn = new Fl_Button(x,y,w,ROW_HEIGHT,head->name);
-//			}
-//		}
-//		//RadioListBox->size(RadioListBox->w(),height);
-//	}
+	Fl_Group *parent = Fl_Group::current();
+	head->meta_info = (char *)"1"; 
+	if(!parent){
+		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
+	}
+	
+	else{
+	  parent->begin();
+	  printf("\n ***************");
+	  Fl_Button *btn = new Fl_Button(parent->x() + H_SPACING  ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), WIDGET_WIDTH(parent->w()) , ROW_HEIGHT,head->name);
+	  parent->end();
+}
 }
 
-int sFltkUIHandler_f_FrameHandler(sXformsNode *head,int x, int y, int w, int h){
-	Fl_Group *parent = Fl_Group::current();
-	int height = 0;
-	head -> meta_info = (char *)"1";
-	if(parent){
-		char *s = "new_frame_";
-		s = sAppendString(s,head->name);
-		height = CalculateYPosition(parent);
-		//WriteLog(stdout,"\n[%s][%d] height = %d, before making a sep",__func__,__LINE__,height);
-		Fl_Group *sep_group = new Fl_Group(parent->x(),parent->y() + height ,parent->w(),ROW_HEIGHT,"");
-		sep_group->end();
-		height = CalculateYPosition(parent);
-		//WriteLog(stdout,"\n[%s][%d] height = %d, after making a sep",__func__,__LINE__,height);
-		Fl_Group *new_frame = new Fl_Group(parent->x(),parent->y() + height ,parent->w(),parent->h() - 2*VER_SEP,s);
-		new_frame->color(FL_YELLOW);
-		new_frame->labelcolor(FL_RED);
-		new_frame->begin();
-			sGenerateUIFromTree(head);
-			//Fl_Group *child_dummy_grp = new Fl_Group(new_frame->x() + HOR_SEP,new_frame->y() + VER_SEP,new_frame->w() - 2*HOR_SEP,ROW_HEIGHT*4,"");
-			//MarkChildElementsAsVisited(head);
-		new_frame->end();
-		height = CalculateYPosition(new_frame);
-		height += 2*VER_SEP;
-		new_frame->size(new_frame->w(),height);
-		WriteLog(stdout,"\n[%s][%d] height = %d, after adjusting",__func__,__LINE__,height);
-		new_frame->box(FL_BORDER_BOX);
-		return new_frame->h();
-	}else{
-		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
-		return -1;
-	}
-}
+
 
 
 int sFltkUIHandler_f_LabelHandler(sXformsNode *head,int x, int y, int w, int h){
 	Fl_Group *parent = Fl_Group::current();
-	int height = 0;
 	head -> meta_info = (char *)"1";
 	if(parent){
-		height = CalculateYPosition(parent);
-		if( height == 0 ){
-			height = VER_SEP;
-		}
-		Fl_Group *outputgroup = new Fl_Group(parent->x(),parent->y() + height,parent->w(),2*ROW_HEIGHT + 1*VER_SEP,"");
-		outputgroup->begin();
-			
-		outputgroup->end();
-		return outputgroup->h();
+	    Fl_Output *Label = new Fl_Output(parent->x() + H_SPACING  ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), parent->w() - 2*H_SPACING , ROW_HEIGHT,"");
+	    Label->value(head->name);
 	}else{
 		WriteLog(stdout,"\n[%s][%d]could not find parent",__FILE__,__LINE__);
 		return -1;

@@ -39,10 +39,10 @@ struct sFltkUIHandler_s {
   sFltkUIHandler_f        handler;
 };
 
-#define VER_SEP 4
-#define HOR_SEP 5
-#define H_SPACING 10
-#define V_SPACING 5
+#define VER_SEP 0
+#define HOR_SEP 0
+#define H_SPACING 5
+#define V_SPACING 10
 #define ROW_HEIGHT 25
 #define BOX_WIDTH 250
 #define SELECT_WIDTH 176
@@ -50,6 +50,9 @@ struct sFltkUIHandler_s {
 #define WINDOW_HEIGHT 680
 #define TAB_HEIGHT 25
 #define BUTTON_WIDTH 80
+#define LABEL_WIDTH  200
+#define WIDGET_WIDTH(w)  (w- (2*H_SPACING +  LABEL_WIDTH))
+
 
 
 int sGenerateUIFromTree(sXformsNode * head);
@@ -72,4 +75,6 @@ sXformsNodeAttr * getAttrFromList(sXformsNode *node,char *name);
 
 
 void Select1Handler(Fl_Widget *widget, void *data);
+void PrintGroupDetails(Fl_Widget *p);
+int CalculateTreeChildre(sXformsNode *head);
 #endif

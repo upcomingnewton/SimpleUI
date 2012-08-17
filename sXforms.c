@@ -74,7 +74,7 @@ void sPrintsXformsTree(sXformsNode * head)
 {
 	//WriteLog("\n === PRINTING NODE TREE ===");
 	if( head == 0 ){
-		WriteLog("\n Head node passed is null");
+		//WriteLog("\n Head node passed is null");
 		
 	}
 	else{
@@ -83,11 +83,11 @@ void sPrintsXformsTree(sXformsNode * head)
 			//WriteLog("\n\t %s : %s",temp->type,temp->name);
 			sPrintsXformsNode(temp);
 			if( temp->child == 0){
-				WriteLog("\t\t-- NO CHILD ---\n");
+				//WriteLog("\t\t-- NO CHILD ---\n");
 			}else{
-				WriteLog("\n\t------------- chilren start -------------\n");
+				//WriteLog("\n\t------------- chilren start -------------\n");
 				sPrintsXformsTree(temp);
-				WriteLog("\n\t------------- chilren end -------------\n");
+				//WriteLog("\n\t------------- chilren end -------------\n");
 			}
 		}
 	}
@@ -180,34 +180,34 @@ void sPrintsXformsAttrList(sXformsNodeAttr * node){
 sXformsNode * SearchSubTreeForNodes(sXformsNode *head,char *type, sXformsNodeAttr *attr, int SearchRecursive, int ComparisonsToCheck){
 	sXformsNode *temp;
 	int num_match = 0;
-	WriteLog("\n\t\t------------------ START ----------------------");
-	WriteLog("\n\t == 1 == Head = %s, %s TYPE %s, Recursive %d attr %u",head->type,head->name,type,SearchRecursive,attr);
+	//WriteLog("\n\t\t------------------ START ----------------------");
+	//WriteLog("\n\t == 1 == Head = %s, %s TYPE %s, Recursive %d attr %u",head->type,head->name,type,SearchRecursive,attr);
 	// match children
 	for(temp=head->child; temp; temp=temp->next){
 		if(!(temp->meta_info) && temp->type){
-	WriteLog("\n\t == 2 == temp = %s, %s ",temp->type,temp->name);
+	//WriteLog("\n\t == 2 == temp = %s, %s ",temp->type,temp->name);
 			if( !strcmp(temp->type,type) ){
-	WriteLog("\n\t == 3 == TYPES MATCH =");
+	//WriteLog("\n\t == 3 == TYPES MATCH =");
 				// matches, if attr list is there, match it
 				if( attr ){
-	WriteLog("\n\t == 4 == ATTRIBUTE LIST IS THERE =");
+	//WriteLog("\n\t == 4 == ATTRIBUTE LIST IS THERE =");
 					if( temp->attr ){
-	WriteLog("\n\t == 5 == TEMP ATTRIBUTE LIST IS THERE = (%s,%s)",temp->attr->attrName,temp->attr->attrValue );
+	//WriteLog("\n\t == 5 == TEMP ATTRIBUTE LIST IS THERE = (%s,%s)",temp->attr->attrName,temp->attr->attrValue );
 						// we need attributes and this node have some
 						sXformsNodeAttr *tempattr, *tempattr2;
 						for( tempattr = attr; tempattr; tempattr=tempattr->next){
 							for(tempattr2= temp->attr;  tempattr2 ; tempattr2=tempattr2->next){
-	WriteLog("\n\t == 6 == SEARCHING (%s,%s) PRESENT (%s,%s)",tempattr->attrName,tempattr->attrValue,tempattr2->attrName,tempattr2->attrValue );
+	//WriteLog("\n\t == 6 == SEARCHING (%s,%s) PRESENT (%s,%s)",tempattr->attrName,tempattr->attrValue,tempattr2->attrName,tempattr2->attrValue );
 								if(!strcmp(tempattr2->attrName,tempattr->attrName) && (!strcmp(tempattr2->attrValue,tempattr->attrValue))){
 									num_match++;
-	WriteLog("\n\t == 7 == MATCHED =");
+	//WriteLog("\n\t == 7 == MATCHED =");
 									break;
 								}
 							}
 						}
 						if(num_match  >= ComparisonsToCheck ){
 							// return this node
-	WriteLog("\n\t == 8 == PERFECT MATCHED =");
+	//WriteLog("\n\t == 8 == PERFECT MATCHED =");
 							return temp;
 						}
 					}
@@ -215,7 +215,7 @@ sXformsNode * SearchSubTreeForNodes(sXformsNode *head,char *type, sXformsNodeAtt
 				else{
 					// we do not require attributes
 					if((!temp->attr) || (ComparisonsToCheck == 0)){
-	WriteLog("\n\t == 9 == PERFECT MATCHED =");
+	//WriteLog("\n\t == 9 == PERFECT MATCHED =");
 					return temp;
 				}}
 			}
@@ -224,12 +224,12 @@ sXformsNode * SearchSubTreeForNodes(sXformsNode *head,char *type, sXformsNodeAtt
 		if(SearchRecursive){
 			sXformsNode *cr =  SearchSubTreeForNodes(temp,type,attr,SearchRecursive,ComparisonsToCheck);
 			if( cr != 0){
-	WriteLog("\n\t == 10 == PERFECT MATCHED =");
+	//WriteLog("\n\t == 10 == PERFECT MATCHED =");
 				return cr;
 			}
 		}
 	}
-	WriteLog("\n\t == 11 == FAILED =");
+	//WriteLog("\n\t == 11 == FAILED =");
 	return (sXformsNode *)0;
 }
 
@@ -250,18 +250,25 @@ void * getAttrValueFromList(sXformsNode *node,char *name){
 }
 
 
-sXformsNodeAttr * getAttrFromList(sXformsNode *node,char *name){
+sXformsNodeAttr *getAttrFromList (sXformsNode *node,char *name){
+  //printf("\n\t\t == FINDING ATTRIBUTE == ");
 	if( node == 0){
+	  //printf("\n\t\t == NODE IS 0 == ");
 		return (sXformsNodeAttr *)0;
 	}
 	if( node->attr == 0){
+	  //printf("\n\t\t == NO ATTR FOR THIS NODE == ");
 		return (sXformsNodeAttr *)0;
 	}
+	//printf("\n\t\t ==%s , %s == ",node->name,node->type);
 	sXformsNodeAttr *attr;
 	for( attr = node->attr; attr;attr = attr->next){
+	  //printf("\n\t\t ==  ATTR NAME = %s == ",attr->attrName);
 		if( !strcmp(attr->attrName,name)){
 			return attr;
 		}
 	}
+	//printf("\n\t\t == NOT FOUND  == ");
 	return (sXformsNodeAttr *)0;
 }
+

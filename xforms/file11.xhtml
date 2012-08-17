@@ -7,52 +7,7 @@
 	<head>
 		<title>X-Forms Document For Gsoc, 2012</title>
 		<link rel="stylesheet" type="text/css" href="file1.css" ></link>
-		<xf:model>
-			<xf:instance id="app_personal_info" xmlns="">
-				<data>
-					<fname >Default Value</fname>
-					<mname>NULL</mname>
-					<lname >null</lname>
-					<prefix>Sir</prefix>
-					<dob >0</dob>
-					<gender>male</gender>
-				</data>
-			</xf:instance>
-		
-			<xf:instance id="app_personal_login"  xmlns=""> 
-				<data>
-					<username>nitin</username>
-					<password>null</password>
-				</data>
-			</xf:instance>
-		
-			<xf:instance id="project_info"  xmlns="">
-				<data>
-						<NewProject>
-								<StartDate>0</StartDate>
-								<EndDate>0</EndDate>
-								<KeySkills>0</KeySkills>
-								<Desc>0</Desc>
-						</NewProject>
-				</data>
-			</xf:instance>
-		
-			<xf:instance id="pref" xmlns="">
-				<data>
-					<slider_val>0</slider_val>
-				</data>
-			</xf:instance>
-		<!--
-		<xf:bind nodeset="instance('app_personal_info')/dob" type="xsd:date"/>
-		<xf:bind nodeset="instance('app_personal_login')/username" required="true"/>
-		<xf:bind nodeset="instance('app_personal_login')/password" required="true"/> 
-		<xf:bind nodeset="instance('project_info')/project/StartDate" type="xsd:date"/>
-		<xf:bind nodeset="instance('project_info')/project/EndDate" type="xsd:date"/>
-		<xf:bind nodeset="instance('project_info')/NewProject/StartDate" type="xsd:date"/>
-		<xf:bind nodeset="instance('project_info')/NewProject/EndDate" type="xsd:date"/>
-		<xf:bind nodeset="instance('pref')/slider_val" type="xsd:integer"/> 
-		-->
-		</xf:model>
+		<xf:model><xf:instance id="app_personal_info" xmlns=""><data><fname >Default Value</fname><mname>NULL</mname><lname >null</lname><prefix>Sir</prefix><dob >0</dob><gender>male</gender></data></xf:instance><xf:instance id="app_personal_login"  xmlns=""> <data><username>nitin</username><password>null</password></data></xf:instance><xf:instance id="project_info"  xmlns=""><data><NewProject><StartDate>0</StartDate><EndDate>0</EndDate><KeySkills>0</KeySkills><Desc>0</Desc></NewProject></data></xf:instance><xf:instance id="pref" xmlns=""><data><slider_val>0</slider_val></data></xf:instance></xf:model>
 	</head>
 	<body>
 		<xf:group id="upperbar" >

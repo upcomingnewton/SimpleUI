@@ -103,7 +103,7 @@ void print_user_data(struct FltkCallbackData *head)
         temp2 = temp->nextref;
         while( temp2 )
         {
-            fprintf(stdout," -> ( %s,%s,%s,%s,%s )",temp2->ref,temp2->init_val,temp2->value,temp2->name,temp2->meta_info);
+            fprintf(stdout,"\n\t -> ( %s,%s,%s,%s,%s )",temp2->ref,temp2->init_val,temp2->value,temp2->name,temp2->meta_info);
             temp2 = temp2->next;
         }
         temp = temp->next;
@@ -116,6 +116,7 @@ struct FltkCallbackData *get_pointer_to_user_data_by_name(const char *_name, str
     struct FltkCallbackData *temp = head;
     while(temp!=0)
     {
+        //printf("\n\t\t COM : %s, %s",_name,temp->name);
         if( !(strcmp(_name,temp->name)))
         {
             return temp;

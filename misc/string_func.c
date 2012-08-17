@@ -5,7 +5,16 @@
 char * s_dupstr(char *src)
 {
 	int srclen = 0;
+	if( src == 0 )
+	{
+	  return (char *)0;
+	}
 	srclen = strlen(src);
+	if(srclen == 0 )
+	{
+	  return (char *)0;
+	}
+	//printf("\n &&&&&&&&&&&& %d",srclen);
 	char *_dest = (char *)malloc(sizeof(char) * (srclen + 1));
 	if( _dest != NULL ){
 		strcpy(_dest,src);

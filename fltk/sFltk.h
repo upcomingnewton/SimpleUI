@@ -22,6 +22,8 @@ struct FltkCallbackData{
     struct FltkCallbackData *nextref;
 };
 
+int UpdateModel(struct FltkCallbackData * head);
+
 struct FltkCallbackData * AllocateMemoryForFltkCBNode();
 struct FltkCallbackData * AppendNode(struct FltkCallbackData **head,char *ref_, char *init_val_,char *value_,char *name_,char *meta_info_);
 struct FltkCallbackData * MakeDummy();
@@ -33,6 +35,9 @@ void CallBackFunction(Fl_Widget *fl, void *Data);
 char *GetWidgetValue(Fl_Widget *widget, char *type);
 Fl_Widget *getWidgetByName(Fl_Widget *present_widget, char *name);
 Fl_Widget *find(Fl_Widget *p, char *name);
+void UpdateCallbackData(char *ref, char *data, struct FltkCallbackData *list,Fl_Widget *widget);
+void UpdateWidgetValue(char *type,char *val,Fl_Widget *widget);
+Fl_Widget *findWidgetByName(Fl_Widget *par, char *name);
 
 typedef int  (*sFltkUIHandler_f) (
 	sXformsNode * head,

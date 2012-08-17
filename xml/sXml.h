@@ -6,16 +6,16 @@
 #include <libxml/xpathInternals.h>
 
 
-sXformsNode * ParseXformsToTree(const char * xforms);
+sXformsNode * ParseXformsToTree(const char * xforms, xmlDoc **modelDocPtr);
 sXformsNodeAttr * MakeAttributesList(xmlNodePtr cur, xmlDocPtr ptr);
 char * sXmlNodeName(xmlNodePtr cur);
 char * sAppendString( char *src, char *text);
-void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head, xmlDocPtr ptr);
+void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head, xmlDocPtr doc, xmlDoc **modelDocPtr);
 char * sGetValueFromChildren(xmlNodePtr cur, char *nodeToSearch);
 void sAdjustPointersForLinkedList(sXformsNode **par, sXformsNode **child);
 char * sGetTextFromNode(xmlNodePtr node);
 
-void makemodel(xmlNodePtr cur,sXformsNode **par,int pos);
+void makemodel(xmlNodePtr cur,xmlDoc **modelDocPtr);
 char *sGetXpathFromRefAttr(sXformsNodeAttr *attr,xmlDocPtr doc);
 char *sGetXpathFromNodeSetAttr(sXformsNodeAttr *attr);
 int CompareFirstNChars(char *src1, int start1, char *src2, int start2, int n);

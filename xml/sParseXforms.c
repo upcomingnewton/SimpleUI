@@ -11,7 +11,7 @@ void print_xpath_nodes(xmlNodeSetPtr nodes, FILE* output);
 char *getInstanceXpath(sXformsNodeAttr *attr,xmlDocPtr doc);
 int x = 0;
 
-sXformsNode * ParseXformsToTree(const char * xforms){
+sXformsNode * ParseXformsToTree(const char * xforms, xmlDoc **modelDocPtr){
 	int error = !xforms;
 	xmlDocPtr doc;
 	xmlNodePtr cur;
@@ -33,7 +33,7 @@ sXformsNode * ParseXformsToTree(const char * xforms){
 		if( head != 0 ){ 
 			head->name = sAppendString(head->name,(char *)"head");
 			// start exploring the tree
-			sParseNodesAndMakeTree(cur,&head,head,doc);
+			sParseNodesAndMakeTree(cur,&head,head,doc,modelDocPtr);
 		}
 		else{
 			//fprintf(stdout,"\ncould not allocate memory for head");
@@ -44,13 +44,13 @@ sXformsNode * ParseXformsToTree(const char * xforms){
 	else {
 		error = 1;
 	}
-	sPrintsXformsTree(head);
+	//sPrintsXformsTree(head);
 	//xmlXPathObjectPtr result = sGetXpathObjectPtr((),doc);
 	//fprintf(stdout,"======/// %s ///=======",sGetXpathValue("/xmlns:html/xmlns:head/xf:model/xf:instance[@id='app_personal_info']/app_personal_info/prefix",doc));
 	return head;
 }
 
-void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head, xmlDocPtr doc)
+void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head, xmlDocPtr doc, xmlDoc **modelDocPtr)
 {
 	char *type = (char *)0;
 	char *tempc = 0;
@@ -99,17 +99,42 @@ void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head
 			}
 			//4. mark this node as visited
 			cur->extra = 4;
-			if ( !strcmp("xf:model",type))
-				makemodel(cur,&temp,1);
+			if ( !strcmp("xf:model",type)){
+				makemodel(cur,modelDocPtr);
+			}
 	}
-	sParseNodesAndMakeTree(cur->children,&temp, head,doc);
+	sParseNodesAndMakeTree(cur->children,&temp, head,doc,modelDocPtr);
 	cur = cur->next;
 	}
 }
 
-void makemodel(xmlNodePtr cur,sXformsNode **par, int pos){
-	//fprintf(stdout,"\n");
+void makemodel(xmlNodePtr cur, xmlDoc **modelDocPtr){
+	fprintf(stdout,"\n =========================================== \n");
+	(*modelDocPtr) = xmlNewDoc(BAD_CAST "1.0");
 	
+/*   xmlNodePtr root = xmlNewNode(NULL, BAD_CAST "html");*/
+/*   xmlDocSetRootElement((*modelDocPtr), root);*/
+/*   xmlNodePtr head = xmlNewNode(NULL, BAD_CAST "head");*/
+/*   xmlAddChild(root,head);*/
+   xmlNodePtr copy = xmlCopyNode(cur,1);
+   if(copy != NULL)
+   {
+      //xmlAddChild(head,copy);
+      xmlDocSetRootElement((*modelDocPtr), copy);
+   }
+/*	*/
+/*	xmlChar *xmlbuff;*/
+/*	int buffersize;*/
+/*	*/
+/*	if(copy != NULL)*/
+/*	{*/
+/*	  xmlDocSetRootElement((*modelDocPtr), copy);*/
+/*	  //xmlDocDumpFormatMemory(doc, &xmlbuff, &buffersize, 1);*/
+/*	  //(*model) = (char *)malloc(sizeof(char)*(buffersize + 1));*/
+/*	  //strcpy((*model),(char *)xmlbuff);*/
+/*	  //printf(" %d\n%s",buffersize, (*model));*/
+/*	}*/
+	fprintf(stdout,"\n =========================================== \n");
 }
 
 void sAdjustPointersForLinkedList(sXformsNode **par, sXformsNode **child)
@@ -189,7 +214,7 @@ sXformsNodeAttr * MakeAttributesList(xmlNodePtr cur,xmlDocPtr doc ){
 				temp->meta_info = sAppendString(temp->meta_info,sGetXpathFromRefAttr(temp,doc));
 				xmlNodeSetPtr  xfinstance = sGetXpathValue(temp->meta_info,doc);
 				temp->private_data = sAppendString(temp->private_data, EvalNodeSetPtrForInstannce(xfinstance));
-				fprintf(stdout,"\n[%s] : [%s]",temp->meta_info,temp->private_data);
+				//fprintf(stdout,"\n[%s] : [%s]",temp->meta_info,temp->private_data);
 			}
 			if( !strcmp(temp->attrName,"nodeset")){
 				temp->meta_info = sGetXpathFromNodeSetAttr(temp);
@@ -218,6 +243,7 @@ char * sGetTextFromNode(xmlNodePtr node)
            		 }
         	}
 	}
+  return "NULL";
 }
 
 char * sAppendString( char *src, char *text)
@@ -389,7 +415,8 @@ char *sGetXpathFromRefAttr(sXformsNodeAttr *attr,xmlDocPtr doc){
 	char *xpath = "";
 	if( !strcmp("ref",attr->attrName)){
 		
-		char *statref = "/xmlns:html/xmlns:head/xf:model/xf:instance";
+		//char *statref = "/xmlns:html/xmlns:head/xf:model/xf:instance";
+		char *statref = "/xf:model/xf:instance";
 		xpath = sAppendString(xpath,statref);
 		if( CompareFirstNChars(attr->attrValue,0,"instance",0,strlen("instance")) == 1){
 			xpath = getInstanceXpath(attr,doc);
@@ -404,7 +431,8 @@ char *sGetXpathFromRefAttr(sXformsNodeAttr *attr,xmlDocPtr doc){
 
 char *getInstanceXpath(sXformsNodeAttr *attr,xmlDocPtr doc){
 			int i1 = 0, i2 = 0, firstocc = 0, vallen = 0;
-			char *statxpath = "/xmlns:html/xmlns:head/xf:model/xf:instance";
+			//char *statxpath = "/xmlns:html/xmlns:head/xf:model/xf:instance";
+			char *statxpath = "/xf:model/xf:instance";
 			vallen = strlen(attr->attrValue) + 1;
 			char *dupval = (char *)malloc(vallen*sizeof(char));
 			strcpy(dupval,attr->attrValue);

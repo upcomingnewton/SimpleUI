@@ -67,7 +67,7 @@ void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head
 				temp->type=type;
 				if(!strcmp(type,"xf:output")){
 				    // find the internal text node and it's value would be equal to this value'
-                    temp->value = sAppendString(temp->value, sGetTextFromNode(cur));
+            temp->value = sAppendString(temp->value, sGetTextFromNode(cur));
 				    temp->name = sAppendString(temp->name, temp->value);
 				}else{
 				temp->value=sAppendString(temp->value,sGetValueFromChildren(cur,(char *)"xf:value")); // search for xf:value in children of this node
@@ -108,7 +108,7 @@ void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head
 }
 
 void makemodel(xmlNodePtr cur,sXformsNode **par, int pos){
-	fprintf(stdout,"\n");
+	//fprintf(stdout,"\n");
 	
 }
 
@@ -189,7 +189,7 @@ sXformsNodeAttr * MakeAttributesList(xmlNodePtr cur,xmlDocPtr doc ){
 				temp->meta_info = sAppendString(temp->meta_info,sGetXpathFromRefAttr(temp,doc));
 				xmlNodeSetPtr  xfinstance = sGetXpathValue(temp->meta_info,doc);
 				temp->private_data = sAppendString(temp->private_data, EvalNodeSetPtrForInstannce(xfinstance));
-				fprintf(stdout,"\n%s : %s",temp->meta_info,temp->private_data);
+				fprintf(stdout,"\n[%s] : [%s]",temp->meta_info,temp->private_data);
 			}
 			if( !strcmp(temp->attrName,"nodeset")){
 				temp->meta_info = sGetXpathFromNodeSetAttr(temp);

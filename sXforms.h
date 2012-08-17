@@ -30,6 +30,7 @@ struct sXformsNode
 	int num_siblings;
 	char * meta_info; // extra public data
 	char * private_data; //private data
+	char *refValue;
 };
 
 

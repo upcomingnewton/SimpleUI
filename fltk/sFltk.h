@@ -11,21 +11,32 @@ struct sFltkDimensions{
 };
 
 
-struct cb_data
-{
-	char *ref;
-	char *initial_val;
-	char *val;
+struct FltkCallbackData{
+    char *ref;
+    char *init_val;
+    char *value;
+    char *name;
+    char *meta_info;
+    struct FltkCallbackData *next;
+    struct FltkCallbackData *prev;
+    struct FltkCallbackData *nextref;
 };
 
-typedef struct cb_data CallbackData;
+struct FltkCallbackData * AllocateMemoryForFltkCBNode();
+struct FltkCallbackData * AppendNode(struct FltkCallbackData **head,char *ref_, char *init_val_,char *value_,char *name_,char *meta_info_);
+struct FltkCallbackData * MakeDummy();
+struct FltkCallbackData *get_pointer_to_user_data_by_name(const char *_name, struct FltkCallbackData *head);
+void print_user_data(struct FltkCallbackData *head);
+
+
+void CallBackFunction(Fl_Widget *fl, void *Data);
+char *GetWidgetValue(Fl_Widget *widget, char *type);
+Fl_Widget *getWidgetByName(Fl_Widget *present_widget, char *name);
+Fl_Widget *find(Fl_Widget *p, char *name);
 
 typedef int  (*sFltkUIHandler_f) (
 	sXformsNode * head,
-	int x, 
-	int y,
-	int w, 
-	int h
+	struct FltkCallbackData **CallBackData
 );
 
 
@@ -54,21 +65,21 @@ struct sFltkUIHandler_s {
 #define WIDGET_WIDTH(w)  (w- (2*H_SPACING +  LABEL_WIDTH))
 
 
-
-int sGenerateUIFromTree(sXformsNode * head);
+struct FltkCallbackData * MainFunction(sXformsNode * head);
+int sGenerateUIFromTree(sXformsNode * head,struct FltkCallbackData **CallBackData);
 void print_label(Fl_Widget *, const char *);
 
-int sFltkUIHandler_f_Select1Handler(sXformsNode *head, int x, int y, int w, int h);
-int sFltkUIHandler_f_InputHandler(sXformsNode *head,int x, int y, int w, int h);
-int sFltkUIHandler_f_TabsHandler(sXformsNode *head,int x, int y, int w, int h);
-int sFltkUIHandler_f_RangeHandler(sXformsNode *head,int x, int y, int w, int h);
-int sFltkUIHandler_f_TableHandler(sXformsNode *head,int x, int y, int w, int h);
-int sFltkUIHandler_f_RadioButtonList(sXformsNode *head,int x, int y, int w, int h);
-int sFltkUIHandler_f_CheckBoxList(sXformsNode *head,int x, int y, int w, int h);
-int sFltkUIHandler_f_ButtonHandler(sXformsNode *head,int x, int y, int w, int h);
-int sFltkUIHandler_f_FrameHandler(sXformsNode *head,int x, int y, int w, int h);
-int  sFltkUIHandler_f_ListItems(sXformsNode *head,int x, int y, int w, int h);
-int sFltkUIHandler_f_LabelHandler(sXformsNode *head,int x, int y, int w, int h);
+int sFltkUIHandler_f_Select1Handler(sXformsNode *head, struct FltkCallbackData **CallBackData);
+int sFltkUIHandler_f_InputHandler(sXformsNode *head,struct FltkCallbackData **CallBackData);
+int sFltkUIHandler_f_TabsHandler(sXformsNode *head,struct FltkCallbackData **CallBackData);
+int sFltkUIHandler_f_RangeHandler(sXformsNode *head,struct FltkCallbackData **CallBackData);
+int sFltkUIHandler_f_TableHandler(sXformsNode *head,struct FltkCallbackData **CallBackData);
+int sFltkUIHandler_f_RadioButtonList(sXformsNode *head,struct FltkCallbackData **CallBackData);
+int sFltkUIHandler_f_CheckBoxList(sXformsNode *head,struct FltkCallbackData **CallBackData);
+int sFltkUIHandler_f_ButtonHandler(sXformsNode *head,struct FltkCallbackData **CallBackData);
+int sFltkUIHandler_f_FrameHandler(sXformsNode *head,struct FltkCallbackData **CallBackData);
+int  sFltkUIHandler_f_ListItems(sXformsNode *head,struct FltkCallbackData **CallBackData);
+int sFltkUIHandler_f_LabelHandler(sXformsNode *head,struct FltkCallbackData **CallBackData);
 void PrintWidgetDimensions(Fl_Widget *w);
 
 sXformsNodeAttr * getAttrFromList(sXformsNode *node,char *name);

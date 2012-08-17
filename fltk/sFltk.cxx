@@ -14,7 +14,7 @@
 
 
 /* compilation
-g++  -g -I/usr/local/include -I/usr/include/freetype2 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT -o 'SimpleUIFltk' fltk/sFltk.cxx fltk/sFltk.h fltk/sFltkWidgets.cxx  fltk/sFltkCallbacks.cxx  io/io.h io/io.c xml/sXml.h xml/sParseXforms.c sXforms.h sXforms.c simpleUI.h -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11 `xml2-config --cflags --libs` `fltk-config --cflags --libs`
+g++  -g -I/usr/local/include -I/usr/include/freetype2 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT -o 'SimpleUIFltk' fltk/sFltk.cxx fltk/sFltk.h fltk/sFltkWidgets.cxx  fltk/sFltkCallbacks.cxx  fltk/sFltkCallbacks_Helper.cxx  io/io.h io/io.c xml/sXml.h xml/sParseXforms.c misc/misc.h misc/string_func.c sXforms.h sXforms.c simpleUI.h -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11 `xml2-config --cflags --libs` `fltk-config --cflags --libs`
  */
  
 /* RUNNING
@@ -186,7 +186,8 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
 		scroll_pack->spacing(V_SPACING);
 		{
 			head = ParseXformsToTree( xforms_text);
-			error = sGenerateUIFromTree(head);
+			struct FltkCallbackData *CallBackData = MainFunction(head);
+			print_user_data(CallBackData);
 		}
 		scroll_pack->end();
 		PrintWidgetDimensions(scroll_pack);
@@ -218,11 +219,8 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
   
 
   //if(print)
-  if(1)
-  {
     w->show(1, argv);
     Fl::run();
-  }
 
 #if 0
   result_xml = oyFormsArgs_ModelGet( forms_args );

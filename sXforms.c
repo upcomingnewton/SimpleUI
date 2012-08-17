@@ -66,7 +66,7 @@ void AllocateMemoryToNode(sXformsNode **temp)
 		(*temp)->num_siblings = 0;
 		(*temp)->meta_info  = (char *)0; // extra public data
 		(*temp)->private_data = (char *)0; //private data
-		
+		(*temp)->refValue = (char *)0;
 	}
 }
 
@@ -145,6 +145,7 @@ void sPrintsXformsNode(sXformsNode * node)
 		WriteLog("\n number of children = ",node->num_child);
 		WriteLog("\n meta info = ",node->meta_info); 
 		WriteLog("\n private data = ",node->private_data);
+		WriteLog("\n ref value data = ",node->refValue);//WriteLog("\n private data = ",node->private_data);
 		WriteLog("\n------------------------------------------------------\n");		
 	}
 }

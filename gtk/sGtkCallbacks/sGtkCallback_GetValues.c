@@ -10,7 +10,7 @@ char * getGtkWidgetValue(char *type, GtkWidget *widget)
 	else if(!strcmp(type,"GtkComboBox")) return  sGetValueOfComboBox(widget);
 	else if(!strcmp(type,"GtkRadioButton")) return  sGetValueOfRadioButton(widget);
 	else if(!strcmp(type,"GtkCheckButton")) return  sGetValueOfCheckButton(widget);
-	else if(!strcmp(type,"GtkRange")) return  getRangeValue(widget);
+	else if(!strcmp(type,"GtkRange")) return  getRangeValueo(widget);
 	else return (char *)0;
 }
 

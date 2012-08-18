@@ -109,32 +109,13 @@ void sParseNodesAndMakeTree(xmlNodePtr cur,sXformsNode **par, sXformsNode * head
 }
 
 void makemodel(xmlNodePtr cur, xmlDoc **modelDocPtr){
-	fprintf(stdout,"\n =========================================== \n");
 	(*modelDocPtr) = xmlNewDoc(BAD_CAST "1.0");
-	
-/*   xmlNodePtr root = xmlNewNode(NULL, BAD_CAST "html");*/
-/*   xmlDocSetRootElement((*modelDocPtr), root);*/
-/*   xmlNodePtr head = xmlNewNode(NULL, BAD_CAST "head");*/
-/*   xmlAddChild(root,head);*/
    xmlNodePtr copy = xmlCopyNode(cur,1);
    if(copy != NULL)
    {
       //xmlAddChild(head,copy);
       xmlDocSetRootElement((*modelDocPtr), copy);
    }
-/*	*/
-/*	xmlChar *xmlbuff;*/
-/*	int buffersize;*/
-/*	*/
-/*	if(copy != NULL)*/
-/*	{*/
-/*	  xmlDocSetRootElement((*modelDocPtr), copy);*/
-/*	  //xmlDocDumpFormatMemory(doc, &xmlbuff, &buffersize, 1);*/
-/*	  //(*model) = (char *)malloc(sizeof(char)*(buffersize + 1));*/
-/*	  //strcpy((*model),(char *)xmlbuff);*/
-/*	  //printf(" %d\n%s",buffersize, (*model));*/
-/*	}*/
-	fprintf(stdout,"\n =========================================== \n");
 }
 
 void sAdjustPointersForLinkedList(sXformsNode **par, sXformsNode **child)

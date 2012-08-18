@@ -1,6 +1,7 @@
 #include "sFltk.h"
 #include "../simpleUI.h"
 #include "../sXforms.h"
+#include "../sCallbackData/sCallbackData.h"
 #include <FL/Fl.H>
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Choice.H>
@@ -20,51 +21,42 @@
 
 void CallBackFunction(Fl_Widget *fl, void *Data)
 {
-  struct FltkCallbackData *data = (struct FltkCallbackData *)Data;
-  //Fl_Choice *dd = (Fl_Choice *)fl;
-  //printf("\n CALLBACK = %s",fl->label());
-  //print_user_data(data);
-  
-  /*
-  1. find widget in list and it's type and send it to getvalue to get value of this widget
-  */
-  for(struct FltkCallbackData *temp = data; temp ;temp = temp->next )
+  struct sCbData *data = (struct sCbData *)Data;
+  for(struct sCbData *temp = data; temp ;temp = temp->next )
   {
     if (!strcmp(temp->name,fl->label()))
     {
-      UpdateCallbackData(temp->ref,GetWidgetValue(fl, temp->meta_info),data,fl);
-      // TODO UpdateUI(data,temp);
-      //      UpdateModel(temp->ref,temp->value);
+      char *newvalue = GetWidgetValue(fl, temp->meta_info);
+      if( strcmp(temp->ref,"0")){
+        UpdateModelandCallUserFunction(temp->ref,newvalue,data);
+        UpdateUI(temp->ref,newvalue,data,fl);
+      }
       if(temp->nextref){
-			struct FltkCallbackData *temp2 = temp->nextref;
+			struct sCbData *temp2 = temp->nextref;
 				while(temp2 != 0)
 				{
-          // find top level element
-          //printf("\n callback %s", temp2->name);
-          Fl_Widget *t = getWidgetByName(fl,temp2->name);
-          // then find this widget ( temp2->name )
-          // then call 
-          UpdateCallbackData(temp2->ref,GetWidgetValue(t, temp2->meta_info),data,t);
-          // TODO UpdateUI(data,temp2);
-          //      UpdateModel(temp->ref,temp->value);
+          Fl_Widget *t = findWidgetByName(fl,temp2->name);
+          char *newvalue2 = GetWidgetValue(t, temp->meta_info);
+          if( strcmp(temp2->ref,"0")){
+            UpdateModelandCallUserFunction(temp->ref,newvalue2,data);
+            UpdateUI(temp->ref,newvalue,data,t);
+          }
 					temp2 = temp2->next;
 				}
 			} 
 			break;
 		}
-      
   }
-  print_user_data(data);
+  //print_user_data(data);
 }
 
-void UpdateCallbackData(char *ref, char *data, struct FltkCallbackData *list,Fl_Widget *widget)
+void UpdateUI(char *ref, char *data, struct sCbData *list,Fl_Widget *widget)
 {
   if(strcmp(ref,"0")){
-    for( struct FltkCallbackData *temp = list ; temp ; temp =temp->next )
+    for( struct sCbData *temp = list ; temp ; temp =temp->next )
     {
       if(!strcmp(temp->ref,ref))
       {
-        temp->value = data;
         Fl_Widget *target = findWidgetByName(widget->window(),temp->name);
         if( target != 0 )
         {
@@ -73,11 +65,15 @@ void UpdateCallbackData(char *ref, char *data, struct FltkCallbackData *list,Fl_
       }
       if( temp->nextref )
       {
-          for( struct FltkCallbackData *temp2 = temp->nextref ; temp2 ; temp2 =temp2->next )
+          for( struct sCbData *temp2 = temp->nextref ; temp2 ; temp2 =temp2->next )
           {
                 if(!strcmp(temp2->ref,ref))
                 {
-                  temp2->value = data;
+                  Fl_Widget *target = findWidgetByName(widget->window(),temp2->name);
+                  if( target != 0 )
+                  {
+                    UpdateWidgetValue(temp2->meta_info,temp2->value,target);
+                  }
                 }
           }
       }
@@ -112,50 +108,6 @@ Fl_Widget *findWidgetByName(Fl_Widget *par, char *name)
   {
     return (Fl_Widget *)0;
   }
-}
-
-Fl_Widget *getWidgetByName(Fl_Widget *present_widget, char *name)
-{
-  Fl_Widget *temp = (Fl_Widget *)0;
-  Fl_Group *p = present_widget->parent();
-  if( p->as_group())
-  {
-    if( (temp = find(p,name)) != 0)
-      return temp;
-    else{
-      Fl_Group *p2 = p->parent();
-      return getWidgetByName(p2,name);
-      }
-  }
-  else
-    return getWidgetByName(p->parent(),name);
-}
-
-Fl_Widget *find(Fl_Widget *p, char *name)
-{
-  Fl_Group *t = p->as_group();
-  if( t )
-  {
-    for( int i = 0; i < t->children(); i++ )
-    {
-      Fl_Widget *child = t->child(i);
-      if( !strcmp(name,child->label()))
-      {
-        return child;
-      }
-      else
-      {
-        if( child->as_group() ){
-          Fl_Widget *t;
-          if ( ( t == find(child,name))!= 0)
-          {
-              return t;
-          }
-        }
-      }
-    }
-  }
-  return (Fl_Widget *)0;
 }
 
 char *GetWidgetValue(Fl_Widget *widget, char *type)
@@ -208,4 +160,12 @@ void UpdateWidgetValue(char *type,char *val,Fl_Widget *widget)
     printf("[Update-Widget][Fl_Output] %s, %s",output->label(),val);
     output->value(val);
   }
+}
+
+void callback_done( Fl_Widget * w, void *CallBackData )
+{
+  struct sCbData *data = (struct sCbData *)CallBackData;
+  //print_user_data(data);
+  UpdateModel(data);
+  w->window()->hide();
 }

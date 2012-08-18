@@ -12,17 +12,18 @@
 	#include <FL/Fl_Scroll.H>
 	#include <FL/Fl_Text_Display.H>
 	#include <FL/Fl_Help_View.H>
+	#include "../sCallbackData/sCallbackData.h"
 
+//fltk/sFltkCallbacks_Helper.cxx
 
 /* compilation
-g++  -g -I/usr/local/include -I/usr/include/freetype2 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT -o 'SimpleUIFltk' fltk/sFltk.cxx fltk/sFltk.h fltk/sFltkWidgets.cxx  fltk/sFltkCallbacks.cxx  fltk/sFltkCallbacks_Helper.cxx  io/io.h io/io.c xml/sXml.h xml/sParseXforms.c misc/misc.h misc/string_func.c sXforms.h sXforms.c simpleUI.h -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11 `xml2-config --cflags --libs` `fltk-config --cflags --libs`
+g++  -g -I/usr/local/include -I/usr/include/freetype2 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_THREAD_SAFE -D_REENTRANT -o 'SimpleUIFltk' fltk/sFltk.cxx fltk/sFltk.h fltk/sFltkWidgets.cxx  fltk/sFltkCallbacks.cxx    sCallbackData/sCallbackData.h  sCallbackData/sCallbackData.c  io/io.h io/io.c xml/sXml.h xml/sParseXforms.c misc/misc.h misc/string_func.c sXforms.h sXforms.c simpleUI.h -lXext -lXft -lfontconfig -lXinerama -lpthread -ldl -lm -lX11 `xml2-config --cflags --libs` `fltk-config --cflags --libs`
  */
  
 /* RUNNING
 ./SimpleUIFltk -i xforms/file9.xhtml
 */
-xmlDoc *modelDocPtr;
-char *outputfile;
+
 void PrintWidgetDimensions(Fl_Widget *w){
 	fprintf(stdout,"\n[== %s ==], dimensions are %4d,%4d,%4d,%4d",w->label(),w->x(),w->y(),w->w(),w->h());
 }
@@ -31,75 +32,6 @@ void usage(int argc, char ** argv)
 {
 	fprintf(stdout,"incorrect usage\n");
 }
-		  
-void callback_done( Fl_Widget * w, void *CallBackData )
-{
-  struct FltkCallbackData *data = (struct FltkCallbackData *)CallBackData;
-  print_user_data(data);
-  UpdateModel(data);
-  w->window()->hide();
-}
-
-int UpdateModel(struct FltkCallbackData * head)
-{
-  xmlXPathContextPtr xpathcontext; 
-  xmlXPathObjectPtr xpathobject;
-  xmlNodeSetPtr nodes;
-   xpathcontext = xmlXPathNewContext(modelDocPtr);
-	if(xmlXPathRegisterNs( xpathcontext, (xmlChar*)"xf", (xmlChar*)"http://www.w3.org/2002/xforms")){
-		printf("Could not register %s=%s\n", "xf", "http://www.w3.org/2002/xforms");
-		return -1;
-	}
-    if(xpathcontext == NULL) {
-        fprintf(stderr,"Error: unable to create new XPath context\n");
-        return -1;
-    }
-    for( struct FltkCallbackData * temp = head; temp; temp = temp->next)
-    {
-      if(strcmp(temp->ref,"0"))
-      {
-        xpathobject = xmlXPathEvalExpression((xmlChar *)temp->ref, xpathcontext);
-        if(xpathobject == NULL) {
-            fprintf(stderr,"[ %s ]Error: unable to evaluate XPath context\n",temp->name);
-        }
-        else
-        {
-          nodes = xpathobject->nodesetval;
-          printf("\n[1][ %s ] number of nodes inside here is %d",temp->name, nodes->nodeNr);
-          xmlNodeSetContent(nodes->nodeTab[0],(xmlChar *) temp->value);
-        }
-      }
-      if( temp->nextref )
-      {
-        for( struct FltkCallbackData * temp2 = temp->nextref; temp2 ; temp2 = temp2->next)
-        if(strcmp(temp2->ref,"0"))
-        {
-            xpathobject = xmlXPathEvalExpression((xmlChar *)temp2->ref, xpathcontext);
-            
-            if(xpathobject == NULL) {
-                fprintf(stderr,"[ %s ]Error: unable to evaluate XPath context\n",temp2->name);
-            }
-            else
-            {
-              nodes = xpathobject->nodesetval;
-              printf("\n[2][ %s ] number of nodes inside here is %d",temp2->name, nodes->nodeNr);
-              xmlNodeSetContent(nodes->nodeTab[0],(xmlChar *) temp2->value);
-            }
-        }
-      }
-    }
-    
-    //update_xpath_nodes(xpathobject->nodesetval, value);
-    if ( outputfile )
-    {
-      FILE *fp = fopen(outputfile,"w");
-      if( fp != NULL )
-        xmlDocDump(fp, modelDocPtr);
-    }
-    
-    return 0;
-}
-
 
 int main ( int argc , char **argv )
 {
@@ -109,7 +41,8 @@ int main ( int argc , char **argv )
 	 char *xforms_text = 0;
 	 char *input_xml_file = 0;
 	 sXformsNode *head;
-	 struct FltkCallbackData *CallBackData;
+	 struct sCbData *CallBackData;
+	 xmlDoc *modelDocPtr;
 	int error = 0;
 	if(argc)
 	{
@@ -237,7 +170,6 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
   }
   Fl::scheme("gtk+");
   Fl_Double_Window * w = new Fl_Double_Window(WINDOW_WIDTH,WINDOW_HEIGHT,("XFORMS in FLTK"));
-  PrintWidgetDimensions(w);
    // oyCallback_s callback = {oyOBJECT_CALLBACK_S, 0,0,0,
      //                             (void(*)())callback_help_view,0};
 //    Fl_Group* o = new Fl_Group(0,0, WINDOW_WIDTH, WINDOW_HEIGHT,"main group");
@@ -260,14 +192,15 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
 		scroll_pack->spacing(V_SPACING);
 		{
 			head = ParseXformsToTree( xforms_text,&modelDocPtr);
-			CallBackData = MainFunction(head);
+			//ptr2func = &DummyIfFunction;
+			CallBackData = MainFunction(head,modelDocPtr,&DummyIfFunction);
 			//print_user_data(CallBackData);
 		}
 		scroll_pack->end();
-		PrintWidgetDimensions(scroll_pack);
+
 	}
 	scroll->end();
-  PrintWidgetDimensions(scroll);
+
   
 	Fl_Group *BottomPaneGroup = new Fl_Group(H_SPACING,scroll->h() + 3*V_SPACING,WINDOW_WIDTH - 2*H_SPACING,ROW_HEIGHT+3*V_SPACING ,"");
 	{
@@ -323,5 +256,7 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
   return 1;
 
 }
+
+
 
 

@@ -1,6 +1,7 @@
 #include "sFltk.h"
 #include "../simpleUI.h"
 #include "../sXforms.h"
+#include "../sCallbackData/sCallbackData.h"
 	#include <FL/Fl.H>
 	#include <FL/Fl_Button.H>
 	#include <FL/Fl_Double_Window.H>
@@ -25,7 +26,7 @@
 	#include "../xml/sXml.h"
 //#define EnableLog
 #ifdef EnableLog
-#define WriteLog fprintf
+#define WriteLog fWriteLog
 #else
 #define WriteLog
 #endif
@@ -141,30 +142,22 @@ void print_label(Fl_Widget *s, const char *text){
 }
 
 
-struct FltkCallbackData * MainFunction(sXformsNode * head)
+struct sCbData * MainFunction(sXformsNode * head, xmlDoc *modelPtr,CallBackInterfaceFunction func )
 {
-    struct FltkCallbackData *temp = (struct FltkCallbackData *)0;
-    sGenerateUIFromTree(head,&temp);
+    struct sCbData *temp = (struct sCbData *)0;
+    sGenerateUIFromTree(head,&temp,modelPtr,func);
     return temp;
 }
 
-int sGenerateUIFromTree(sXformsNode * head,struct FltkCallbackData **CallBackData)
+int sGenerateUIFromTree(sXformsNode * head,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func )
 {
-	static int _y = 0;
+  int x = 0;
 	int height = 0;
-	int _x = 0,
-	    _w = 0,
-	    x = 0,
-	    _h = 0;
-	    Fl_Group *parent = Fl_Group::current();
-	    _x = parent->x() + HOR_SEP;
-	    _y = parent->y() + VER_SEP;
-	    _w = parent->w() - 2*HOR_SEP;
-	    _h = parent->h() - 2*VER_SEP;
 	if( head == 0 ){
 		return 1;
 	}
 	else{
+	  Fl_Group *parent = Fl_Group::current();
 		sXformsNode *temp ;
 		for( temp = head->child;(( temp != 0 ) ) ; temp=temp->next){
 			if( temp->meta_info && !strcmp(temp->meta_info,"1")){
@@ -179,7 +172,7 @@ int sGenerateUIFromTree(sXformsNode * head,struct FltkCallbackData **CallBackDat
 						if( (fltk_handlers[x].attrname) && (fltk_handlers[x].attrvalue) && ( !strcmp(tempattr->attrName,fltk_handlers[x].attrname) && !strcmp(tempattr->attrValue,fltk_handlers[x].attrvalue))){
 							//handle
 							WriteLog(stdout,"\n[%s][%d] %s start 'specialised' %s:%s",__func__,__LINE__,parent->label(),temp->type,temp->name);
-							height = fltk_handlers[x].handler(temp,CallBackData);
+							height = fltk_handlers[x].handler(temp,CallBackData,modelPtr,func);
 							WriteLog(stdout,"\n[%s][%d] %s end",__func__,__LINE__,parent->label());
 							temp->meta_info = (char *)"1"; // node visited
 							break;
@@ -199,7 +192,7 @@ int sGenerateUIFromTree(sXformsNode * head,struct FltkCallbackData **CallBackDat
 				while(fltk_handlers[x].type != 0){
 				if( !strcmp(temp->type,fltk_handlers[x].type) && !fltk_handlers[x].strict){
 					WriteLog(stdout,"\n[%s][%d] %s start 'generic' %s:%s",__func__,__LINE__,parent->label(),temp->type,temp->name);
-					height = fltk_handlers[x].handler(temp,CallBackData);
+					height = fltk_handlers[x].handler(temp,CallBackData,modelPtr,func);
 					WriteLog(stdout,"\n[%s][%d] %s end",__func__,__LINE__,parent->label());
 					temp->meta_info = (char *)"1"; // node visited
 					//break;
@@ -210,13 +203,13 @@ int sGenerateUIFromTree(sXformsNode * head,struct FltkCallbackData **CallBackDat
 			if( temp->child == 0){
 				continue;
 			}else{
-				sGenerateUIFromTree(temp,CallBackData);
+				sGenerateUIFromTree(temp,CallBackData,modelPtr,func);
 			}}
 		}
 	return 0;
 }
 
-int sFltkUIHandler_f_TabsHandler(sXformsNode *head,struct FltkCallbackData **CallBackData){
+int sFltkUIHandler_f_TabsHandler(sXformsNode *head,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func ){
 	Fl_Group *parent = Fl_Group::current();
 	if( !parent){
 		return -1;
@@ -257,7 +250,7 @@ int sFltkUIHandler_f_TabsHandler(sXformsNode *head,struct FltkCallbackData **Cal
 						//Fl_Pack *tabs_content_pack = new Fl_Pack(new_group->x() + HOR_SEP,new_group->y() + VER_SEP,new_group->w() - 2*HOR_SEP,new_group->h() - 2*VER_SEP,s);{
 							//tabs_content_pack->color(FL_RED);
 							//tabs_content_pack->begin();
-							sGenerateUIFromTree(tab_content,CallBackData);
+							sGenerateUIFromTree(tab_content,CallBackData,modelPtr,func);
 						//}
 						//tabs_content_pack->end();
 						}
@@ -323,7 +316,7 @@ int CalculateTreeChildre(sXformsNode *head)
         count = count  + 1;
       }
     }
-    printf("\n HEAD = %s, CHULDREN ARE %d",head->name, count);
+    WriteLog("\n HEAD = %s, CHULDREN ARE %d",head->name, count);
     return count;
 }
 
@@ -331,44 +324,44 @@ int CalculateYPosition(Fl_Group *p, char *s){
   
 	int height = 0, i = 0;
 	Fl_Widget *temp;
-	//printf("\n[%s]",s);
+	//WriteLog("\n[%s]",s);
 	if(p->children()){
 		for(i = 0; i < p->children(); i++)
 		{
 			temp = p->child(i);
-			//printf("\n\t[CAL_POSITION][%s][%d,%d,%d,%d] %d, %d",temp->label(),temp->x(),temp->y(),temp->w(),temp->h(),i, i*(temp->h() + V_SPACING));
+			//WriteLog("\n\t[CAL_POSITION][%s][%d,%d,%d,%d] %d, %d",temp->label(),temp->x(),temp->y(),temp->w(),temp->h(),i, i*(temp->h() + V_SPACING));
 		  height += temp->h() + V_SPACING;
 		}
-		//printf("\n[CAL_POSITION][%s][%d,%d,%d,%d] %d, %d",p->label(),p->x(),p->y(),p->w(),p->h(),i, height);
+		//WriteLog("\n[CAL_POSITION][%s][%d,%d,%d,%d] %d, %d",p->label(),p->x(),p->y(),p->w(),p->h(),i, height);
 		return height;
 	}
-	//printf("\n[CAL_POSITION][%s][%d,%d,%d,%d] NO-CHILDREN",p->label(),p->x(),p->y(),p->w(),p->h());
+	//WriteLog("\n[CAL_POSITION][%s][%d,%d,%d,%d] NO-CHILDREN",p->label(),p->x(),p->y(),p->w(),p->h());
 	return 0;
 }
 
 void PrintGroupDetails(Fl_Group *p)
 {
-  printf("\n =================== %s ==============",p->label());
+  WriteLog("\n =================== %s ==============",p->label());
   Fl_Widget *temp;
-    PrintWidgetDimensions(p);
-    printf("\n NUBER OF CHILDREN = %d",p->children());
+    //PrintWidgetDimensions(p);
+    WriteLog("\n NUBER OF CHILDREN = %d",p->children());
     if(p->children()){
       for(int i = 0; i < p->children(); i++){
           temp=p->child(i);
-          PrintWidgetDimensions(temp);
+          //PrintWidgetDimensions(temp);
         }
     }
-  printf("\n ================================");
+  WriteLog("\n ================================");
 }
 /* ========================================================================================== */
 
-int sFltkUIHandler_f_FrameHandler(sXformsNode *head,struct FltkCallbackData **CallBackData){
+int sFltkUIHandler_f_FrameHandler(sXformsNode *head,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func){
   static int frameCounter = 0;
 	Fl_Group *parent = Fl_Group::current();
 	int height = 0;
 	head -> meta_info = (char *)"1";
 	if(parent){
-	  printf("\n [GROUP] %s",head->name);
+	  WriteLog("\n [GROUP] %s",head->name);
     //TODO there was a sepator group here which separates this group from others
     CalculateTreeChildre(head);
     // TODO CalculateYPosition is being used to find number of children and then calculate height of parent. It is based on assumption
@@ -379,12 +372,12 @@ int sFltkUIHandler_f_FrameHandler(sXformsNode *head,struct FltkCallbackData **Ca
 		new_frame->color(FL_YELLOW);
 		//new_frame->labelcolor(FL_RED);
 		new_frame->begin();
-			sGenerateUIFromTree(head,CallBackData);
+			sGenerateUIFromTree(head,CallBackData,modelPtr,func);
 		new_frame->end();
 		//TODO calculate new height and adjust it's height
 		
 //		new_frame->resize(new_frame->x(),new_frame->y(),new_frame->w(),CalculateYPosition(new_frame,head->name) + V_SPACING);
-		printf("\n ......(%d,%d,%d,%d)",new_frame->x(),new_frame->y(),new_frame->w(),new_frame->h());
+		WriteLog("\n ......(%d,%d,%d,%d)",new_frame->x(),new_frame->y(),new_frame->w(),new_frame->h());
   		new_frame->box(FL_BORDER_BOX);
 //		PrintGroupDetails(new_frame);
 //		return new_frame->h();
@@ -398,8 +391,8 @@ int sFltkUIHandler_f_FrameHandler(sXformsNode *head,struct FltkCallbackData **Ca
 
 /* ========================================================================================== */
 
-int sFltkUIHandler_f_Select1Handler(sXformsNode *head,struct FltkCallbackData **CallBackData){
-  printf("\n[%s]",__func__);
+int sFltkUIHandler_f_Select1Handler(sXformsNode *head,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func){
+  WriteLog("\n[%s]",__func__);
 	Fl_Group *parent = Fl_Group::current();
 	head->meta_info = (char *)"1";
 	static int ddctr = 0;
@@ -417,11 +410,11 @@ int sFltkUIHandler_f_Select1Handler(sXformsNode *head,struct FltkCallbackData **
 	              	 sXformsNodeAttr *attr = getAttrFromList(head,"ref");
      	 if(attr)
   	 {
-  	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Choice");
+  	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Choice",modelPtr,func);
   	 }
   	 else
   	 {
-  	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Choice");
+  	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Choice",modelPtr,func);
   	 }
 		parent->begin();
 				Fl_Choice  *f = new Fl_Choice(parent->x() + H_SPACING +  LABEL_WIDTH ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), WIDGET_WIDTH(parent->w()) , ROW_HEIGHT,name);
@@ -437,8 +430,8 @@ int sFltkUIHandler_f_Select1Handler(sXformsNode *head,struct FltkCallbackData **
 	}
 }
 
-int sFltkUIHandler_f_InputHandler(sXformsNode *head,struct FltkCallbackData **CallBackData){
-  printf("\n[%s]",__func__);
+int sFltkUIHandler_f_InputHandler(sXformsNode *head,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func){
+  WriteLog("\n[%s]",__func__);
 	Fl_Group *parent = Fl_Group::current();
 	head->meta_info = (char *)"1";
 	static int inputctr = 0;
@@ -448,7 +441,7 @@ int sFltkUIHandler_f_InputHandler(sXformsNode *head,struct FltkCallbackData **Ca
 	}
 	else{
 	char *name = head->name;
-	printf("\n[%s] name = %s",__func__,name);
+	WriteLog("\n[%s] name = %s",__func__,name);
 	          if( get_pointer_to_user_data_by_name(name,(*CallBackData)) != 0 )
 	          {
 	              name = sAppendString(name,int2str[inputctr]);
@@ -457,11 +450,11 @@ int sFltkUIHandler_f_InputHandler(sXformsNode *head,struct FltkCallbackData **Ca
 //     	 sXformsNodeAttr *attr = getAttrFromList(head,"ref");
 //  	 if(attr)
 //  	 {
-//  	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Input");
+//  	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Input",modelPtr,func);
 //  	 }
 //  	 else
 //  	 {
-//  	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Input");
+//  	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Input",modelPtr,func);
 //  	 }
    InputName[lindex] = name;
 	ActualName[lindex] = head->name;
@@ -471,8 +464,8 @@ int sFltkUIHandler_f_InputHandler(sXformsNode *head,struct FltkCallbackData **Ca
 	return 0;
 }
 
-int sFltkUIHandler_f_RangeHandler(sXformsNode *head,struct FltkCallbackData **CallBackData){
-  printf("\n[%s]",__func__);
+int sFltkUIHandler_f_RangeHandler(sXformsNode *head,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func){
+  WriteLog("\n[%s]",__func__);
 	Fl_Group *parent = Fl_Group::current();
 	head->meta_info = (char *)"1";
 	static int rangectr = 0;
@@ -489,11 +482,11 @@ int sFltkUIHandler_f_RangeHandler(sXformsNode *head,struct FltkCallbackData **Ca
   	 sXformsNodeAttr *attr = getAttrFromList(head,"ref");
   	 if(attr)
   	 {
-  	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Value_Slider");
+  	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Value_Slider",modelPtr,func);
   	 }
   	 else
   	 {
-  	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Value_Slider");
+  	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Value_Slider",modelPtr,func);
   	 }
     
 	  Fl_Output *Label = new Fl_Output(parent->x() + H_SPACING  ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), parent->w() - 2*H_SPACING , ROW_HEIGHT,"");
@@ -510,8 +503,8 @@ int sFltkUIHandler_f_RangeHandler(sXformsNode *head,struct FltkCallbackData **Ca
 	return 0;
 }
 
-int sFltkUIHandler_f_RadioButtonList(sXformsNode *head,struct FltkCallbackData **CallBackData){
-  printf("\n[%s]",__func__);
+int sFltkUIHandler_f_RadioButtonList(sXformsNode *head,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func){
+  WriteLog("\n[%s]",__func__);
 	Fl_Group *parent = Fl_Group::current();
 	head->meta_info = (char *)"1"; 
 	static int radioctr = 0;
@@ -541,11 +534,11 @@ int sFltkUIHandler_f_RadioButtonList(sXformsNode *head,struct FltkCallbackData *
           	 sXformsNodeAttr *attr = getAttrFromList(head,"ref");
           	 if(attr)
           	 {
-          	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Round_Button");
+          	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Round_Button",modelPtr,func);
           	 }
           	 else
           	 {
-          	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Round_Button");
+          	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Round_Button",modelPtr,func);
           	 }
 				    Fl_Round_Button *btn = new  Fl_Round_Button(RadioButtonListGroup->x() + H_SPACING ,CalculateYPosition(RadioButtonListGroup,head->name) + V_SPACING+ RadioButtonListGroup->y(), RadioButtonListGroup->w() - 2*H_SPACING , ROW_HEIGHT,name);//temp->name);
 				    {
@@ -563,8 +556,8 @@ int sFltkUIHandler_f_RadioButtonList(sXformsNode *head,struct FltkCallbackData *
 
 
 
-int sFltkUIHandler_f_CheckBoxList(sXformsNode *head,struct FltkCallbackData **CallBackData){
-  printf("\n[%s]",__func__);
+int sFltkUIHandler_f_CheckBoxList(sXformsNode *head,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func){
+  WriteLog("\n[%s]",__func__);
 	Fl_Group *parent = Fl_Group::current();
 	head->meta_info = (char *)"1"; 
 	static int chkctr = 0;
@@ -590,11 +583,11 @@ int sFltkUIHandler_f_CheckBoxList(sXformsNode *head,struct FltkCallbackData **Ca
       	 sXformsNodeAttr *attr = getAttrFromList(temp,"ref");
       	 if(attr)
       	 {
-      	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Check_Button");
+      	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Check_Button",modelPtr,func);
       	 }
       	 else
       	 {
-      	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Check_Button");
+      	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Check_Button",modelPtr,func);
       	 }
 	Fl_Check_Button *btn = new Fl_Check_Button(parent->x() + H_SPACING  ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), WIDGET_WIDTH(parent->w()) , ROW_HEIGHT,name);//temp->name
 				temp->meta_info = (char *)"1";
@@ -606,8 +599,8 @@ int sFltkUIHandler_f_CheckBoxList(sXformsNode *head,struct FltkCallbackData **Ca
 }
 
 
-int sFltkUIHandler_f_ButtonHandler(sXformsNode *head,struct FltkCallbackData **CallBackData){
-  printf("\n[%s]",__func__);
+int sFltkUIHandler_f_ButtonHandler(sXformsNode *head,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func){
+  WriteLog("\n[%s]",__func__);
 	Fl_Group *parent = Fl_Group::current();
 	head->meta_info = (char *)"1"; 
 	static int btnctr = 0;
@@ -623,7 +616,7 @@ int sFltkUIHandler_f_ButtonHandler(sXformsNode *head,struct FltkCallbackData **C
 	        name = sAppendString(name,int2str[btnctr]);
 	        btnctr++;
 	    }
-    struct FltkCallbackData *btnref  = AppendNode(CallBackData,"0","0","0",s_dupstr(name),"Fl_Button");
+    struct sCbData *btnref  = AppendNode(CallBackData,"0","0","0",s_dupstr(name),"Fl_Button",modelPtr,func);
 	  Fl_Button *btn = new Fl_Button(parent->x() + H_SPACING  ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), WIDGET_WIDTH(parent->w()) , ROW_HEIGHT,name);//head->name
 	  btn->callback(CallBackFunction,(*CallBackData));
 	 for(sXformsNode * temp = head;temp;temp=temp->prev)
@@ -638,11 +631,11 @@ int sFltkUIHandler_f_ButtonHandler(sXformsNode *head,struct FltkCallbackData **C
               	 sXformsNodeAttr *attr = getAttrFromList(temp,"ref");
               	 if(attr)
               	 {
-              	    AppendNode(&btnref->nextref,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(InputName[i]),"Fl_Input");
+              	    AppendNode(&btnref->nextref,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(InputName[i]),"Fl_Input",modelPtr,func);
               	 }
               	 else
               	 {
-              	    AppendNode(&btnref->nextref,int2str[0],int2str[0],int2str[0],s_dupstr(InputName[i]),"Fl_Input");
+              	    AppendNode(&btnref->nextref,int2str[0],int2str[0],int2str[0],s_dupstr(InputName[i]),"Fl_Input",modelPtr,func);
               	 }
               }
             }
@@ -653,8 +646,8 @@ int sFltkUIHandler_f_ButtonHandler(sXformsNode *head,struct FltkCallbackData **C
 }
 }
 
-int sFltkUIHandler_f_LabelHandler(sXformsNode *head,struct FltkCallbackData **CallBackData){
-  printf("\n[%s]",__func__);
+int sFltkUIHandler_f_LabelHandler(sXformsNode *head,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func){
+  WriteLog("\n[%s]",__func__);
 	Fl_Group *parent = Fl_Group::current();
 	head -> meta_info = (char *)"1";
 	static int labelctr = 0;
@@ -668,11 +661,11 @@ int sFltkUIHandler_f_LabelHandler(sXformsNode *head,struct FltkCallbackData **Ca
   	 sXformsNodeAttr *attr = getAttrFromList(head,"ref");
   	 if(attr)
   	 {
-  	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Output");
+  	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Output",modelPtr,func);
   	 }
   	 else
   	 {
-  	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Output");
+  	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Output",modelPtr,func);
   	 }
 	    Fl_Output *Label = new Fl_Output(parent->x() + H_SPACING  ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), parent->w() - 2*H_SPACING , ROW_HEIGHT,name);// ""
 	    Label->value(head->name);

@@ -160,14 +160,6 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
    xforms_text =  sReadFileToMem(input_xml_file);
    //fprintf(stdout,"output xml file is : %s \n\n",xforms_text);
   }
-  if( output_model_file )
-  {
-    outputfile = s_dupstr(output_model_file);
-  }
-  else
-  {
-    outputfile = (char *)0;
-  }
   Fl::scheme("gtk+");
   Fl_Double_Window * w = new Fl_Double_Window(WINDOW_WIDTH,WINDOW_HEIGHT,("XFORMS in FLTK"));
    // oyCallback_s callback = {oyOBJECT_CALLBACK_S, 0,0,0,
@@ -253,7 +245,16 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
 
   if(text) free(text); text = 0;
 #endif
-  return 1;
+  if(output_model_file)
+  {
+      FILE *fp = fopen(output_model_file,"w");
+      if( fp != NULL )
+      xmlDocDump(fp, modelDocPtr);
+      fclose(fp);
+  }
+  xmlDocDump(stdout, modelDocPtr);
+
+  return 0;
 
 }
 

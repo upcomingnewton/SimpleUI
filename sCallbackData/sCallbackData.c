@@ -195,7 +195,8 @@ int UpdateModel(struct sCbData * head)
         {
           nodes = xpathobject->nodesetval;
           //printf("\n[1][ %s ] number of nodes inside here is %d",temp->name, nodes->nodeNr);
-          xmlNodeSetContent(nodes->nodeTab[0],(xmlChar *) temp->value);
+          if(temp->value !=  0 )
+	  xmlNodeSetContent(nodes->nodeTab[0],(xmlChar *) temp->value);
         }
       }
       if( temp->nextref )
@@ -212,7 +213,8 @@ int UpdateModel(struct sCbData * head)
             {
               nodes = xpathobject->nodesetval;
               //printf("\n[2][ %s ] number of nodes inside here is %d",temp2->name, nodes->nodeNr);
-              xmlNodeSetContent(nodes->nodeTab[0],(xmlChar *) temp2->value);
+              if(temp->value !=  0 )
+	      xmlNodeSetContent(nodes->nodeTab[0],(xmlChar *) temp2->value);
             }
         }
       }

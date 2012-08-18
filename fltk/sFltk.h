@@ -29,7 +29,7 @@ int sFltkUIHandler_f_LabelHandler(sXformsNode *head,struct sCbData **CallBackDat
 
 void CallBackFunction(Fl_Widget *fl, void *Data);
 char *GetWidgetValue(Fl_Widget *widget, char *type);
-void UpdateUI(char *ref, char *data, struct sCbData *list,Fl_Widget *widget);
+void UpdateUI(struct sCbData *list,Fl_Widget *widget);
 void UpdateWidgetValue(char *type,char *val,Fl_Widget *widget);
 Fl_Widget *findWidgetByName(Fl_Widget *par, char *name);
 void callback_done( Fl_Widget * w, void *CallBackData );

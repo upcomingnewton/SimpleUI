@@ -133,6 +133,7 @@ void UpdateModelandCallUserFunction(char *ref, char *data,struct sCbData *list )
   list->cbFunction(list->doc);
   // 4. update ref from model returned
   UpdateRefsFromModel(list);
+  //print_user_data(list);
 }
 
 void UpdateCallbackData(char *ref, char *data, struct sCbData *list)
@@ -250,6 +251,7 @@ int UpdateRefsFromModel(struct sCbData * head)
           nodes = xpathobject->nodesetval;
           //printf("\n[1][ %s ] number of nodes inside here is %d",temp->name, nodes->nodeNr);
           temp->value = (char *)xmlNodeGetContent(nodes->nodeTab[0]);//TODO
+          //printf("\n[2] [ %s ] = [ %s ]",temp->ref,temp->value);
         }
       }
       if( temp->nextref )
@@ -267,6 +269,7 @@ int UpdateRefsFromModel(struct sCbData * head)
               nodes = xpathobject->nodesetval;
               //printf("\n[2][ %s ] number of nodes inside here is %d",temp2->name, nodes->nodeNr);
               temp2->value = (char *)xmlNodeGetContent(nodes->nodeTab[0]);//TODO
+              //printf("\n[2] [ %s ] = [ %s ]",temp2->ref,temp2->value);
             }
         }
       }

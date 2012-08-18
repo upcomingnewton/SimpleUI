@@ -74,5 +74,6 @@ int process(char *input_xml_file, char *output_xml_file,CallBackInterfaceFunctio
       xmlDocDump(fp, modelDocPtr);
       fclose(fp);
   }
+  xmlDocDump(stdout, modelDocPtr);
   return 0;
 }

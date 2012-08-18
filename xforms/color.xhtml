@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:xf="http://www.w3.org/2002/xforms"
+	xmlns:ev="http://www.w3.org/2001/xml-events" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" >
+	<head>
+		<title>X-Forms Document For Gsoc, 2012</title>
+		<link rel="stylesheet" type="text/css" href="file1.css" ></link>
+		<xf:model>
+			<xf:instance id="ui_color_choser" xmlns="">
+				<data>
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+				</data>
+			</xf:instance>
+		
+			<xf:instance id="cb_color_choser" xmlns="">
+				<data>
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+				</data>
+			</xf:instance>
+		</xf:model>
+	</head>
+	<body>
+		<xf:group id="upperbar" >
+				SAMPLE COLOR CHOOSER
+		</xf:group> 
+		<xf:group type="tabs">
+		    <xf:label>GROUP_FOR_TABS</xf:label>
+			<xf:group>
+			    <xf:label>GROUP_FOR_TABS_HEADINGS</xf:label>
+				<xf:trigger id="TextEntryTab" appearance="minimal" type="tab_trigger">
+					<xf:label>Text Entry</xf:label>
+					<xf:toggle case="TextEntryPage" ev:event="DOMActivate" />
+				</xf:trigger>
+				<xf:trigger id="SliderTab" appearance="minimal" type="tab_trigger">
+					<xf:label>Slider Tab</xf:label>
+					<xf:toggle case="SliderPage" ev:event="DOMActivate" />
+				</xf:trigger>
+			</xf:group>
+		<xf:group>
+		<xf:label>GROUP_FOR_TABS_content</xf:label>
+		<xf:switch>
+			<xf:case id="TextEntryPage" selected="true">
+				<xf:group id="Group_TextEntryPage" >
+					<xf:label>Choose colours by entering values</xf:label>
+					<xf:group type="frame">
+						<xf:label>Choose colours by entering values</xf:label>
+						<xf:input id="TextEntryPageRed" ref="instance('ui_color_choser')/red" incremental="true">
+								<xf:label>Enter Red Color ( 0 - 100) : </xf:label>
+						</xf:input>
+						<br />
+						<xf:input id="TextEntryPageGreen" ref="instance('ui_color_choser')/green" incremental="true">
+								<xf:label>Enter Green Color ( 0 - 100) : </xf:label>
+						</xf:input>
+						<br />
+						<xf:input id="TextEntryPageBlue" ref="instance('ui_color_choser')/blue" incremental="true">
+								<xf:label>Enter Blue Color ( 0 - 100) : </xf:label>
+						</xf:input>
+						<br />
+						<xf:output>Click on Button to process form and convert values to Hex</xf:output>
+						<br />
+						<xf:input id="ReadEntryPageRed" ref="instance('cb_color_choser')/red" readonly="true">
+								<xf:label>Hex Value ( Red ) : </xf:label>
+						</xf:input>
+					  <br />
+					  <xf:input id="ReadEntryPageGreen" ref="instance('cb_color_choser')/green" readonly="true">
+								<xf:label>Hex Value ( Green ) : </xf:label>
+						</xf:input>
+					  <br />
+					  <xf:input id="ReadEntryPageBlue" ref="instance('cb_color_choser')/blue" readonly="true">
+								<xf:label>Hex Value ( Blue ) : </xf:label>
+						</xf:input>
+					  <br />
+						<xf:trigger id="BtnTextEntryDone">
+							  <xf:label>Process Text Entries</xf:label>
+						  </xf:trigger>
+					</xf:group>
+				</xf:group>
+			</xf:case>
+			<xf:case id="SliderPage" selected="false">
+				<xf:group>
+				<xf:label>personal_info_tab</xf:label>
+					<!--  slider preferences -->
+					  <xf:range  start="1" end="100" step="1" ref="instance('ui_color_choser')/red" incremental="true">
+     						<xf:label>Red : </xf:label>
+    				</xf:range>
+    				<br />
+					  <xf:range  start="1" end="100" step="1" ref="instance('ui_color_choser')/green" incremental="true">
+     						<xf:label>green : </xf:label>
+    				</xf:range>
+    				<br />
+    				<xf:range  start="1" end="100" step="1" ref="instance('ui_color_choser')/blue" incremental="true">
+     						<xf:label>blue : </xf:label>
+    				</xf:range>
+    				<br />
+    				<xf:output>Converted Hex Values : </xf:output>
+						<br />
+						<xf:input id="ReadSliderRed" ref="instance('cb_color_choser')/red" readonly="true">
+								<xf:label>Hex Value ( Red ) : </xf:label>
+						</xf:input>
+					  <br />
+					  <xf:input id="ReadSliderGreen" ref="instance('cb_color_choser')/green" readonly="true">
+								<xf:label>Hex Value ( Green ) : </xf:label>
+						</xf:input>
+					  <br />
+					  <xf:input id="ReadSliderBlue" ref="instance('cb_color_choser')/blue" readonly="true">
+								<xf:label>Hex Value ( Blue ) : </xf:label>
+						</xf:input>
+					  <br />
+				</xf:group>
+		  </xf:case>
+		</xf:switch>
+		</xf:group>
+		</xf:group>
+	</body>
+</html>

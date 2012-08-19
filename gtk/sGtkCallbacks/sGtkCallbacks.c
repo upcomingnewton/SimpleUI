@@ -2,12 +2,55 @@
 #include "../sGtk.h"
 #include "sGtkCallbacks.h"
 #include "../../misc/misc.h"
+#include "../../sCallbackData/sCallbackData.h"
 
 gboolean 
 on_window_destroy  (GtkWidget *widget,GdkEvent  *event, gpointer   user_data) 
 {
 	//fprintf(stdout,"\n destroy event called");
+	struct sCbData *data = (struct sCbData *)user_data;
+	UpdateModel(data);
     gtk_main_quit ();
+}
+
+void CallBackFunction(GtkWidget *widget,gpointer Data)
+{
+  struct sCbData *data = (struct sCbData *)Data;
+  struct sCbData *temp;
+  struct sCbData *temp2;
+  char *widgetname = s_dupstr((char *)gtk_buildable_get_name (GTK_BUILDABLE (widget)));
+  printf("\n ==============================================");
+  printf("\n CALLBACK RECEIVED FROM %s",widgetname);
+  for(temp = data; temp ;temp = temp->next )
+  {
+    if (!strcmp(temp->name,widgetname))
+    {
+      GtkWidget *par = gtk_widget_get_toplevel( widget);
+      char *value = getGtkWidgetValue(temp->meta_info,widget);
+      if( strcmp(temp->ref,"0")  && strcmp(temp->init_val,"READONLY")){ 
+        UpdateModelandCallUserFunction(temp->ref,value,data);
+        // UPDATE UI
+      }
+      if(temp->nextref){
+			 temp2 = temp->nextref;
+				while(temp2 != 0)
+				{
+				    GtkWidget *present_widget = (GtkWidget *)0;
+				    SearchWidget(par,temp2->name,&present_widget);
+		        if( present_widget != (GtkWidget *)0)
+		        {
+			        char *newvalue2 = getGtkWidgetValue(temp2->meta_info,present_widget);
+			        if( strcmp(temp2->ref,"0") && strcmp(temp2->init_val,"READONLY")){
+                  UpdateModelandCallUserFunction(temp2->ref,newvalue2,data);
+              }
+		        }
+					temp2 = temp2->next;
+				}
+			}
+			UpdateUI(data,par); 
+			break;
+		}
+  }
 }
 
 void on_Range_value_changed(GtkRange *range,gpointer user_data){
@@ -250,6 +293,35 @@ int SearchWidget(GtkWidget *container, char *search_name,GtkWidget **t){
 	return 0;
 }
 
-
+void UpdateUI(struct sCbData *list,GtkWidget *par)
+{
+    GtkWidget *target = (GtkWidget *)0;
+    struct sCbData *temp, *temp2;
+    for( temp = list ; temp ; temp =temp->next )
+    {
+      if( strcmp(temp->ref,"0"))
+      {
+				    SearchWidget(par,temp->name,&target);
+		        if( target != (GtkWidget *)0)
+		        {
+                UpdateWidgetValue(temp->meta_info,temp->value,target);
+		        }
+      }
+      if( temp->nextref )
+      {
+          for( temp2 = temp->nextref ; temp2 ; temp2 =temp2->next )
+          {
+            if( strcmp(temp2->ref,"0"))
+            {
+				      SearchWidget(par,temp2->name,&target);
+		          if( target != (GtkWidget *)0)
+		          {
+                  UpdateWidgetValue(temp2->meta_info,temp2->value,target);
+		          }
+            }
+          }
+      }
+    }
+}
 
 

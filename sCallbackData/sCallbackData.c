@@ -85,9 +85,9 @@ struct sCbData * MakeDummyData()
 
 void DummyIfFunction(xmlDoc *ptr)
 {
-  printf("\n =============================== ");
+/*  printf("\n =============================== ");*/
   printf("\n i am in dummy interface function");
-  printf("\n =============================== ");
+/*  printf("\n =============================== ");*/
 }
 
 void print_user_data(struct sCbData *head)
@@ -139,7 +139,8 @@ void UpdateModelandCallUserFunction(char *ref, char *data,struct sCbData *list )
 void UpdateCallbackData(char *ref, char *data, struct sCbData *list)
 {
   if(strcmp(ref,"0")){
-    for( struct sCbData *temp = list ; temp ; temp =temp->next )
+  struct sCbData *temp;
+    for( temp = list ; temp ; temp =temp->next )
     {
       if(!strcmp(temp->ref,ref))
       {
@@ -153,7 +154,8 @@ void UpdateCallbackData(char *ref, char *data, struct sCbData *list)
       }
       if( temp->nextref )
       {
-          for( struct sCbData *temp2 = temp->nextref ; temp2 ; temp2 =temp2->next )
+        struct sCbData *temp2;
+          for( temp2 = temp->nextref ; temp2 ; temp2 =temp2->next )
           {
                 if(!strcmp(temp2->ref,ref))
                 {
@@ -171,6 +173,8 @@ int UpdateModel(struct sCbData * head)
   xmlXPathContextPtr xpathcontext; 
   xmlXPathObjectPtr xpathobject;
   xmlDoc *modelDocPtr = head->doc;
+  struct sCbData * temp ;
+  struct sCbData * temp2;
   //TODO Error checking
   // Namespace issue's
   xmlNodeSetPtr nodes;
@@ -183,7 +187,8 @@ int UpdateModel(struct sCbData * head)
         fprintf(stderr,"Error: unable to create new XPath context\n");
         return -1;
     }
-    for( struct sCbData * temp = head; temp; temp = temp->next)
+    
+    for(temp = head; temp; temp = temp->next)
     {
       if(strcmp(temp->ref,"0"))
       {
@@ -201,7 +206,7 @@ int UpdateModel(struct sCbData * head)
       }
       if( temp->nextref )
       {
-        for( struct sCbData * temp2 = temp->nextref; temp2 ; temp2 = temp2->next)
+        for( temp2 = temp->nextref; temp2 ; temp2 = temp2->next)
         if(strcmp(temp2->ref,"0"))
         {
             xpathobject = xmlXPathEvalExpression((xmlChar *)temp2->ref, xpathcontext);
@@ -228,6 +233,8 @@ int UpdateRefsFromModel(struct sCbData * head)
   xmlXPathContextPtr xpathcontext; 
   xmlXPathObjectPtr xpathobject;
   xmlDoc *modelDocPtr = head->doc;
+  struct sCbData * temp;
+  struct sCbData * temp2;
   //TODO Error checking
   // Namespace issue's
   xmlNodeSetPtr nodes;
@@ -240,7 +247,7 @@ int UpdateRefsFromModel(struct sCbData * head)
         fprintf(stderr,"Error: unable to create new XPath context\n");
         return -1;
     }
-    for( struct sCbData * temp = head; temp; temp = temp->next)
+    for( temp = head; temp; temp = temp->next)
     {
       if(strcmp(temp->ref,"0"))
       {
@@ -258,7 +265,7 @@ int UpdateRefsFromModel(struct sCbData * head)
       }
       if( temp->nextref )
       {
-        for( struct sCbData * temp2 = temp->nextref; temp2 ; temp2 = temp2->next)
+        for( temp2 = temp->nextref; temp2 ; temp2 = temp2->next)
         if(strcmp(temp2->ref,"0"))
         {
             xpathobject = xmlXPathEvalExpression((xmlChar *)temp2->ref, xpathcontext);

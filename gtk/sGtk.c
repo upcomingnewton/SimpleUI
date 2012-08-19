@@ -6,13 +6,14 @@
 #include "../sXforms.h"
 #include "sGtk.h"
 #include "sGtkRenderers/sGtkRenderer.h"
+#include "../sCallbackData/sCallbackData.h"
 #include <gtk/gtk.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-
+//gtk/sGtkCallbacks/sGtkCallback_HelperFunctions.c
 /*
-gcc -o sgtk -g gtk/sGtk.c gtk/sGtk.h gtk/sGtkRenderers/sGtkParseTree.c gtk/sGtkRenderers/sGtkRenderer_Helper.c gtk/sGtkRenderers/sGtkRenderer.h gtk/sGtkCallbacks/sGtkCallbacks.h gtk/sGtkCallbacks/sGtkCallbacks.c gtk/sGtkCallbacks/sGtkCallback_HelperFunctions.c gtk/sGtkCallbacks/sGtkCallback_GetValues.c misc/misc.h misc/string_func.c io/io.h io/io.c xml/sXml.h xml/sParseXforms.c sXforms.h sXforms.c simpleUI.h `(pkg-config --cflags --libs gtk+-3.0)` `xml2-config --cflags --libs` -export-dynamic
+gcc -o sgtk -g -Wall gtk/sGtk.c gtk/sGtk.h gtk/sGtkRenderers/sGtkParseTree.c gtk/sGtkRenderers/sGtkRenderer_Helper.c gtk/sGtkRenderers/sGtkRenderer.h gtk/sGtkCallbacks/sGtkCallbacks.h gtk/sGtkCallbacks/sGtkCallbacks.c sCallbackData/sCallbackData.h  sCallbackData/sCallbackData.c   gtk/sGtkCallbacks/sGtkCallback_GetValues.c  gtk/sGtkCallbacks/sGtkCallback_SetValues.c   misc/misc.h misc/string_func.c io/io.h io/io.c xml/sXml.h xml/sParseXforms.c sXforms.h sXforms.c simpleUI.h `(pkg-config --cflags --libs gtk+-3.0)` `xml2-config --cflags --libs` -export-dynamic
 */
 
 /*
@@ -33,10 +34,11 @@ int main ( int argc , char **argv )
 	 char *xforms_text = 0;
 	 char *input_xml_file = 0;
 	 sXformsNode *head;
+	 struct sCbData *CallBackData;
+	 xmlDoc *modelDocPtr;
     GtkBuilder *builder;
     GtkWidget  *window;
     GError     *error = NULL;
-    struct gtk_cb_data *cb_data = (struct gtk_cb_data *)0;
 	if(argc)
 	{
 		#define OY_PARSE_STRING_ARG( opt ) \
@@ -149,16 +151,15 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
   
   if(input_xml_file)
   {
-   //TODO : read the input file
    xforms_text =  sReadFileToMem(input_xml_file);
-   //fprintf(stdout,"output xml file is : %s \n\n",xforms_text);
   }
-  head = ParseXformsToTree( xforms_text);
+  head = ParseXformsToTree( xforms_text,&modelDocPtr);
   //sPrintsXformsTree(head);
   gtk_init( &argc, &argv );
   builder = gtk_builder_new();
-  cb_data = sGenerateGladeFile(head);
-  //print_user_data(cb_data);
+  //cb_data = sGenerateGladeFile(head);
+  CallBackData = sGenerateGladeFile(head,modelDocPtr,&DummyIfFunction);
+  //print_user_data(CallBackData);
   if( ! gtk_builder_add_from_file( builder, sGTK_UI_FILE, &error ) )
     {
         g_warning( "%s", error->message );
@@ -169,10 +170,18 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
      //Get main window pointer from UI 
     window = GTK_WIDGET( gtk_builder_get_object( builder, sGTK_GLADE_MAIN_WINDOW_NAME) );
     // = MakeDummy();
-    gtk_builder_connect_signals( builder, cb_data );
+    gtk_builder_connect_signals( builder, CallBackData);
     g_object_unref( G_OBJECT( builder ) );
     gtk_widget_show( window );
     gtk_main();
+  if(output_model_file)
+  {
+      FILE *fp = fopen(output_model_file,"w");
+      if( fp != NULL )
+      xmlDocDump(fp, modelDocPtr);
+      fclose(fp);
+  }
+  xmlDocDump(stdout, modelDocPtr);
     fprintf(stdout,"\n");
     return( 0 );
 }

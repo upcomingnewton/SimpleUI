@@ -4,8 +4,9 @@
     #include <libxml/tree.h>
     #include "../../simpleUI.h"
     #include "../../sXforms.h"
+    #include "../../sCallbackData/sCallbackData.h"
     #define S_GTK_RENDERER_H
-    #define sGTK_UI_FILE  "xforms/sGtkSampleTest6.xml"
+    #define sGTK_UI_FILE  "xforms/sGtkSampleTest7.xml"
     #define sGTK_GLADE_MAIN_WINDOW_NAME "sGTK_GLADE_MAIN_WINDOW_NAME"
     #define GTK_WINDOW_HEIGHT "360"
     #define GTK_WINDOW_WIDTH "480"
@@ -13,7 +14,9 @@
 	typedef int  (*sGtkUIHandlers) (
 		sXformsNode * head,
 		xmlNode *par,
-		 struct gtk_cb_data **cb_data_head
+		struct sCbData  **cb_data_head,
+		xmlDoc *modelPtr,
+		CallBackInterfaceFunction func 
 		);
 	
 	struct sGtkUIHandlers_data{
@@ -26,21 +29,21 @@
 	};
     
     //functions defined in sGtkParseTree.c
-    struct gtk_cb_data * sGenerateGladeFile(sXformsNode *head);
-	int sGtkGenerateUIFromTree(sXformsNode * head, xmlNode *par ,struct gtk_cb_data **);
-	int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
-	int gtk_f_RangeHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
-	int gtk_f_FrameHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
-	int gtk_f_ButtonHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
-	int gtk_f_LabelHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
-	int gtk_f_InputHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
-	int gtk_f_CheckBoxList(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
-	int gtk_f_RadioButtonList(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
-	int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
-	int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
-	int gtk_f_MakeRadioButtonGroup(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
-	int gtk_f_MakeListStoreForDropDown(sXformsNode *head,xmlNode *node ,struct gtk_cb_data **);
-	int MakeAdjustment(sXformsNode *head,xmlNode *node,struct gtk_cb_data **cb_data_head,char *name);
+  struct sCbData * sGenerateGladeFile(sXformsNode *head,xmlDoc *modelPtr,CallBackInterfaceFunction func );
+	int sGtkGenerateUIFromTree(sXformsNode * head, xmlNode *par ,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+	int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node ,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+	int gtk_f_RangeHandler(sXformsNode *head,xmlNode *node ,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+	int gtk_f_FrameHandler(sXformsNode *head,xmlNode *node ,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+	int gtk_f_ButtonHandler(sXformsNode *head,xmlNode *node ,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+	int gtk_f_LabelHandler(sXformsNode *head,xmlNode *node ,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+	int gtk_f_InputHandler(sXformsNode *head,xmlNode *node ,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+	int gtk_f_CheckBoxList(sXformsNode *head,xmlNode *node ,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+	int gtk_f_RadioButtonList(sXformsNode *head,xmlNode *node ,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+	int gtk_f_Select1Handler(sXformsNode *head,xmlNode *node ,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+	int gtk_f_TabsHandler(sXformsNode *head,xmlNode *node ,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+	int gtk_f_MakeRadioButtonGroup(sXformsNode *head,xmlNode *node,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func , char *GtkRadioButtonGroupName);
+  int gtk_f_MakeListStoreForDropDown(sXformsNode *head,xmlNode *node ,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func ,char *liststorename);
+	int MakeAdjustment(sXformsNode *head,xmlNode *node,struct sCbData **CallBackData,char *name);
 	
 
     
@@ -58,12 +61,14 @@
     xmlNode *CreateDataRow(xmlNode *row,char *id, char *translatable,char *val);
     xmlNode *CreateNodeText(xmlNode* par,char *val);
     
+    
+    // OTHER HELPER FUCNTIONS DEFINED IN MAIN FILE
     int CalculatePosition(sXformsNode *head);
-    xmlNode *MakeHBoxForElements(sXformsNode *head,xmlNode *node);
+    xmlNode *MakeHBoxForElements(sXformsNode *head,xmlNode *node,xmlNode **child);
     void PackElements( xmlNode *par,char *fill, char *expand, int pos);
-    void MakeLabel(sXformsNode *head,xmlNode *hbox);
-    void MakeRadioButton(sXformsNode *head, xmlNode *par,char *groupname, char *handlername, char *label, int pos, struct gtk_cb_data **cb_data_head);
-    void MakeCheckButton(sXformsNode *head, xmlNode *par, char *handlername, char *label, int pos,struct gtk_cb_data **cb_data_head);
+void MakeLabel(sXformsNode *head,xmlNode *hbox,struct sCbData **CallBackData,xmlDoc *modelPtr,CallBackInterfaceFunction func, int MakeCB);
+void MakeRadioButton(sXformsNode *head, xmlNode *par,char *groupname, char *handlername, char *label, int pos, struct sCbData **CallBackData, xmlDoc *modelPtr, CallBackInterfaceFunction func);
+    void MakeCheckButton(sXformsNode *head, xmlNode *par, char *handlername, char *label, int pos,struct sCbData **CallBackData,xmlDoc *modelPtr, CallBackInterfaceFunction func);
     
 #endif
 

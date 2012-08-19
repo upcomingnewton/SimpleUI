@@ -30,7 +30,7 @@ void CallBackFunction(Fl_Widget *fl, void *Data)
     {
       char *newvalue = GetWidgetValue(fl, temp->meta_info);
       if( strcmp(temp->ref,"0")){
-        UpdateModelandCallUserFunction(temp->ref,newvalue,data);
+        //UpdateModelandCallUserFunction(temp->ref,newvalue,data);
         //UpdateUI(temp->ref,newvalue,data,fl);
       }
       if(temp->nextref){
@@ -49,6 +49,7 @@ void CallBackFunction(Fl_Widget *fl, void *Data)
 					temp2 = temp2->next;
 				}
 			}
+			UpdateModelandCallUserFunction(temp->ref,newvalue,data);
 			UpdateUI(data,fl); 
 			break;
 		}

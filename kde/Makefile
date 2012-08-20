@@ -47,7 +47,7 @@ SOURCES       = main.cpp \
 		sKDE.cpp \
 		sKdeCallbacks/sKde_Cb.cpp \
 		sKdeRenderers/sKdeParseTree.cpp \
-		sKdeRenderers/sKdeRenderer_Helper.cpp moc_sKDE.cpp
+		sKdeRenderers/sKdeRenderer_Helper.cpp moc_sKDE.cpp 
 OBJECTS       = main.o \
 		sKDE.o \
 		sKde_Cb.o \
@@ -57,7 +57,8 @@ OBJECTS       = main.o \
 		sxml.o \
 		sio.o \
 		snodes.o \
-		sMisc.o
+		sMisc.o \
+		sCallbackData.o
 DIST          = /usr/share/qt4/mkspecs/common/g++.conf \
 		/usr/share/qt4/mkspecs/common/unix.conf \
 		/usr/share/qt4/mkspecs/common/linux.conf \
@@ -249,6 +250,9 @@ sMisc.o: ../misc/misc.h ../misc/string_func.c
 	
 sxml.o: ../xml/sXml.h ../xml/sParseXforms.c
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sxml.o ../xml/sParseXforms.c
+	
+sCallbackData.o: ../sCallbackData/sCallbackData.h ../sCallbackData/sCallbackData.c
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sCallbackData.o ../sCallbackData/sCallbackData.c
 	
 sio.o: ../io/io.h ../io/io.c
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sio.o ../io/io.c

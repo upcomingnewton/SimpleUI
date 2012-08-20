@@ -9,6 +9,7 @@
 #include "../sXforms.h"
 #include "../xml/sXml.h"
 #include "../io/io.h"
+#include "../sCallbackData/sCallbackData.h"
 #include "../sXforms.h"
 
 void usage(int argc, char ** argv)
@@ -21,10 +22,12 @@ int main ( int argc , char **argv )
 {
 	fprintf(stdout,"\n===== SIMPLE UI TOOLKIT =====\n\n");
 	 const char *wrong_arg = 0;
-	 char *output_model_file = 0;
+	 char *output_xml_file = 0;
 	 char *xforms_text = 0;
 	 char *input_xml_file = 0;
 	 sXformsNode *head;
+	 struct sCbData *CallBackData;
+	 xmlDoc *modelDocPtr;
     struct qt_cb_data *cb_data = (struct qt_cb_data *)0;
 	if(argc)
 	{
@@ -54,7 +57,7 @@ int main ( int argc , char **argv )
 			    for(i = 1; i < (int)strlen(argv[pos]); ++i)
 			    switch (argv[pos][i])
 			    {
-			      case 'o': OY_PARSE_STRING_ARG( output_model_file ); break;
+			      case 'o': OY_PARSE_STRING_ARG( output_xml_file ); break;
 			      case 'i': OY_PARSE_STRING_ARG( input_xml_file ); break;
 			      case 'v': break;//oy_debug += 1; break;
 			      case 'h': /* only for compatibility with cmd line */ break;
@@ -141,36 +144,29 @@ fprintf(stdout,"INPUT FILE = %s\n",input_xml_file);
    xforms_text =  sReadFileToMem(input_xml_file);
    //fprintf(stdout,"output xml file is : %s \n\n",xforms_text);
   }
-  head = ParseXformsToTree( xforms_text);
+  head = ParseXformsToTree( xforms_text,&modelDocPtr);
   //sPrintsXformsTree(head);
 
 
-  cb_data = sKdeGenerateGladeFile(head);
-  print_user_data(cb_data);
+  CallBackData = sKdeGenerateGladeFile(head,modelDocPtr,&DummyIfFunction);
+  print_user_data(CallBackData);
       QApplication a(argc, argv);
-    SimpleUiKde w(cb_data);
+    SimpleUiKde w(CallBackData);
     w.show();
-    
-    return a.exec();
+    a.exec();
+   
   
-  /*
-  if( ! gtk_builder_add_from_file( builder, sGTK_UI_FILE, &error ) )
-    {
-        g_warning( "%s", error->message );
-        g_free( error );
-        return( 1 );
-    }
-    
-     //Get main window pointer from UI 
-    window = GTK_WIDGET( gtk_builder_get_object( builder, sGTK_GLADE_MAIN_WINDOW_NAME) );
-    // = MakeDummy();
-    gtk_builder_connect_signals( builder, cb_data );
-    g_object_unref( G_OBJECT( builder ) );
-    gtk_widget_show( window );
-    gtk_main();
-    */
+if(output_xml_file)
+  {
+      FILE *fp = fopen(output_xml_file,"w");
+      if( fp != NULL )
+      xmlDocDump(fp, modelDocPtr);
+      fclose(fp);
+  }
+  xmlDocDump(stdout, modelDocPtr);
     fprintf(stdout,"\n");
-    return( 0 );
+    fprintf(stdout,"\n");
+ return 0;
 }
 #else
     int main(int argc, char **argv)

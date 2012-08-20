@@ -447,8 +447,27 @@ int sFltkUIHandler_f_InputHandler(sXformsNode *head,struct sCbData **CallBackDat
 	              name = sAppendString(name,int2str[inputctr]);
 	              inputctr++;
 	          }
-	   sXformsNodeAttr *attr = getAttrFromList(head,"ref");
-  	 if(attr)
+	 sXformsNodeAttr *attr = getAttrFromList(head,"ref");
+   InputName[lindex] = name;
+	 ActualName[lindex] = head->name;
+   lindex++;
+		Fl_Input  *f = new Fl_Input(parent->x() + H_SPACING +  LABEL_WIDTH ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), WIDGET_WIDTH(parent->w()) , ROW_HEIGHT,name);
+		sXformsNodeAttr * attr_read_only = getAttrFromList(head,"readonly");
+		if(attr_read_only)
+		{
+		  f->readonly(1);
+		  if(attr)
+  	 {
+  	    AppendNode(CallBackData,s_dupstr(attr->meta_info),"READONLY",(char *)0,s_dupstr(name),"Fl_Input",modelPtr,func);
+  	 }
+  	 else
+  	 {
+  	    AppendNode(CallBackData,int2str[0],"READONLY",int2str[0],s_dupstr(name),"Fl_Input",modelPtr,func);
+  	 }
+		}
+		else
+		{
+		  if(attr)
   	 {
   	    AppendNode(CallBackData,s_dupstr(attr->meta_info),s_dupstr(attr->private_data),(char *)0,s_dupstr(name),"Fl_Input",modelPtr,func);
   	 }
@@ -456,14 +475,6 @@ int sFltkUIHandler_f_InputHandler(sXformsNode *head,struct sCbData **CallBackDat
   	 {
   	    AppendNode(CallBackData,int2str[0],int2str[0],int2str[0],s_dupstr(name),"Fl_Input",modelPtr,func);
   	 }
-   InputName[lindex] = name;
-	 ActualName[lindex] = head->name;
-   lindex++;
-		Fl_Input  *f = new Fl_Input(parent->x() + H_SPACING +  LABEL_WIDTH ,CalculateYPosition(parent,head->name) + V_SPACING+ parent->y(), WIDGET_WIDTH(parent->w()) , ROW_HEIGHT,name);
-		attr = getAttrFromList(head,"readonly");
-		if(attr)
-		{
-		  f->readonly(1);
 		}
 	}
 	return 0;

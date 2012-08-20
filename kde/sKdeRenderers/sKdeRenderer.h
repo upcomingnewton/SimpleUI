@@ -1,7 +1,8 @@
  #ifndef S_GTK_RENDERER_H
-    #include "../sKdeCallbacks/sKde_Cb.h"
+   //#include "../sKdeCallbacks/sKde_Cb.h"
     #include <libxml/parser.h>
     #include <libxml/tree.h>
+    #include "../../sCallbackData/sCallbackData.h"
     #include "../../simpleUI.h"
     #include "../../sXforms.h"
     #define S_KDE_RENDERER_H
@@ -14,7 +15,9 @@
 	typedef int  (*sKdeUIHandlers) (
 		sXformsNode * head,
 		xmlNode *par,
-		struct qt_cb_data **cb_data_head
+		struct sCbData  **CallBackData,
+		xmlDoc *modelPtr,
+		CallBackInterfaceFunction func 
 		);
 	
 	struct sKdeUIHandlers_data{
@@ -27,18 +30,17 @@
 	};
     
     //functions defined in sGtkParseTree.c
-struct qt_cb_data * sKdeGenerateGladeFile(sXformsNode *head);
-int sKdeGenerateUIFromTree(sXformsNode * head, xmlNode *par,struct qt_cb_data **cb_data_head);
-
-int kde_f_TabsHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
-int kde_f_FrameHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
-int kde_f_LabelHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
-int kde_f_ButtonHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
-int kde_f_InputHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
-int kde_f_Select1Handler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
-int kde_f_RadioButtonList(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
-int kde_f_CheckBoxList(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
-int kde_f_RangeHandler(sXformsNode *head,xmlNode *node,struct qt_cb_data **cb_data_head);
+struct sCbData * sKdeGenerateGladeFile(sXformsNode *head,xmlDoc *modelPtr,CallBackInterfaceFunction func );
+int sKdeGenerateUIFromTree(sXformsNode * head, xmlNode *par,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+int kde_f_TabsHandler(sXformsNode *head,xmlNode *node,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+int kde_f_FrameHandler(sXformsNode *head,xmlNode *node,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+int kde_f_LabelHandler(sXformsNode *head,xmlNode *node,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+int kde_f_ButtonHandler(sXformsNode *head,xmlNode *node,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+int kde_f_InputHandler(sXformsNode *head,xmlNode *node,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+int kde_f_Select1Handler(sXformsNode *head,xmlNode *node,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+int kde_f_RadioButtonList(sXformsNode *head,xmlNode *node,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+int kde_f_CheckBoxList(sXformsNode *head,xmlNode *node,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
+int kde_f_RangeHandler(sXformsNode *head,xmlNode *node,struct sCbData **CallBackData, xmlDoc *modelPtr,CallBackInterfaceFunction func );
 	
 
     
